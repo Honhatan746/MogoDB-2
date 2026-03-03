@@ -1,0 +1,217 @@
+[
+    {
+        "productID": "AF01",
+        "name": "Mũ Len Kèm Khăn sừng nai",
+        "categories": "Accessories",
+        "variants":[
+            {
+                "color": "Pink",
+                "item":[
+                    {
+                        "sku": "AF01-S-P",
+                        "size": null,
+                        "price": 31000,
+                        "stock": 10
+                    }
+                ],
+                "image":[
+                  "../asset/image/Product/AccessFashion/AF01/jpeg (1).webp",
+                  "../asset/image/Product/AccessFashion/AF01/jpeg.webp"
+                ]
+            },
+            {
+                "color": "Cream",
+                "item":[
+                    {
+                        "sku": "AF01-S-CR",
+                        "size": null,
+                        "price": 31000,
+                        "stock": 10
+                    }
+                ],
+                "image":[
+                  "../asset/image/Product/AccessFashion/AF01/jpeg (2).webp",
+                  "../asset/image/Product/AccessFashion/AF01/jpeg (3).webp" 
+                ]
+            },
+            {
+                "color": "Brown",
+                "item":[
+                    {
+                        "sku": "AF01-S-B",
+                        "size": null,
+                        "price": 31000,
+                        "stock": 10
+                    }
+                ],
+                "image":[
+                  "../asset/image/Product/AccessFashion/AF01/jpeg (4).webp",
+                  "../asset/image/Product/AccessFashion/AF01/jpeg (5).webp" 
+                ]
+            }
+        ],
+    "descirption": "<li class=\"mar-t-b\"><p class=\" font-w-700 upcass \">CHẤT LIỆU VẢI COTTON</p><ul  class=\"list-none\"><li class=\"mar-t-b\" >Sử dụng vải thun cotton 100% với độ dày 240GSM, bề mặt mịn, đứng vải nhưng vẫn thoáng và dễ chịu khi mặc, phù hợp mặc hằng ngày</li></ul></li><li class=\"mar-t-b\"><p class=\" font-w-700 upcass\">KỸ THUẬT THIẾT KẾ</p><ul  class=\"list-none\"><li class=\"mar-t-b\">Sử dụng vải thun cotton 100% với độ dày 240GSM, bề mặt mịn, đứng vải nhưng vẫn thoáng và dễ chịu khi mặc, phù hợp mặc hằng ngày</li></ul></li><li class=\"mar-t-b\"><p class=\" font-w-700 upcass\">FORM DÁNG REGULAR THOẢI MÁI</p><ul  class=\"list-none\"><li class=\"mar-t-b\">Form Regular có độ rộng vừa phải, không ôm sát, phù hợp với nhiều dáng người nam. Dễ phối cùng quần jeans, kaki hoặc short cho phong cách casual, street hoặc mặc hằng ngày. Thiết kế hướng đến sự thoải mái, bền bỉ và tính ứng dụng cao.</li></ul></li>"
+    },
+    {
+        "productID": "AF02",
+        "name":"Kính mát trang trí hình gấu",
+        "categories": "Accessories",
+        "variants":[
+            {
+                "color": "Cream",
+                "item":[
+                    {
+                        "sku": "AF01-S-CR",
+                        "size": null,
+                        "price": 12000,
+                        "stock": 10
+                    }
+                ],
+                "image":[
+                    "../asset/image/Product/AccessFashion/AF02/jpeg (2).webp",
+                  "../asset/image/Product/AccessFashion/AF02/jpeg.webp",
+                  "../asset/image/Product/AccessFashion/AF02/jpeg (1).webp",
+                  "../asset/image/Product/AccessFashion/AF02/jpeg (3).webp"
+                ]
+            }
+        ],
+    "descirption": "<li class=\"mar-t-b\"><p class=\" font-w-700 upcass \">CHẤT LIỆU VẢI COTTON</p><ul  class=\"list-none\"><li class=\"mar-t-b\" >Sử dụng vải thun cotton 100% với độ dày 240GSM, bề mặt mịn, đứng vải nhưng vẫn thoáng và dễ chịu khi mặc, phù hợp mặc hằng ngày</li></ul></li><li class=\"mar-t-b\"><p class=\" font-w-700 upcass\">KỸ THUẬT THIẾT KẾ</p><ul  class=\"list-none\"><li class=\"mar-t-b\">Sử dụng vải thun cotton 100% với độ dày 240GSM, bề mặt mịn, đứng vải nhưng vẫn thoáng và dễ chịu khi mặc, phù hợp mặc hằng ngày</li></ul></li><li class=\"mar-t-b\"><p class=\" font-w-700 upcass\">FORM DÁNG REGULAR THOẢI MÁI</p><ul  class=\"list-none\"><li class=\"mar-t-b\">Form Regular có độ rộng vừa phải, không ôm sát, phù hợp với nhiều dáng người nam. Dễ phối cùng quần jeans, kaki hoặc short cho phong cách casual, street hoặc mặc hằng ngày. Thiết kế hướng đến sự thoải mái, bền bỉ và tính ứng dụng cao.</li></ul></li>"
+    },
+    {
+        "productID": "AF03",
+        "name": "Vòng Cổ Vải",
+        "categories": "Accessories",
+        "variants":[
+            {
+                "color": "White",
+                "item":[
+                    {
+                        "sku": "AF03-S-W",
+                        "size": null,
+                        "price": 30000,
+                        "stock": 10
+                    }
+                ],
+                "image":[
+                  "../asset/image/Product/AccessFashion/AF03/jpeg.webp",
+                  "../asset/image/Product/AccessFashion/AF03/jpeg (1).webp",
+                  "../asset/image/Product/AccessFashion/AF03/jpeg (2).webp" 
+                ]
+            },
+            {
+                "color": "Brown",
+                "item":[
+                    {
+                        "sku": "AF03-S-B",
+                        "size": null,
+                        "price": 30000,
+                        "stock": 10
+                    }
+                ],
+                "image":[
+                  "../asset/image/Product/AccessFashion/AF03/jpeg (3).webp",
+                  "../asset/image/Product/AccessFashion/AF03/jpeg (4).webp",
+                  "../asset/image/Product/AccessFashion/AF03/jpeg (5).webp" 
+                ]
+            }
+        ],
+    "descirption": "<li class=\"mar-t-b\"><p class=\" font-w-700 upcass \">CHẤT LIỆU VẢI COTTON</p><ul  class=\"list-none\"><li class=\"mar-t-b\" >Sử dụng vải thun cotton 100% với độ dày 240GSM, bề mặt mịn, đứng vải nhưng vẫn thoáng và dễ chịu khi mặc, phù hợp mặc hằng ngày</li></ul></li><li class=\"mar-t-b\"><p class=\" font-w-700 upcass\">KỸ THUẬT THIẾT KẾ</p><ul  class=\"list-none\"><li class=\"mar-t-b\">Sử dụng vải thun cotton 100% với độ dày 240GSM, bề mặt mịn, đứng vải nhưng vẫn thoáng và dễ chịu khi mặc, phù hợp mặc hằng ngày</li></ul></li><li class=\"mar-t-b\"><p class=\" font-w-700 upcass\">FORM DÁNG REGULAR THOẢI MÁI</p><ul  class=\"list-none\"><li class=\"mar-t-b\">Form Regular có độ rộng vừa phải, không ôm sát, phù hợp với nhiều dáng người nam. Dễ phối cùng quần jeans, kaki hoặc short cho phong cách casual, street hoặc mặc hằng ngày. Thiết kế hướng đến sự thoải mái, bền bỉ và tính ứng dụng cao.</li></ul></li>"
+    
+    },
+    {
+        "productID": "AF04",
+        "name": "Kẹp nơ nhung đỏ chery",
+        "categories": "Accessories",
+                "variants":[
+            {
+                "color": "Red",
+                "item":[
+                    {
+                        "sku": "AF04-S-Red",
+                        "size": null,
+                        "price": 40000,
+                        "stock": 10
+                    }
+                ],
+                "image":[
+                  "../asset/image/Product/AccessFashion/AF04/jpeg.webp",
+                  "../asset/image/Product/AccessFashion/AF04/jpeg (1).webp",
+                  "../asset/image/Product/AccessFashion/AF04/jpeg (2).webp",
+                  "../asset/image/Product/AccessFashion/AF04/jpeg (3).webp" 
+                ]
+            }
+        ],
+    "descirption": "<li class=\"mar-t-b\"><p class=\" font-w-700 upcass \">CHẤT LIỆU VẢI COTTON</p><ul  class=\"list-none\"><li class=\"mar-t-b\" >Sử dụng vải thun cotton 100% với độ dày 240GSM, bề mặt mịn, đứng vải nhưng vẫn thoáng và dễ chịu khi mặc, phù hợp mặc hằng ngày</li></ul></li><li class=\"mar-t-b\"><p class=\" font-w-700 upcass\">KỸ THUẬT THIẾT KẾ</p><ul  class=\"list-none\"><li class=\"mar-t-b\">Sử dụng vải thun cotton 100% với độ dày 240GSM, bề mặt mịn, đứng vải nhưng vẫn thoáng và dễ chịu khi mặc, phù hợp mặc hằng ngày</li></ul></li><li class=\"mar-t-b\"><p class=\" font-w-700 upcass\">FORM DÁNG REGULAR THOẢI MÁI</p><ul  class=\"list-none\"><li class=\"mar-t-b\">Form Regular có độ rộng vừa phải, không ôm sát, phù hợp với nhiều dáng người nam. Dễ phối cùng quần jeans, kaki hoặc short cho phong cách casual, street hoặc mặc hằng ngày. Thiết kế hướng đến sự thoải mái, bền bỉ và tính ứng dụng cao.</li></ul></li>"
+  
+    },
+        {
+        "productID": "AF05",
+        "name": "Giày Da Bé Trai , Giày Tây Trơn",
+        "categories": "Accessories",
+                "variants":[
+            {
+                "color": "Black",
+                "item":[
+                    {
+                        "sku": "AF05-21-BLA",
+                        "size": "21",
+                        "price": 178000,
+                        "stock": 10
+                    },
+                    {
+                        "sku": "AF05-22-BLA",
+                        "size": "22",
+                        "price": 178000,
+                        "stock": 10
+                    },
+                    {
+                        "sku": "AF05-23-BLA",
+                        "size": "23",
+                        "price": 178000,
+                        "stock": 10
+                    },
+                    {
+                        "sku": "AF05-24-BLA",
+                        "size": "24",
+                        "price": 178000,
+                        "stock": 10
+                    }
+                ],
+                "image":[
+                  "../asset/image/Product/AccessFashion/AF05/jpeg.webp",
+                  "../asset/image/Product/AccessFashion/AF05/jpeg (1).webp",
+                  "../asset/image/Product/AccessFashion/AF05/jpeg (2).webp",
+                  "../asset/image/Product/AccessFashion/AF05/jpeg (3).webp"
+                ]
+            }
+        ],
+    "descirption": "<li class=\"mar-t-b\"><p class=\" font-w-700 upcass \">CHẤT LIỆU VẢI COTTON</p><ul  class=\"list-none\"><li class=\"mar-t-b\" >Sử dụng vải thun cotton 100% với độ dày 240GSM, bề mặt mịn, đứng vải nhưng vẫn thoáng và dễ chịu khi mặc, phù hợp mặc hằng ngày</li></ul></li><li class=\"mar-t-b\"><p class=\" font-w-700 upcass\">KỸ THUẬT THIẾT KẾ</p><ul  class=\"list-none\"><li class=\"mar-t-b\">Sử dụng vải thun cotton 100% với độ dày 240GSM, bề mặt mịn, đứng vải nhưng vẫn thoáng và dễ chịu khi mặc, phù hợp mặc hằng ngày</li></ul></li><li class=\"mar-t-b\"><p class=\" font-w-700 upcass\">FORM DÁNG REGULAR THOẢI MÁI</p><ul  class=\"list-none\"><li class=\"mar-t-b\">Form Regular có độ rộng vừa phải, không ôm sát, phù hợp với nhiều dáng người nam. Dễ phối cùng quần jeans, kaki hoặc short cho phong cách casual, street hoặc mặc hằng ngày. Thiết kế hướng đến sự thoải mái, bền bỉ và tính ứng dụng cao.</li></ul></li>",
+    "sizeTable": "<h1 class=\"bo-bot upcass home-heading\">Bảng Size cho bé</h1><div ><table class=\"table-dt-size wid-100 font-title\"><tr><th>Size</th><th>Chiều Dài Chân</th><th>Kích thướt giày</th></tr><tr><td>21</td><td>Từ 10cm- 12cm</td><td>Từ 10.79cm - 12.79cm</td></tr><tr><td>22</td><td>từ 13cm - 15cm</td><td>Từ 13.57cm - 15.79cm </td></tr><tr><td>23</td><td>từ 16cm - 18cm</td><td>Từ 16.57cm - 18.79cmkg</td></tr><tr><td>24</td><td>Từ 19cm - 21cm</td><td>Từ 19.57cm - 21.79cm</td></tr></table></div>"   
+  
+    },
+        {
+        "productID": "AF06",
+        "name": "Mũ Nồi Kiểu Anh Quốc Cổ Điển",
+        "categories": "Accessories",
+                "variants":[
+            {
+                "color": "Brown",
+                "item":[
+                    {
+                        "sku": "AF06-S-B",
+                        "size": null,
+                        "price": 90000,
+                        "stock": 10
+                    }
+                ],
+                "image":[
+                  "../asset/image/Product/AccessFashion/AF06/jpeg.webp",
+                  "../asset/image/Product/AccessFashion/AF06/jpeg (1).webp",
+                  "../asset/image/Product/AccessFashion/AF06/jpeg (2).webp"
+                ]
+            }
+        ],
+    "descirption": "<li class=\"mar-t-b\"><p class=\" font-w-700 upcass \">CHẤT LIỆU VẢI COTTON</p><ul  class=\"list-none\"><li class=\"mar-t-b\" >Sử dụng vải thun cotton 100% với độ dày 240GSM, bề mặt mịn, đứng vải nhưng vẫn thoáng và dễ chịu khi mặc, phù hợp mặc hằng ngày</li></ul></li><li class=\"mar-t-b\"><p class=\" font-w-700 upcass\">KỸ THUẬT THIẾT KẾ</p><ul  class=\"list-none\"><li class=\"mar-t-b\">Sử dụng vải thun cotton 100% với độ dày 240GSM, bề mặt mịn, đứng vải nhưng vẫn thoáng và dễ chịu khi mặc, phù hợp mặc hằng ngày</li></ul></li><li class=\"mar-t-b\"><p class=\" font-w-700 upcass\">FORM DÁNG REGULAR THOẢI MÁI</p><ul  class=\"list-none\"><li class=\"mar-t-b\">Form Regular có độ rộng vừa phải, không ôm sát, phù hợp với nhiều dáng người nam. Dễ phối cùng quần jeans, kaki hoặc short cho phong cách casual, street hoặc mặc hằng ngày. Thiết kế hướng đến sự thoải mái, bền bỉ và tính ứng dụng cao.</li></ul></li>"
+  
+    }
+]

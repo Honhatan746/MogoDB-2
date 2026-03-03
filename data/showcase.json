@@ -1,0 +1,346 @@
+[
+    {
+        "productID": "GF01",
+        "name": "Áo ỉn in hình dễ thương",
+        "categories": "Girl fashion",
+        "variants":[
+            {
+                "color": "purple",
+                "item":[
+                    {
+                        "sku": "GF01-S-P",
+                        "size": "S",
+                        "price": 379000,
+                        "stock": 10
+                    },
+                    {
+                        "sku": "GF01-L-P",
+                        "size": "L",
+                        "price": 379000,
+                        "stock": 10
+                    },
+                    {
+                        "sku": "GF01-M-P",
+                        "size": "M",
+                        "price": 379000,
+                        "stock": 10
+                    },
+                    {
+                        "sku": "GF01-XL-P",
+                        "size": "XL",
+                        "price": 379000,
+                        "stock": 10
+                    }
+                ],
+                "image":[
+                  "../asset/image/Product/GirlFashion/GF01/jpeg.webp",
+                  "../asset/image/Product/GirlFashion/GF01/jpeg (1).webp",
+                  "../asset/image/Product/GirlFashion/GF01/jpeg (2).webp",
+                  "../asset/image/Product/GirlFashion/GF01/jpeg (3).webp" 
+                ]
+            }
+        ],
+    "descirption": "<li class=\"mar-t-b\"><p class=\" font-w-700 upcass \">CHẤT LIỆU NỈ CHÂN CUA </p><ul  class=\"list-none\"><li class=\"mar-t-b\" >Mặt trong có các \"chân cua\" (lớp da cá) giúp tăng khả năng giữ nhiệt, thấm hút mồ hôi tốt, tạo cảm giác thoáng khí, không bí bách</li></ul></li><li class=\"mar-t-b\"><p class=\" font-w-700 upcass\">KỸ THUẬT THIẾT KẾ</p><ul  class=\"list-none\"><li class=\"mar-t-b\">Thường là sự kết hợp giữa 35% sợi bông tự nhiên và 65% polyester, mang lại sự cân bằng giữa mềm mại và độ bền, ít nhăn</li></ul></li><li class=\"mar-t-b\"><p class=\" font-w-700 upcass\">FORM DÁNG, HỌA TIẾT</p><ul  class=\"list-none\"><li class=\"mar-t-b\">Form Regular có độ rộng vừa phải, không ôm sát. Dễ phối cùng quần jeans, kaki hoặc short cho phong cách casual, street hoặc mặc hằng ngày. Thiết kế hướng đến sự thoải mái, bền bỉ và tính ứng dụng cao.</li></ul></li>",
+    "sizeTable": "<h1 class=\"bo-bot upcass home-heading\">Bảng Size cho bé</h1><div ><table class=\"table-dt-size wid-100 font-title\"><tr><th>Size</th><th>Chiều cao</th><th>Cân Nặng</th></tr><tr><td>S</td><td>Từ 60cm- 102cm</td><td>Từ 8kg - 15kg</td></tr><tr><td>L</td><td>từ 110cm - 116cm</td><td>Từ 16kg - 23kg </td></tr><tr><td>M</td><td>từ 120cm- 130cm</td><td>Từ 20kg - 29kg</td></tr><tr><td>XL</td><td>Từ 140cm-150cm</td><td>Từ 28kg-40kg</td></tr></table></div>"   
+    },
+    {
+        "productID": "GF02",
+        "name":"Sơ mi cổ kiểu phối viền ren",
+        "categories": "Girl fashion",
+        "variants":[
+            {
+                "color": "White",
+                "item":[
+                    {
+                        "sku": "GF02-S-TR",
+                        "size": "S",
+                        "price": 235000,
+                        "stock": 10
+                    },
+                    {
+                        "sku": "GF02-L-TR",
+                        "size": "L",
+                        "price": 235000,
+                        "stock": 10
+                    },
+                    {
+                        "sku": "GF02-M-TR",
+                        "size": "M",
+                        "price": 235000,
+                        "stock": 10
+                    },
+                    {
+                        "sku": "GF02-XL-TR",
+                        "size": "XL",
+                        "price": 235000,
+                        "stock": 10
+                    }
+                ],
+                "image":[
+                  "../asset/image/Product/GirlFashion/GF02/jpeg.webp",
+                  "../asset/image/Product/GirlFashion/GF02/jpeg (1).webp",
+                  "../asset/image/Product/GirlFashion/GF02/jpeg (2).webp",
+                  "../asset/image/Product/GirlFashion/GF02/jpeg (3).webp" 
+                ]
+            }
+        ],
+    "descirption": "<li class=\"mar-t-b\"><p class=\" font-w-700 upcass \">CHẤT LIỆU VẢI THÔ COTTON</p><ul  class=\"list-none\"><li class=\"mar-t-b\" >Sử dụng vải thun cotton 100% với độ dày 240GSM, bề mặt mịn, đứng vải nhưng vẫn thoáng và dễ chịu khi mặc, phù hợp mặc hằng ngày</li></ul></li><li class=\"mar-t-b\"><p class=\" font-w-700 upcass\">KỸ THUẬT THIẾT KẾ</p><ul  class=\"list-none\"><li class=\"mar-t-b\">Làm từ sợi bông (cotton), đôi khi kết hợp sợi gai, không pha sợi nhân tạo, an toàn cho da nhạy cảm.</li></ul></li><li class=\"mar-t-b\"><p class=\" font-w-700 upcass\">FORM DÁNG, HỌA TIẾT</p><ul  class=\"list-none\"><li class=\"mar-t-b\">Áo sơ mi bé gái cổ kiểu lá cổ to phối ren viền xung quanh, nẹp cài cúc thân trước, dài tay có măng set cài cúc</li></ul></li>",
+    "sizeTable": "<h1 class=\"bo-bot upcass home-heading\">Bảng Size cho bé</h1><div ><table class=\"table-dt-size wid-100 font-title\"><tr><th>Size</th><th>Chiều cao</th><th>Cân Nặng</th></tr><tr><td>S</td><td>Từ 60cm- 102cm</td><td>Từ 8kg - 15kg</td></tr><tr><td>L</td><td>từ 110cm - 116cm</td><td>Từ 16kg - 23kg </td></tr><tr><td>M</td><td>từ 120cm- 130cm</td><td>Từ 20kg - 29kg</td></tr><tr><td>XL</td><td>Từ 140cm-150cm</td><td>Từ 28kg-40kg</td></tr></table></div>"   
+    },
+    {
+         "productID": "BF01",
+        "name": "Bộ Polo bé trai ngắn Animo ",
+        "categories": "boyFashion", 
+        "variants":[
+            {
+                "color": "WhiteBrown",
+                "item":[
+                    {
+                        "sku": "BF01-S-WB",
+                        "size": "S",
+                        "price": 199000,
+                        "stock": 10
+                    },
+                    {
+                        "sku": "BF01-L-WB",
+                        "size": "L",
+                        "price": 199000,
+                        "stock": 10
+                    },
+                    {
+                        "sku": "BF01-M-WB",
+                        "size": "M",
+                        "price": 199000,
+                        "stock": 10
+                    },
+                    {
+                        "sku": "BF01-XL-WB",
+                        "size": "XL",
+                        "price": 199000,
+                        "stock": 10
+                    }
+                ],
+                "image":[
+                  "../asset/image/Product/BoyFashion/BF01/jpeg.webp",
+                  "../asset/image/Product/BoyFashion/BF01/jpeg (1).webp",
+                  "../asset/image/Product/BoyFashion/BF01/jpeg (2).webp",
+                  "../asset/image/Product/BoyFashion/BF01/jpeg (3).webp" 
+                ]
+            }
+        ],
+    "descirption": "<li class=\"mar-t-b\"><p class=\" font-w-700 upcass \">CHẤT LIỆU VẢI COTTON</p><ul  class=\"list-none\"><li class=\"mar-t-b\" >Sử dụng vải thun cotton 100% với độ dày 240GSM, bề mặt mịn, đứng vải nhưng vẫn thoáng và dễ chịu khi mặc, phù hợp mặc hằng ngày</li></ul></li><li class=\"mar-t-b\"><p class=\" font-w-700 upcass\">KỸ THUẬT THIẾT KẾ</p><ul  class=\"list-none\"><li class=\"mar-t-b\">Sử dụng vải thun cotton 100% với độ dày 240GSM, bề mặt mịn, đứng vải nhưng vẫn thoáng và dễ chịu khi mặc, phù hợp mặc hằng ngày</li></ul></li><li class=\"mar-t-b\"><p class=\" font-w-700 upcass\">FORM DÁNG REGULAR THOẢI MÁI</p><ul  class=\"list-none\"><li class=\"mar-t-b\">Form Regular có độ rộng vừa phải, không ôm sát, phù hợp với nhiều dáng người nam. Dễ phối cùng quần jeans, kaki hoặc short cho phong cách casual, street hoặc mặc hằng ngày. Thiết kế hướng đến sự thoải mái, bền bỉ và tính ứng dụng cao.</li></ul></li>",
+    "sizeTable": "<h1 class=\"bo-bot upcass home-heading\">Bảng Size cho bé</h1><div ><table class=\"table-dt-size wid-100 font-title\"><tr><th>Size</th><th>Chiều cao</th><th>Cân Nặng</th></tr><tr><td>S</td><td>Từ 60cm- 102cm</td><td>Từ 8kg - 15kg</td></tr><tr><td>L</td><td>từ 110cm - 116cm</td><td>Từ 16kg - 23kg </td></tr><tr><td>M</td><td>từ 120cm- 130cm</td><td>Từ 20kg - 29kg</td></tr><tr><td>XL</td><td>Từ 140cm-150cm</td><td>Từ 28kg-40kg</td></tr></table></div>"   
+    },
+    {
+        "productID": "AF01",
+        "name": "Mũ Len Kèm Khăn sừng nai",
+        "categories": "Accessories",
+        "variants":[
+            {
+                "color": "Pink",
+                "item":[
+                    {
+                        "sku": "AF01-S-P",
+                        "size": null,
+                        "price": 31000,
+                        "stock": 10
+                    }
+                ],
+                "image":[
+                  "../asset/image/Product/AccessFashion/AF01/jpeg (1).webp",
+                  "../asset/image/Product/AccessFashion/AF01/jpeg.webp"
+                ]
+            },
+            {
+                "color": "Cream",
+                "item":[
+                    {
+                        "sku": "AF01-S-CR",
+                        "size": null,
+                        "price": 31000,
+                        "stock": 10
+                    }
+                ],
+                "image":[
+                  "../asset/image/Product/AccessFashion/AF01/jpeg (2).webp",
+                  "../asset/image/Product/AccessFashion/AF01/jpeg (3).webp" 
+                ]
+            },
+            {
+                "color": "Brown",
+                "item":[
+                    {
+                        "sku": "AF01-S-B",
+                        "size": null,
+                        "price": 31000,
+                        "stock": 10
+                    }
+                ],
+                "image":[
+                  "../asset/image/Product/AccessFashion/AF01/jpeg (4).webp",
+                  "../asset/image/Product/AccessFashion/AF01/jpeg (5).webp" 
+                ]
+            }
+        ],
+    "descirption": "<li class=\"mar-t-b\"><p class=\" font-w-700 upcass \">CHẤT LIỆU VẢI COTTON</p><ul  class=\"list-none\"><li class=\"mar-t-b\" >Sử dụng vải thun cotton 100% với độ dày 240GSM, bề mặt mịn, đứng vải nhưng vẫn thoáng và dễ chịu khi mặc, phù hợp mặc hằng ngày</li></ul></li><li class=\"mar-t-b\"><p class=\" font-w-700 upcass\">KỸ THUẬT THIẾT KẾ</p><ul  class=\"list-none\"><li class=\"mar-t-b\">Sử dụng vải thun cotton 100% với độ dày 240GSM, bề mặt mịn, đứng vải nhưng vẫn thoáng và dễ chịu khi mặc, phù hợp mặc hằng ngày</li></ul></li><li class=\"mar-t-b\"><p class=\" font-w-700 upcass\">FORM DÁNG REGULAR THOẢI MÁI</p><ul  class=\"list-none\"><li class=\"mar-t-b\">Form Regular có độ rộng vừa phải, không ôm sát, phù hợp với nhiều dáng người nam. Dễ phối cùng quần jeans, kaki hoặc short cho phong cách casual, street hoặc mặc hằng ngày. Thiết kế hướng đến sự thoải mái, bền bỉ và tính ứng dụng cao.</li></ul></li>"
+    
+    },
+        {
+         "productID": "BF02",
+        "name":"Bộ bé trai ngắn nón có tai Animo",
+        "categories": "boyFashion",
+        "variants":[
+            {
+                "color": "Red",
+                "item":[
+                    {
+                        "sku": "BF02-S-R",
+                        "size": "S",
+                        "price": 192000,
+                        "stock": 10
+                    },
+                    {
+                        "sku": "BF02-L-R",
+                        "size": "L",
+                        "price": 192000,
+                        "stock": 10
+                    },
+                    {
+                        "sku": "BF02-M-R",
+                        "size": "M",
+                        "price": 192000,
+                        "stock": 10
+                    },
+                    {
+                        "sku": "BF02-XL-R",
+                        "size": "XL",
+                        "price": 192000,
+                        "stock": 10
+                    }
+                ],
+                "image":[
+                  "../asset/image/Product/BoyFashion/BF02/jpeg.webp",
+                  "../asset/image/Product/BoyFashion/BF02/jpeg (1).webp",
+                  "../asset/image/Product/BoyFashion/BF02/jpeg (2).webp",
+                  "../asset/image/Product/BoyFashion/BF02/jpeg (3).webp" 
+                ]
+            }
+        ],
+    "descirption": "<li class=\"mar-t-b\"><p class=\" font-w-700 upcass \">CHẤT LIỆU VẢI COTTON</p><ul  class=\"list-none\"><li class=\"mar-t-b\" >Sử dụng vải thun cotton 100% với độ dày 240GSM, bề mặt mịn, đứng vải nhưng vẫn thoáng và dễ chịu khi mặc, phù hợp mặc hằng ngày</li></ul></li><li class=\"mar-t-b\"><p class=\" font-w-700 upcass\">KỸ THUẬT THIẾT KẾ</p><ul  class=\"list-none\"><li class=\"mar-t-b\">Sử dụng vải thun cotton 100% với độ dày 240GSM, bề mặt mịn, đứng vải nhưng vẫn thoáng và dễ chịu khi mặc, phù hợp mặc hằng ngày</li></ul></li><li class=\"mar-t-b\"><p class=\" font-w-700 upcass\">FORM DÁNG REGULAR THOẢI MÁI</p><ul  class=\"list-none\"><li class=\"mar-t-b\">Form Regular có độ rộng vừa phải, không ôm sát, phù hợp với nhiều dáng người nam. Dễ phối cùng quần jeans, kaki hoặc short cho phong cách casual, street hoặc mặc hằng ngày. Thiết kế hướng đến sự thoải mái, bền bỉ và tính ứng dụng cao.</li></ul></li>",
+    "sizeTable": "<h1 class=\"bo-bot upcass home-heading\">Bảng Size cho bé</h1><div ><table class=\"table-dt-size wid-100 font-title\"><tr><th>Size</th><th>Chiều cao</th><th>Cân Nặng</th></tr><tr><td>S</td><td>Từ 60cm- 102cm</td><td>Từ 8kg - 15kg</td></tr><tr><td>L</td><td>từ 110cm - 116cm</td><td>Từ 16kg - 23kg </td></tr><tr><td>M</td><td>từ 120cm- 130cm</td><td>Từ 20kg - 29kg</td></tr><tr><td>XL</td><td>Từ 140cm-150cm</td><td>Từ 28kg-40kg</td></tr></table></div>"   
+    },
+        {
+        "productID": "AF04",
+        "name": "Kẹp nơ nhung đỏ chery",
+        "categories": "Accessories",
+                "variants":[
+            {
+                "color": "Red",
+                "item":[
+                    {
+                        "sku": "AF04-S-Red",
+                        "size": null,
+                        "price": 40000,
+                        "stock": 10
+                    }
+                ],
+                "image":[
+                  "../asset/image/Product/AccessFashion/AF04/jpeg.webp",
+                  "../asset/image/Product/AccessFashion/AF04/jpeg (1).webp",
+                  "../asset/image/Product/AccessFashion/AF04/jpeg (2).webp",
+                  "../asset/image/Product/AccessFashion/AF04/jpeg (3).webp" 
+                ]
+            }
+        ],
+    "descirption": "<li class=\"mar-t-b\"><p class=\" font-w-700 upcass \">CHẤT LIỆU VẢI COTTON</p><ul  class=\"list-none\"><li class=\"mar-t-b\" >Sử dụng vải thun cotton 100% với độ dày 240GSM, bề mặt mịn, đứng vải nhưng vẫn thoáng và dễ chịu khi mặc, phù hợp mặc hằng ngày</li></ul></li><li class=\"mar-t-b\"><p class=\" font-w-700 upcass\">KỸ THUẬT THIẾT KẾ</p><ul  class=\"list-none\"><li class=\"mar-t-b\">Sử dụng vải thun cotton 100% với độ dày 240GSM, bề mặt mịn, đứng vải nhưng vẫn thoáng và dễ chịu khi mặc, phù hợp mặc hằng ngày</li></ul></li><li class=\"mar-t-b\"><p class=\" font-w-700 upcass\">FORM DÁNG REGULAR THOẢI MÁI</p><ul  class=\"list-none\"><li class=\"mar-t-b\">Form Regular có độ rộng vừa phải, không ôm sát, phù hợp với nhiều dáng người nam. Dễ phối cùng quần jeans, kaki hoặc short cho phong cách casual, street hoặc mặc hằng ngày. Thiết kế hướng đến sự thoải mái, bền bỉ và tính ứng dụng cao.</li></ul></li>"
+ 
+    },
+ {
+       "productID": "GF04",
+        "name": "Áo sơ mi cổ sen",
+        "categories": "girlFashion",
+                "variants":[
+            {
+                "color": "White",
+                "item":[
+                    {
+                        "sku": "GF04-S-W",
+                        "size": "S",
+                        "price": 196000,
+                        "stock": 10
+                    },
+                    {
+                        "sku": "GF04-L-W",
+                        "size": "L",
+                        "price": 196000,
+                        "stock": 10
+                    },
+                    {
+                        "sku": "GF04-M-W",
+                        "size": "M",
+                        "price": 196000,
+                        "stock": 10
+                    },
+                    {
+                        "sku": "GF04-XL-W",
+                        "size": "XL",
+                        "price": 196000,
+                        "stock": 10
+                    }
+                ],
+                "image":[
+                  "../asset/image/Product/GirlFashion/GF04/jpeg.webp",
+                  "../asset/image/Product/GirlFashion/GF04/jpeg (1).webp",
+                  "../asset/image/Product/GirlFashion/GF04/jpeg (2).webp",
+                  "../asset/image/Product/GirlFashion/GF04/jpeg (3).webp" 
+                ]
+            }
+        ],
+    "descirption": "<li class=\"mar-t-b\"><p class=\" font-w-700 upcass \">CHẤT LIỆU VẢI COTTON</p><ul  class=\"list-none\"><li class=\"mar-t-b\" >Sử dụng vải thun cotton 100% với độ dày 240GSM, bề mặt mịn, đứng vải nhưng vẫn thoáng và dễ chịu khi mặc, phù hợp mặc hằng ngày</li></ul></li><li class=\"mar-t-b\"><p class=\" font-w-700 upcass\">KỸ THUẬT THIẾT KẾ</p><ul  class=\"list-none\"><li class=\"mar-t-b\">Sử dụng vải thun cotton 100% với độ dày 240GSM, bề mặt mịn, đứng vải nhưng vẫn thoáng và dễ chịu khi mặc, phù hợp mặc hằng ngày</li></ul></li><li class=\"mar-t-b\"><p class=\" font-w-700 upcass\">FORM DÁNG REGULAR THOẢI MÁI</p><ul  class=\"list-none\"><li class=\"mar-t-b\">Form Regular có độ rộng vừa phải, không ôm sát, phù hợp với nhiều dáng người nam. Dễ phối cùng quần jeans, kaki hoặc short cho phong cách casual, street hoặc mặc hằng ngày. Thiết kế hướng đến sự thoải mái, bền bỉ và tính ứng dụng cao.</li></ul></li>",
+    "sizeTable": "<h1 class=\"bo-bot upcass home-heading\">Bảng Size cho bé</h1><div ><table class=\"table-dt-size wid-100 font-title\"><tr><th>Size</th><th>Chiều cao</th><th>Cân Nặng</th></tr><tr><td>S</td><td>Từ 60cm- 102cm</td><td>Từ 8kg - 15kg</td></tr><tr><td>L</td><td>từ 110cm - 116cm</td><td>Từ 16kg - 23kg </td></tr><tr><td>M</td><td>từ 120cm- 130cm</td><td>Từ 20kg - 29kg</td></tr><tr><td>XL</td><td>Từ 140cm-150cm</td><td>Từ 28kg-40kg</td></tr></table></div>"   
+    },
+ {
+        "productID": "AF05",
+        "name": "Giày Da Bé Trai , Giày Tây Trơn",
+        "categories": "Accessories",
+                "variants":[
+            {
+                "color": "Black",
+                "item":[
+                    {
+                        "sku": "AF05-21-BLA",
+                        "size": "21",
+                        "price": 178000,
+                        "stock": 10
+                    },
+                    {
+                        "sku": "AF05-22-BLA",
+                        "size": "22",
+                        "price": 178000,
+                        "stock": 10
+                    },
+                    {
+                        "sku": "AF05-23-BLA",
+                        "size": "23",
+                        "price": 178000,
+                        "stock": 10
+                    },
+                    {
+                        "sku": "AF05-24-BLA",
+                        "size": "24",
+                        "price": 178000,
+                        "stock": 10
+                    }
+                ],
+                "image":[
+                  "../asset/image/Product/AccessFashion/AF05/jpeg.webp",
+                  "../asset/image/Product/AccessFashion/AF05/jpeg (1).webp",
+                  "../asset/image/Product/AccessFashion/AF05/jpeg (2).webp",
+                  "../asset/image/Product/AccessFashion/AF05/jpeg (3).webp"
+                ]
+            }
+        ],
+    "descirption": "<li class=\"mar-t-b\"><p class=\" font-w-700 upcass \">CHẤT LIỆU VẢI COTTON</p><ul  class=\"list-none\"><li class=\"mar-t-b\" >Sử dụng vải thun cotton 100% với độ dày 240GSM, bề mặt mịn, đứng vải nhưng vẫn thoáng và dễ chịu khi mặc, phù hợp mặc hằng ngày</li></ul></li><li class=\"mar-t-b\"><p class=\" font-w-700 upcass\">KỸ THUẬT THIẾT KẾ</p><ul  class=\"list-none\"><li class=\"mar-t-b\">Sử dụng vải thun cotton 100% với độ dày 240GSM, bề mặt mịn, đứng vải nhưng vẫn thoáng và dễ chịu khi mặc, phù hợp mặc hằng ngày</li></ul></li><li class=\"mar-t-b\"><p class=\" font-w-700 upcass\">FORM DÁNG REGULAR THOẢI MÁI</p><ul  class=\"list-none\"><li class=\"mar-t-b\">Form Regular có độ rộng vừa phải, không ôm sát, phù hợp với nhiều dáng người nam. Dễ phối cùng quần jeans, kaki hoặc short cho phong cách casual, street hoặc mặc hằng ngày. Thiết kế hướng đến sự thoải mái, bền bỉ và tính ứng dụng cao.</li></ul></li>",
+    "sizeTable": "<h1 class=\"bo-bot upcass home-heading\">Bảng Size cho bé</h1><div ><table class=\"table-dt-size wid-100 font-title\"><tr><th>Size</th><th>Chiều Dài Chân</th><th>Kích thướt giày</th></tr><tr><td>21</td><td>Từ 10cm- 12cm</td><td>Từ 10.79cm - 12.79cm</td></tr><tr><td>22</td><td>từ 13cm - 15cm</td><td>Từ 13.57cm - 15.79cm </td></tr><tr><td>23</td><td>từ 16cm - 18cm</td><td>Từ 16.57cm - 18.79cmkg</td></tr><tr><td>24</td><td>Từ 19cm - 21cm</td><td>Từ 19.57cm - 21.79cm</td></tr></table></div>"       
+    }
+]

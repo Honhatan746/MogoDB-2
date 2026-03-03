@@ -1,0 +1,270 @@
+[
+    {
+        "productID": "BF01",
+        "name": "Bộ Polo bé trai ngắn Animo ",
+        "categories": "boyFashion", 
+        "variants":[
+            {
+                "color": "WhiteBrown",
+                "item":[
+                    {
+                        "sku": "BF01-S-WB",
+                        "size": "S",
+                        "price": 199000,
+                        "stock": 10
+                    },
+                    {
+                        "sku": "BF01-L-WB",
+                        "size": "L",
+                        "price": 199000,
+                        "stock": 10
+                    },
+                    {
+                        "sku": "BF01-M-WB",
+                        "size": "M",
+                        "price": 199000,
+                        "stock": 10
+                    },
+                    {
+                        "sku": "BF01-XL-WB",
+                        "size": "XL",
+                        "price": 199000,
+                        "stock": 10
+                    }
+                ],
+                "image":[
+                  "../asset/image/Product/BoyFashion/BF01/jpeg.webp",
+                  "../asset/image/Product/BoyFashion/BF01/jpeg (1).webp",
+                  "../asset/image/Product/BoyFashion/BF01/jpeg (2).webp",
+                  "../asset/image/Product/BoyFashion/BF01/jpeg (3).webp" 
+                ]
+            }
+        ],
+    "descirption": "<li class=\"mar-t-b\"><p class=\" font-w-700 upcass \">CHẤT LIỆU VẢI COTTON</p><ul  class=\"list-none\"><li class=\"mar-t-b\" >Sử dụng vải thun cotton 100% với độ dày 240GSM, bề mặt mịn, đứng vải nhưng vẫn thoáng và dễ chịu khi mặc, phù hợp mặc hằng ngày</li></ul></li><li class=\"mar-t-b\"><p class=\" font-w-700 upcass\">KỸ THUẬT THIẾT KẾ</p><ul  class=\"list-none\"><li class=\"mar-t-b\">Sử dụng vải thun cotton 100% với độ dày 240GSM, bề mặt mịn, đứng vải nhưng vẫn thoáng và dễ chịu khi mặc, phù hợp mặc hằng ngày</li></ul></li><li class=\"mar-t-b\"><p class=\" font-w-700 upcass\">FORM DÁNG REGULAR THOẢI MÁI</p><ul  class=\"list-none\"><li class=\"mar-t-b\">Form Regular có độ rộng vừa phải, không ôm sát, phù hợp với nhiều dáng người nam. Dễ phối cùng quần jeans, kaki hoặc short cho phong cách casual, street hoặc mặc hằng ngày. Thiết kế hướng đến sự thoải mái, bền bỉ và tính ứng dụng cao.</li></ul></li>",
+    "sizeTable": "<h1 class=\"bo-bot upcass home-heading\">Bảng Size cho bé</h1><div ><table class=\"table-dt-size wid-100 font-title\"><tr><th>Size</th><th>Chiều cao</th><th>Cân Nặng</th></tr><tr><td>S</td><td>Từ 60cm- 102cm</td><td>Từ 8kg - 15kg</td></tr><tr><td>L</td><td>từ 110cm - 116cm</td><td>Từ 16kg - 23kg </td></tr><tr><td>M</td><td>từ 120cm- 130cm</td><td>Từ 20kg - 29kg</td></tr><tr><td>XL</td><td>Từ 140cm-150cm</td><td>Từ 28kg-40kg</td></tr></table></div>"   
+    },
+    {
+        "productID": "BF02",
+        "name":"Bộ bé trai ngắn nón có tai Animo",
+        "categories": "boyFashion",
+        "variants":[
+            {
+                "color": "Red",
+                "item":[
+                    {
+                        "sku": "BF02-S-R",
+                        "size": "S",
+                        "price": 192000,
+                        "stock": 10
+                    },
+                    {
+                        "sku": "BF02-L-R",
+                        "size": "L",
+                        "price": 192000,
+                        "stock": 10
+                    },
+                    {
+                        "sku": "BF02-M-R",
+                        "size": "M",
+                        "price": 192000,
+                        "stock": 10
+                    },
+                    {
+                        "sku": "BF02-XL-R",
+                        "size": "XL",
+                        "price": 192000,
+                        "stock": 10
+                    }
+                ],
+                "image":[
+                  "../asset/image/Product/BoyFashion/BF02/jpeg.webp",
+                  "../asset/image/Product/BoyFashion/BF02/jpeg (1).webp",
+                  "../asset/image/Product/BoyFashion/BF02/jpeg (2).webp",
+                  "../asset/image/Product/BoyFashion/BF02/jpeg (3).webp" 
+                ]
+            }
+        ],
+    "descirption": "<li class=\"mar-t-b\"><p class=\" font-w-700 upcass \">CHẤT LIỆU VẢI COTTON</p><ul  class=\"list-none\"><li class=\"mar-t-b\" >Sử dụng vải thun cotton 100% với độ dày 240GSM, bề mặt mịn, đứng vải nhưng vẫn thoáng và dễ chịu khi mặc, phù hợp mặc hằng ngày</li></ul></li><li class=\"mar-t-b\"><p class=\" font-w-700 upcass\">KỸ THUẬT THIẾT KẾ</p><ul  class=\"list-none\"><li class=\"mar-t-b\">Sử dụng vải thun cotton 100% với độ dày 240GSM, bề mặt mịn, đứng vải nhưng vẫn thoáng và dễ chịu khi mặc, phù hợp mặc hằng ngày</li></ul></li><li class=\"mar-t-b\"><p class=\" font-w-700 upcass\">FORM DÁNG REGULAR THOẢI MÁI</p><ul  class=\"list-none\"><li class=\"mar-t-b\">Form Regular có độ rộng vừa phải, không ôm sát, phù hợp với nhiều dáng người nam. Dễ phối cùng quần jeans, kaki hoặc short cho phong cách casual, street hoặc mặc hằng ngày. Thiết kế hướng đến sự thoải mái, bền bỉ và tính ứng dụng cao.</li></ul></li>",
+    "sizeTable": "<h1 class=\"bo-bot upcass home-heading\">Bảng Size cho bé</h1><div ><table class=\"table-dt-size wid-100 font-title\"><tr><th>Size</th><th>Chiều cao</th><th>Cân Nặng</th></tr><tr><td>S</td><td>Từ 60cm- 102cm</td><td>Từ 8kg - 15kg</td></tr><tr><td>L</td><td>từ 110cm - 116cm</td><td>Từ 16kg - 23kg </td></tr><tr><td>M</td><td>từ 120cm- 130cm</td><td>Từ 20kg - 29kg</td></tr><tr><td>XL</td><td>Từ 140cm-150cm</td><td>Từ 28kg-40kg</td></tr></table></div>"   
+    },
+    {
+        "productID": "BF03",
+        "name": "Bộ bé trai ngắn Animo",
+        "categories": "boyFashion",
+        "variants":[
+            {
+                "color": "Red",
+                "item":[
+                    {
+                        "sku": "BF03-S-R",
+                        "size": "S",
+                        "price": 192000,
+                        "stock": 10
+                    },
+                    {
+                        "sku": "BF03-L-R",
+                        "size": "L",
+                        "price": 192000,
+                        "stock": 10
+                    },
+                    {
+                        "sku": "BF03-M-R",
+                        "size": "M",
+                        "price": 192000,
+                        "stock": 10
+                    },
+                    {
+                        "sku": "BF03-XL-R",
+                        "size": "XL",
+                        "price": 192000,
+                        "stock": 10
+                    }
+                ],
+                "image":[
+                  "../asset/image/Product/BoyFashion/BF03/jpeg.webp",
+                  "../asset/image/Product/BoyFashion/BF03/jpeg (1).webp",
+                  "../asset/image/Product/BoyFashion/BF03/jpeg (2).webp",
+                  "../asset/image/Product/BoyFashion/BF03/jpeg (3).webp" 
+                ]
+            }
+        ],
+    "descirption": "<li class=\"mar-t-b\"><p class=\" font-w-700 upcass \">CHẤT LIỆU VẢI COTTON</p><ul  class=\"list-none\"><li class=\"mar-t-b\" >Sử dụng vải thun cotton 100% với độ dày 240GSM, bề mặt mịn, đứng vải nhưng vẫn thoáng và dễ chịu khi mặc, phù hợp mặc hằng ngày</li></ul></li><li class=\"mar-t-b\"><p class=\" font-w-700 upcass\">KỸ THUẬT THIẾT KẾ</p><ul  class=\"list-none\"><li class=\"mar-t-b\">Sử dụng vải thun cotton 100% với độ dày 240GSM, bề mặt mịn, đứng vải nhưng vẫn thoáng và dễ chịu khi mặc, phù hợp mặc hằng ngày</li></ul></li><li class=\"mar-t-b\"><p class=\" font-w-700 upcass\">FORM DÁNG REGULAR THOẢI MÁI</p><ul  class=\"list-none\"><li class=\"mar-t-b\">Form Regular có độ rộng vừa phải, không ôm sát, phù hợp với nhiều dáng người nam. Dễ phối cùng quần jeans, kaki hoặc short cho phong cách casual, street hoặc mặc hằng ngày. Thiết kế hướng đến sự thoải mái, bền bỉ và tính ứng dụng cao.</li></ul></li>",
+    "sizeTable": "<h1 class=\"bo-bot upcass home-heading\">Bảng Size cho bé</h1><div ><table class=\"table-dt-size wid-100 font-title\"><tr><th>Size</th><th>Chiều cao</th><th>Cân Nặng</th></tr><tr><td>S</td><td>Từ 60cm- 102cm</td><td>Từ 8kg - 15kg</td></tr><tr><td>L</td><td>từ 110cm - 116cm</td><td>Từ 16kg - 23kg </td></tr><tr><td>M</td><td>từ 120cm- 130cm</td><td>Từ 20kg - 29kg</td></tr><tr><td>XL</td><td>Từ 140cm-150cm</td><td>Từ 28kg-40kg</td></tr></table></div>"   
+    
+    },
+    {
+        "productID": "BF04",
+        "name": "Bộ sơ mi bé trai ngắn cà vạt Animo ",
+        "categories": "boyFashion",
+                "variants":[
+            {
+                "color": "Brown",
+                "item":[
+                    {
+                        "sku": "BF04-S-B",
+                        "size": "S",
+                        "price": 119000,
+                        "stock": 10
+                    },
+                    {
+                        "sku": "BF04-L-B",
+                        "size": "L",
+                        "price": 119000,
+                        "stock": 10
+                    },
+                    {
+                        "sku": "BF04-M-B",
+                        "size": "M",
+                        "price": 119000,
+                        "stock": 10
+                    },
+                    {
+                        "sku": "BF04-XL-B",
+                        "size": "XL",
+                        "price": 119000,
+                        "stock": 10
+                    }
+                ],
+                "image":[
+                  "../asset/image/Product/BoyFashion/BF04/jpeg.webp",
+                  "../asset/image/Product/BoyFashion/BF04/jpeg (1).webp",
+                  "../asset/image/Product/BoyFashion/BF04/jpeg (2).webp",
+                  "../asset/image/Product/BoyFashion/BF04/jpeg (3).webp" 
+                ]
+            }
+        ],
+    "descirption": "<li class=\"mar-t-b\"><p class=\" font-w-700 upcass \">CHẤT LIỆU VẢI COTTON</p><ul  class=\"list-none\"><li class=\"mar-t-b\" >Sử dụng vải thun cotton 100% với độ dày 240GSM, bề mặt mịn, đứng vải nhưng vẫn thoáng và dễ chịu khi mặc, phù hợp mặc hằng ngày</li></ul></li><li class=\"mar-t-b\"><p class=\" font-w-700 upcass\">KỸ THUẬT THIẾT KẾ</p><ul  class=\"list-none\"><li class=\"mar-t-b\">Sử dụng vải thun cotton 100% với độ dày 240GSM, bề mặt mịn, đứng vải nhưng vẫn thoáng và dễ chịu khi mặc, phù hợp mặc hằng ngày</li></ul></li><li class=\"mar-t-b\"><p class=\" font-w-700 upcass\">FORM DÁNG REGULAR THOẢI MÁI</p><ul  class=\"list-none\"><li class=\"mar-t-b\">Form Regular có độ rộng vừa phải, không ôm sát, phù hợp với nhiều dáng người nam. Dễ phối cùng quần jeans, kaki hoặc short cho phong cách casual, street hoặc mặc hằng ngày. Thiết kế hướng đến sự thoải mái, bền bỉ và tính ứng dụng cao.</li></ul></li>",
+    "sizeTable": "<h1 class=\"bo-bot upcass home-heading\">Bảng Size cho bé</h1><div ><table class=\"table-dt-size wid-100 font-title\"><tr><th>Size</th><th>Chiều cao</th><th>Cân Nặng</th></tr><tr><td>S</td><td>Từ 60cm- 102cm</td><td>Từ 8kg - 15kg</td></tr><tr><td>L</td><td>từ 110cm - 116cm</td><td>Từ 16kg - 23kg </td></tr><tr><td>M</td><td>từ 120cm- 130cm</td><td>Từ 20kg - 29kg</td></tr><tr><td>XL</td><td>Từ 140cm-150cm</td><td>Từ 28kg-40kg</td></tr></table></div>"   
+  
+    },
+        {
+        "productID": "BF05",
+        "name": "Bộ bé trai ngắn Animo",
+        "categories": "boyFashion",
+                "variants":[
+            {
+                "color": "Blue",
+                "item":[
+                    {
+                        "sku": "BF05-S-BL",
+                        "size": "S",
+                        "price": 119000,
+                        "stock": 10
+                    },
+                    {
+                        "sku": "BF05-L-BL",
+                        "size": "L",
+                        "price": 119000,
+                        "stock": 10
+                    },
+                    {
+                        "sku": "BF05-M-BL",
+                        "size": "M",
+                        "price": 119000,
+                        "stock": 10
+                    },
+                    {
+                        "sku": "BF05-XL-BL",
+                        "size": "XL",
+                        "price": 119000,
+                        "stock": 10
+                    }
+                ],
+                "image":[
+                  "../asset/image/Product/BoyFashion/BF05/jpeg.webp",
+                  "../asset/image/Product/BoyFashion/BF05/jpeg (1).webp",
+                  "../asset/image/Product/BoyFashion/BF05/jpeg (2).webp",
+                  "../asset/image/Product/BoyFashion/BF05/jpeg (3).webp"
+                ]
+            }
+        ],
+    "descirption": "<li class=\"mar-t-b\"><p class=\" font-w-700 upcass \">CHẤT LIỆU VẢI COTTON</p><ul  class=\"list-none\"><li class=\"mar-t-b\" >Sử dụng vải thun cotton 100% với độ dày 240GSM, bề mặt mịn, đứng vải nhưng vẫn thoáng và dễ chịu khi mặc, phù hợp mặc hằng ngày</li></ul></li><li class=\"mar-t-b\"><p class=\" font-w-700 upcass\">KỸ THUẬT THIẾT KẾ</p><ul  class=\"list-none\"><li class=\"mar-t-b\">Sử dụng vải thun cotton 100% với độ dày 240GSM, bề mặt mịn, đứng vải nhưng vẫn thoáng và dễ chịu khi mặc, phù hợp mặc hằng ngày</li></ul></li><li class=\"mar-t-b\"><p class=\" font-w-700 upcass\">FORM DÁNG REGULAR THOẢI MÁI</p><ul  class=\"list-none\"><li class=\"mar-t-b\">Form Regular có độ rộng vừa phải, không ôm sát, phù hợp với nhiều dáng người nam. Dễ phối cùng quần jeans, kaki hoặc short cho phong cách casual, street hoặc mặc hằng ngày. Thiết kế hướng đến sự thoải mái, bền bỉ và tính ứng dụng cao.</li></ul></li>",
+    "sizeTable": "<h1 class=\"bo-bot upcass home-heading\">Bảng Size cho bé</h1><div ><table class=\"table-dt-size wid-100 font-title\"><tr><th>Size</th><th>Chiều cao</th><th>Cân Nặng</th></tr><tr><td>S</td><td>Từ 60cm- 102cm</td><td>Từ 8kg - 15kg</td></tr><tr><td>L</td><td>từ 110cm - 116cm</td><td>Từ 16kg - 23kg </td></tr><tr><td>M</td><td>từ 120cm- 130cm</td><td>Từ 20kg - 29kg</td></tr><tr><td>XL</td><td>Từ 140cm-150cm</td><td>Từ 28kg-40kg</td></tr></table></div>"   
+  
+    },
+        {
+        "productID": "BF06",
+        "name": "Bộ bé trai áo sát nách quần ngắn Animo",
+        "categories": "boyFashion",
+                "variants":[
+            {
+                "color": "White",
+                "item":[
+                    {
+                        "sku": "BF06-S-W",
+                        "size": "S",
+                        "price": 119000,
+                        "stock": 10
+                    },
+                    {
+                        "sku": "BF06-L-W",
+                        "size": "L",
+                        "price": 119000,
+                        "stock": 10
+                    },
+                    {
+                        "sku": "BF06-M-W",
+                        "size": "M",
+                        "price": 119000,
+                        "stock": 10
+                    },
+                    {
+                        "sku": "BF06-XL-W",
+                        "size": "XL",
+                        "price": 119000,
+                        "stock": 10
+                    }
+                ],
+                "image":[
+                  "../asset/image/Product/BoyFashion/BF06/jpeg.webp",
+                  "../asset/image/Product/BoyFashion/BF06/jpeg (1).webp",
+                  "../asset/image/Product/BoyFashion/BF06/jpeg (2).webp",
+                  "../asset/image/Product/BoyFashion/BF06/jpeg (3).webp" 
+                ]
+            }
+        ],
+    "descirption": "<li class=\"mar-t-b\"><p class=\" font-w-700 upcass \">CHẤT LIỆU VẢI COTTON</p><ul  class=\"list-none\"><li class=\"mar-t-b\" >Sử dụng vải thun cotton 100% với độ dày 240GSM, bề mặt mịn, đứng vải nhưng vẫn thoáng và dễ chịu khi mặc, phù hợp mặc hằng ngày</li></ul></li><li class=\"mar-t-b\"><p class=\" font-w-700 upcass\">KỸ THUẬT THIẾT KẾ</p><ul  class=\"list-none\"><li class=\"mar-t-b\">Sử dụng vải thun cotton 100% với độ dày 240GSM, bề mặt mịn, đứng vải nhưng vẫn thoáng và dễ chịu khi mặc, phù hợp mặc hằng ngày</li></ul></li><li class=\"mar-t-b\"><p class=\" font-w-700 upcass\">FORM DÁNG REGULAR THOẢI MÁI</p><ul  class=\"list-none\"><li class=\"mar-t-b\">Form Regular có độ rộng vừa phải, không ôm sát, phù hợp với nhiều dáng người nam. Dễ phối cùng quần jeans, kaki hoặc short cho phong cách casual, street hoặc mặc hằng ngày. Thiết kế hướng đến sự thoải mái, bền bỉ và tính ứng dụng cao.</li></ul></li>",
+    "sizeTable": "<h1 class=\"bo-bot upcass home-heading\">Bảng Size cho bé</h1><div ><table class=\"table-dt-size wid-100 font-title\"><tr><th>Size</th><th>Chiều cao</th><th>Cân Nặng</th></tr><tr><td>S</td><td>Từ 60cm- 102cm</td><td>Từ 8kg - 15kg</td></tr><tr><td>L</td><td>từ 110cm - 116cm</td><td>Từ 16kg - 23kg </td></tr><tr><td>M</td><td>từ 120cm- 130cm</td><td>Từ 20kg - 29kg</td></tr><tr><td>XL</td><td>Từ 140cm-150cm</td><td>Từ 28kg-40kg</td></tr></table></div>"   
+  
+    }
+]
