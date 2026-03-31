@@ -25,14 +25,15 @@
             <a href="./index.html"><img class="wid-logo main_logo" src="./asset/image/Logo/iuh.png" alt="Logo"></a>
             <div class="header_menu ">
                 <ul class="menu-tools menu-tools-md">
-                    <li class="link-hover pad-1rem"><a title="Home" href="index.html">Home</a></li>
-                    <li class="link-hover pad-1rem"><a title="Infomation about us" href="./about.html">About</a></li>
+                    <li class="link-hover pad-1rem"><a title="Home" href="index.html">Trang chủ</a></li>
+                    <li class="link-hover pad-1rem"><a title="Infomation about us" href="./about.html">Về nhóm</a></li>
+                    <li class="link-hover pad-1rem"><a title="Home" href="productList.html">Quản lý sản phẩm</a></li>
                 </ul>
             </div>
             <div class="header_tool">
                 <ul class="menu-tools">
                     <li class="link-hover pad-1rem"><a title="Shopping cart" href="./cart.html"><i class="ti-shopping-cart"></i></a></li>
-                    <li class="link-hover pad-1rem"><a title="Account" href="./account.html"><i class="ti-user"></i></a></li>
+                    <li class="link-hover pad-1rem"><a id="userIcon" ><i class="ti-user"></i></a></li>
                     <li class="link-hover pad-1rem"><a title="CheckOut" href="./checkout.html"><i class="ti-bag"></i></a></li>
                     <li class="link-hover js-search-icon pad-1rem" ><a title="Search" ><i class="ti-search"></i></a></li>
                 </ul>
@@ -52,13 +53,17 @@
             <section class="login-container">
                 <div class="login">
                     <h1 class="heading-pink upcass font-heading bo-bot">Login</h1>
-                    <form action="" class="di-flex flex-colum justi-btw font-title alignItem-cen">
+                    <form action="" class="di-flex flex-colum justi-btw font-price alignItem-cen">
                         <div class="di-flex flex-colum alignItem-cen">
-                            <label for="loginEmail">Login</label>
-                            <input type="email" id="loginEmail">
-                            <label for="loginPass">PassWord</label>
-                            <input type="password" id="loginPass">
-                            <button class="btn background-violet color-white hover font-title">Đăng Nhập</button>
+                            <div class="di-flex flex-colum">
+                                <label for="loginEmail">Login</label>
+                                <input type="email" id="loginEmail">
+                            </div>
+                            <div class="di-flex flex-colum">
+                                <label for="loginPass">PassWord</label>
+                                <input type="password" id="loginPass">
+                            </div>
+                            <button class="btn background-violet color-white hover font-title" id="loginBtn">Đăng Nhập</button>
                         </div>      
                         <p>Chưa có Tài khoản ? <a href="./register.html">Đăng ký tài khoản</a></p>
                         
@@ -164,5 +169,6 @@
        </div>
        <!-- End Menu Mobile -->
     <script src="./js/modal.js"></script> 
+    <script type="module" src="./js/login.js"></script>
 </body>
 </html>

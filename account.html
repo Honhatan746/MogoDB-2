@@ -32,21 +32,22 @@
             <a href="./index.html"><img class="wid-logo main_logo" src="./asset/image/Logo/iuh.png" alt="Logo"></a>
             <div class="header_menu ">
                 <ul class="menu-tools menu-tools-md">
-                    <li class="link-hover pad-1rem"><a title="Home" href="index.html">Home</a></li>
-                    <li class="link-hover pad-1rem"><a title="Infomation about us" href="./about.html">About</a></li>
+                    <li class="link-hover pad-1rem"><a title="Home" href="index.html">Trang chủ</a></li>
+                    <li class="link-hover pad-1rem"><a title="Infomation about us" href="./about.html">Về nhóm</a></li>
+                    <li class="link-hover pad-1rem"><a title="Home" href="productList.html">Quản lý sản phẩm</a></li>
                 </ul>
             </div>
             <div class="header_tool">
                 <ul class="menu-tools">
                     <li class="link-hover pad-1rem"><a title="Shopping cart" href="./cart.html"><i class="ti-shopping-cart"></i></a></li>
-                    <li class="link-hover pad-1rem"><a title="Account" href="./account.html"><i class="ti-user"></i></a></li>
+                    <li class="link-hover pad-1rem"><a id="userIcon" ><i class="ti-user"></i></a></li>
                     <li class="link-hover pad-1rem"><a title="CheckOut" href="./checkout.html"><i class="ti-bag"></i></a></li>
                     <li class="link-hover js-search-icon pad-1rem" ><a title="Search" ><i class="ti-search"></i></a></li>
                 </ul>
             </div>
         </div>
     </header>
-    <!--End Header -->
+    <!--End Header -->  
             <!-- Navbar  -->
      <nav class="navbar margin-t-77">
             <ul>
@@ -56,67 +57,65 @@
         </nav>
      <!-- End Navbar -->
             <!--Section  -->
-            <section class="home-container">
-                <div class="account di-flex wid-100 mar-t-b">
-                <div class=" account-list">
-                    <p>Hello, Full Name</p>
-                    <h2 class="font-heading">Manage</h2>
-                    <ul class="list-none">
-                        <li class="mar-t-b"><a class="text-deco-none font-title font-w-700 heading-pink" href="">My profile</a></li>
-                        <li class="mar-t-b"><a class="text-deco-none font-title " href="">My cart</a></li>
-                        <li class="mar-t-b"><a class="text-deco-none font-title " href="">Check Out</a></li>
-                    </ul>
-                </div>
-                <div class="wid-100 font-title ">
-                    <h1 class="mar-t-b">My profile</h1>
-                    <div class="account-profile">
-                            <div>
-                                <p class="mar-t-b">Full Name</p>
-                                <p class="mar-t-b">10-8-30- Hồ Nhật Tân</p>
-                            </div>
-                            <div>
-                                <p  class="mar-t-b">Email Address</p>
-                                <p class="mar-t-b">ho*************@gmail.com</p>
-                            </div>
-                            <div>
-                                <p class="mar-t-b">Mobile</p>
-                                <p class="mar-t-b">0123456789</p>
-                            </div>
-                            <div>
-                                <p class="mar-t-b">Birthday</p>
-                                <p class="mar-t-b">21/05/1998</p>
-                            </div>
-                            <div>
-                                <p class="mar-t-b">Gender</p>
-                                <p class="mar-t-b">Nam</p>
-                            </div>
+                <section class="home-container">
+                    <div class="account di-flex wid-100 mar-t-b">
+                    <div class="account-list">
+                        <p>Hello,</p>
+                        <p class="fullNameAccount">Full Name</p>
+                        <h2 class="font-heading">Manage</h2>
+                        <ul class="list-none ">
+                            <li class="mar-t-b"><a class="text-deco-none font-title font-w-700 heading-pink" href="">My profile</a></li>
+                            <li class="mar-t-b"><a class="text-deco-none font-title " href="">My cart</a></li>
+                            <li class="mar-t-b"><a class="text-deco-none font-title " href="">Check Out</a></li>
+                            <li class="mar-t-b"><a class="text-deco-none font-title " id="logout" href="">Log out</a></li>
+                        </ul>
                     </div>
-                </div>
-                </div>
-                <div class="mobile-account">
-                    <div>
-                        <a class="mb-acc-item" href="">
-                        <i class="ti-bag"></i>
-                        <p>CheckOut</p> 
-                        </a>
+                    <div class="wid-100 font-title ">
+                        <h1 class="mar-t-b">My profile</h1>
+                        <div class="account-profile">
+                                <div>
+                                    <p class="mar-t-b">Full Name</p>
+                                    <p class="mar-t-b fullNameAccount"></p>
+                                </div>
+                                <div>
+                                    <p  class="mar-t-b">Email Address</p>
+                                    <p class="mar-t-b" id="emailAccount"></p>
+                                </div>
+                                <div>
+                                    <p class="mar-t-b">Mobile</p>
+                                    <p class="mar-t-b" id="telAccount"></p>
+                                </div>
+                                <div>
+                                    <p class="mar-t-b">Address</p>
+                                    <p class="mar-t-b" id="addressAccount"></p>
+                                </div>
+                        </div>
                     </div>
-                    <div>
-                        <a class="mb-acc-item" href="">
-                            <i class="ti-shopping-cart"></i>
-                        <p>My Cart</p>
-                        </a>
                     </div>
-                </div>
-        <div class="show-pdt bo-bot mar-t-b">
-            <h1 class="home-heading">Showcase Product</h1>
-            <div class="show-pdt_contain">
-                <img class="wid-100" src="./asset/image/Product/png.webp" alt="">
-                <div class="show-pdt_list" id="showcaselist">
+                    <div class="mobile-account">
+                        <div>
+                            <a class="mb-acc-item" href="">
+                            <i class="ti-bag"></i>
+                            <p>CheckOut</p> 
+                            </a>
+                        </div>
+                        <div>
+                            <a class="mb-acc-item" href="">
+                                <i class="ti-shopping-cart"></i>
+                            <p>My Cart</p>
+                            </a>
+                        </div>
+                    </div>
+            <div class="show-pdt bo-bot mar-t-b">
+                <h1 class="home-heading">Showcase Product</h1>
+                <div class="show-pdt_contain">
+                    <img class="wid-100" src="./asset/image/Product/png.webp" alt="">
+                    <div class="show-pdt_list" id="showcaselist">
 
+                    </div>
                 </div>
             </div>
-        </div>
-            </section>
+                </section>
      <!--  End Section-->
               <!-- Footer -->
     <!-- Footer -->
@@ -219,6 +218,7 @@
        <!-- End Menu Mobile -->
     <script src="./js/modal.js"></script> 
     <script src="./js/showcase.js"></script>
+    <script src="./js/account.js"></script>
 </body>
 </html>
     

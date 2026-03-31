@@ -1,76 +1,130 @@
-// Fetch data for girlfashion 
-fetch("../data/girlFashion.json")
-.then(response => response.json())
-.then(girlProducts => {
-    
+const API_PRODUCT = "https://kid-clothes-store.onrender.com/api/v1/products";
+
+// ID category áo bé gái
+const GIRL_CATEGORY_ID = "69c60f68556d421a9dfbcdd6";
+const BOY_CATEGORY_Id = "69c4ecf1911ef2eebc32d6b0"
+const ACCESSORIES_CATEGORY_ID = "69c60f83556d421a9dfbcdd7";
+fetch(API_PRODUCT)
+.then(res => res.json())
+.then(data => {
+
+    const products = data.result; 
     const girlContainer = document.getElementById("girlfashlist");
 
-    var cart ='';
-    
-    girlProducts.forEach(girlProduct => {
-        cart +=`
-            <a href="../productDetail.html?id=${girlProduct.productID}" class="cart swiper-slide mr-10-30 max-width-cart-swiper">
-                <div class="frame_img"> <img src="${girlProduct.variants[0].image[0]}" alt="image" class="img-cls"></div>
+    let cart = '';
+
+    // Loc Nhung san pham do nu
+    const girlProducts = products.filter(p => 
+        p.categoryId === GIRL_CATEGORY_ID
+    );
+
+    girlProducts.forEach(p => {
+        cart += `
+            <a href="../productDetail.html?id=${p.id}" class="cart swiper-slide mr-10-30 max-width-cart-swiper">
+                <div class="frame_img">
+                    <img src="${p.images[0]}" class="img-cls">
+                </div>
                 <div class="cart_text">
-                    <h3>${girlProduct.name}</h3>
-                    <h3 class="heading-pink">${girlProduct.variants[0].item[0].price.toLocaleString("vi-VN",{style: "currency",currency: "VND"})}</h3>    
-                    <div class="frame_img cart-color"><img class="img-cls" src="${girlProduct.variants[0].image[1]}"></div>       
+                    <h3>${p.name}</h3>
+                    <h3 class="heading-pink">
+                        ${p.price.toLocaleString("vi-VN", {
+                            style: "currency",
+                            currency: "VND"
+                        })}
+                    </h3>
+                     <div class="frame_img cart-color">
+                        <img class="img-cls" src="${p.images[1] || p.images[0]}">
                     </div>
-            </a>  
-        ` 
-    })
-    girlContainer.innerHTML = cart;
-
-
-})
+                </div>
+            </a>
+        `;
+    });
+    if(girlProducts.length === 0){
+        girlContainer.innerHTML = "<p>Không có sản phẩm áo bé gái</p>";
+    } else {
+        girlContainer.innerHTML = cart;
+    }
+});
 // Fetch data for boy fashion
-fetch("../data/boyFashion.json")
+fetch(API_PRODUCT)
 .then(response => response.json())
-.then(boyProducts => {
-    
+.then(data => {
+    const products = data.result;
     const boyContainer = document.getElementById("boyfashlist");
 
-    var cart ='';
-    
+    let cart ='';
+    const boyProducts = products.filter(p=> 
+        p.categoryId === BOY_CATEGORY_Id
+    );
+
     boyProducts.forEach(boyProduct => {
         cart +=`
-            <a href="../productDetail.html?id=${boyProduct.productID}" class="cart swiper-slide mr-10-30 max-width-cart-swiper">
-                <div class="frame_img"> <img src="${boyProduct.variants[0].image[0]}" alt="image" class="img-cls"></div>
+            <a href="../productDetail.html?id=${boyProduct.id}" class="cart swiper-slide mr-10-30 max-width-cart-swiper">
+                <div class="frame_img">
+                    <img src="${boyProduct.images[0]}" class="img-cls">
+                </div>
                 <div class="cart_text">
                     <h3>${boyProduct.name}</h3>
-                    <h3 class="heading-pink">${boyProduct.variants[0].item[0].price.toLocaleString("vi-VN",{style: "currency",currency: "VND"})}</h3>    
-                    <div class="frame_img cart-color"><img class="img-cls" src="${boyProduct.variants[0].image[1]}"></div>       
+                    <h3 class="heading-pink">
+                        ${boyProduct.price.toLocaleString("vi-VN", {
+                            style: "currency",
+                            currency: "VND"
+                        })}
+                    </h3>
+                     <div class="frame_img cart-color">
+                        <img class="img-cls" src="${boyProduct.images[1] || boyProduct.images[0]}">
                     </div>
-            </a> 
+                </div>
+            </a>
         ` 
     })
-    boyContainer.innerHTML = cart;
+    if(boyProducts.length === 0){
+        boyContainer.innerHTML = "<p>Không có sản phẩm áo bé trái</p>";
+    }else{
+        boyContainer.innerHTML = cart;
+    }
 
 
 })
 
 //Fetch data for accessories fashion
-fetch("../data/Accessories.json")
+fetch(API_PRODUCT)
 .then(response => response.json())
-.then(accessProducts => {
+.then(data => {
     
+    const products = data.result;
     const accessContainer = document.getElementById("accessfashlist");
 
-    var cart ='';
-    
+    let cart ='';
+    const accessProducts = products.filter(p => 
+        p.categoryId === ACCESSORIES_CATEGORY_ID
+    );
     accessProducts.forEach(accessProduct => {
         cart +=`
-            <a href="../productDetail.html?id=${accessProduct.productID}" class="cart swiper-slide mr-10-30 max-width-cart-swiper">
-                <div class="frame_img"> <img src="${accessProduct.variants[0].image[0]}" alt="image" class="img-cls"></div>
+            <a href="../productDetail.html?id=${accessProduct.id}" class="cart swiper-slide mr-10-30 max-width-cart-swiper">
+                <div class="frame_img">
+                    <img src="${accessProduct.images[0]}" class="img-cls">
+                </div>
                 <div class="cart_text">
                     <h3>${accessProduct.name}</h3>
-                    <h3 class="heading-pink">${accessProduct.variants[0].item[0].price.toLocaleString("vi-VN",{style: "currency",currency: "VND"})}</h3>    
-                    <div class="frame_img cart-color"><img class="img-cls" src="${accessProduct.variants[0].image[1]}"></div>       
+                    <h3 class="heading-pink">
+                        ${accessProduct.price.toLocaleString("vi-VN", {
+                            style: "currency",
+                            currency: "VND"
+                        })}
+                    </h3>
+                     <div class="frame_img cart-color">
+                        <img class="img-cls" src="${accessProduct.images[1] || accessProduct.images[0]}">
                     </div>
-            </a>  
+                </div>
+            </a>
         ` 
     })
-    accessContainer.innerHTML = cart;
+    if(accessProducts.length === 0){
+        accessContainer.innerHTML ="<p>Không có sản phẩm phụ kiện</p>";
+    }else{
+        accessContainer.innerHTML = cart;
+    }
 
 
 })

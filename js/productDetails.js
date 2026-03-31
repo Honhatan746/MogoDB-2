@@ -1,5 +1,7 @@
+import { addToCart } from "./cart.js";
+
 //JavaScript Thumbail
-function changeImage(img){
+window.changeImage  = function (img){
     const mainImg = document.getElementById("mainImg");
     const newSrc = img.src;
 
@@ -17,11 +19,11 @@ function changeImage(img){
 }
 //Quantity
 const inputQuan = document.getElementById("quantity");
-function subtract(){
+window.subtract = function (){
     let value = parseInt(inputQuan.value);
     if(value > 1) inputQuan.value = value - 1;
 }
-function add(){
+window.add = function (){
     let value = parseInt(inputQuan.value);
     inputQuan.value = value + 1;
 }
@@ -57,6 +59,7 @@ function productDetail(products){
         const variant = product.variants[0];
         currentVariant = variant;
         currentItem = variant.item[0];
+        window.currentColor = currentVariant.color;
         
         document.getElementById("prodcutDTName").innerText = product.name;  // ten ban dau 
         document.getElementById("prodcutDTID").innerText = product.productID; // list anh ban dau khi chua nhan color
@@ -76,12 +79,20 @@ function productDetail(products){
         const sizeSection = document.getElementById("sizeSection");
         const sizeTable = document.getElementById("tableDTSize");
         const boxSize = document.getElementById("prodcutDTSize");
+        const btnReads = document.querySelectorAll(".btn-read");
+        const btnBuys = document.querySelectorAll(".btn-mua");
         let sizeFirst = "";
 
         product.variants[0].item.forEach((itemChild, index) => {
                 if(currentVariant.item.length < 2 && !currentVariant.item[0].size){
                 sizeSection.style.display = "none";
                 sizeTable.style.display = "none";
+                btnReads.forEach(btnRead => {
+                    btnRead.style.display = "none";
+                })
+                btnBuys.forEach(btnBuy => {
+                    btnBuy.style.display = "block";
+                })
                 return;
             }
             sizeTable.style.display = "block";
@@ -112,6 +123,7 @@ function productDetail(products){
         window.selectColor = function(index){ //Vì onclick trong type module do dùng innerHTML nên phải đưa ra window mới onclick được
             currentVariant = product.variants[index];
             currentItem = currentVariant.item[0];
+            window.currentColor = currentVariant.color;
 
             document.getElementById("prodcutDTMainImg").innerHTML = `
             <img id="mainImg" class="height-auto img-cls" src="${currentVariant.image[0]}" alt="">
@@ -140,6 +152,12 @@ function productDetail(products){
 
             if(currentVariant.item.length < 2 && !currentVariant.item[0].size){
                 sizeSection.style.display = "none";
+                btnReads.forEach(btnRead => {
+                    btnRead.style.display = "none";
+                })
+                btnBuys.forEach(btnBuy => {
+                    btnBuy.style.display = "block";
+                })
                 return;
             }
             sizeSection.style.display = "flex";
@@ -149,15 +167,13 @@ function productDetail(products){
                 const activeSize = currentItem && currentItem.sku === itemChild.sku ? "active" : "";
 
                 sizeBtn += `
-                    <div class="btn ${activeSize}" 
+                    <div class="btn ${activeSize}" id="sizeItem" 
                     onclick="selectSize(${index})">${itemChild.size}</div>
                 `
             })
             boxSize.innerHTML = sizeBtn;
         }
         //Hàm chọn size
-        const btnReads = document.querySelectorAll(".btn-read");
-        const btnBuys = document.querySelectorAll(".btn-mua");
         window.selectSize = function(index){
             btnReads.forEach(btnRead => {
                 btnRead.style.display = "none";
@@ -179,6 +195,19 @@ function productDetail(products){
         description.innerHTML = product.descirption
 
 }
-    
+
+const btnAdd = document.getElementById("addtoCart");
+
+btnAdd.addEventListener("click", function () {
+    const productID = document.getElementById("prodcutDTID").innerText;
+    console.log(productID);
+    const sizeBtn = document.querySelector("#prodcutDTSize .active");
+    const size = sizeBtn ? sizeBtn.innerText : null;
+    console.log(size);
+    const color = window.currentColor;
+    console.log(color);
+    addToCart(productID, size, color, 1);
+});
+
 
 

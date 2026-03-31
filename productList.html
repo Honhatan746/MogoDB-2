@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product List</title>
+  <link href="./bootstrap/bootstrap-5.3.8-dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2>Product List</h2>
+      <a href="addprodcut.html" class="btn btn-primary">+ Add Product</a>
+    </div>
+
+    <table class="table table-bordered table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th>ProductID</th>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Category</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="productTable">
+        <!-- Render product here -->
+      </tbody>
+    </table>
+  </div>
+
+<script>
+  const API_URL = "https://kid-clothes-store.onrender.com/api/v1/products";
+  const API_CATEGORY = "https://kid-clothes-store.onrender.com/api/v1/categories";
+
+  let categoryMap = {}; // map id → name
+
+  // Load category trước
+  async function loadCategories() {
+    const token = localStorage.getItem("token");
+
+    const res = await fetch(API_CATEGORY, {
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    });
+
+    const data = await res.json();
+
+    if (Array.isArray(data.result)) {
+      data.result.forEach(cat => {
+        categoryMap[cat.id] = cat.name;
+      });
+    }
+  }
+
+  // Load product
+  async function fetchProducts() {
+    const res = await fetch(API_URL);
+    const data = await res.json();
+
+    const table = document.getElementById("productTable");
+    table.innerHTML = "";
+
+    if (!Array.isArray(data.result)) {
+      alert("Lỗi load sản phẩm");
+      return;
+    }
+
+    data.result.forEach((p, index) => {
+      table.innerHTML += `
+        <tr>
+          <td>${index + 1}</td>
+          <td>${p.name}</td>
+          <td>${p.price.toLocaleString()}đ</td>
+          <td>${categoryMap[p.categoryId] || "N/A"}</td>
+          <td>
+            <a href="editProduct.html?id=${p.id}" class="btn btn-warning btn-sm">Edit</a>
+            <button class="btn btn-danger btn-sm" onclick="deleteProduct('${p.id}')">Delete</button>
+          </td>
+        </tr>
+      `;
+    });
+  }
+
+  // Delete product
+  async function deleteProduct(id) {
+    if (!confirm("Are you sure to delete?")) return;
+
+    const token = localStorage.getItem("token");
+
+    const res = await fetch(`${API_URL}/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    });
+
+    const data = await res.json();
+
+    if (data.code === 1000) {
+      alert("Xóa thành công");
+      fetchProducts();
+    } else {
+      alert(data.message || "Xóa thất bại");
+    }
+  }
+
+  // chạy
+  async function init() {
+    await loadCategories(); // load trước
+    await fetchProducts(); // rồi mới render
+  }
+
+  init();
+</script>
+</body>
+</html>

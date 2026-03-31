@@ -25,14 +25,15 @@
             <a href="./index.html"><img class="wid-logo main_logo" src="./asset/image/Logo/iuh.png" alt="Logo"></a>
             <div class="header_menu ">
                 <ul class="menu-tools menu-tools-md">
-                    <li class="link-hover pad-1rem"><a title="Home" href="index.html">Home</a></li>
-                    <li class="link-hover pad-1rem"><a title="Infomation about us" href="./about.html">About</a></li>
+                    <li class="link-hover pad-1rem"><a title="Home" href="index.html">Trang chủ</a></li>
+                    <li class="link-hover pad-1rem"><a title="Infomation about us" href="./about.html">Về nhóm</a></li>
+                    <li class="link-hover pad-1rem"><a title="Home" href="productList.html">Quản lý sản phẩm</a></li>
                 </ul>
             </div>
             <div class="header_tool">
                 <ul class="menu-tools">
                     <li class="link-hover pad-1rem"><a title="Shopping cart" href="./cart.html"><i class="ti-shopping-cart"></i></a></li>
-                    <li class="link-hover pad-1rem"><a title="Account" href="./account.html"><i class="ti-user"></i></a></li>
+                    <li class="link-hover pad-1rem"><a id="userIcon" ><i class="ti-user"></i></a></li>
                     <li class="link-hover pad-1rem"><a title="CheckOut" href="./checkout.html"><i class="ti-bag"></i></a></li>
                     <li class="link-hover js-search-icon pad-1rem" ><a title="Search" ><i class="ti-search"></i></a></li>
                 </ul>
@@ -55,41 +56,49 @@
                     <form action="" class="di-flex flex-colum alignItem-cen font-title">
                     <div class="di-flex justi-cen wid-100">
                         <div class="di-flex flex-colum alignItem-star wid-100" >
-                            <label for="registerFirst">First Name</label>
-                            <input type="text" id="registerFirst" class="wid-100">
-                        </div>
-                        <div class="di-flex flex-colum alignItem-star wid-100">
-                            <label for="registerLast">Last Name</label>
-                            <input type="text" id="registerLast" class="wid-100">
+                            <label for="registerFull">Full Name</label>
+                            <input type="text" id="registerFull" class="wid-100">
+                            <p class="field-required">*This field is required.</p>
                         </div>
                     </div>  
                     <div class="di-flex flex-colum alignItem-star wid-100">
-                        <label for="registerEmail">Email</label>
-                            <input type="email" id="registerEmail" class="wid-100">
-                        
+                        <label for="registerEmail" >Email</label>
+                        <input  type="email" id="registerEmail" class="wid-100">
+                        <p class="field-required">*This field is required.</p>
+                        <p class="required-formatEmail">*Email format is inaccurate</p>
                     </div>  
                     <div class="di-flex wid-100">
                         <div class="di-flex flex-colum alignItem-star wid-100">
                             <label for="registerGender">Gender</label>
                             <select id="registerGender" class="wid-100">
+                                <option value=""></option>
                                 <option value="Boy">Nam</option>
                                 <option value="Girl">Nữ</option>
+                                <option value="Other">Khác</option>
                             </select>
                         </div>
                         <div class="di-flex flex-colum alignItem-star wid-100">
                             <label for="registerTel">Telephone Number</label>
-                        <input type="text" id="registerTel" class="wid-100">
+                            <input type="text" id="registerTel" class="wid-100">
+                            <p class="field-required">*Phone number is not valid</p>
                         </div>
                     </div>
                     <div class="di-flex flex-colum alignItem-star wid-100" >
                         <label for="registerPass">Password</label>
                         <input type="password" id="registerPass" class="wid-100">
+                        <p class="field-required">*This field is at least 8 letter.</p>
                     </div>
                     <div class="di-flex flex-colum alignItem-star wid-100">
                         <label for="registerRePass">Re-Password</label>
                         <input type="password" id="registerRePass" class="wid-100">
+                        <p class="field-required">*You must rewrite password here.</p>
+                        <p class="field-required-notmatch">*Password not match</p>
                     </div>
-                    <button class="btn background-violet color-white hover font-title">Đăng Ký</button>
+                    <div class="di-flex flex-colum alignItem-star wid-100">
+                        <label for="registerAddress">Address</label>
+                        <input type="text" id="registerAddress" class="wid-100">
+                    </div>
+                    <button class="btn background-violet color-white hover font-title" id="registerBtn">Đăng Ký</button>
                     <p>Bạn có tài khoản? <a href="./login.html">Đăng nhập</a></p>
                     </form>
                 </div>
@@ -193,5 +202,6 @@
        </div>
        <!-- End Menu Mobile -->
     <script src="./js/modal.js"></script> 
+    <script type="module" src="./js/register.js"></script>
 </body>
 </html>

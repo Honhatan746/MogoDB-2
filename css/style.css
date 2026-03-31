@@ -194,9 +194,8 @@ header{
     text-decoration: none;
     color: var(--black-color);
     cursor: pointer;
-    width: 100%;
     display: block;
-    margin: 0 1rem;
+    padding: 0 1rem;
     width: auto;
 }
 .header_menu ul li span, .header_tool ul li span {
@@ -1038,18 +1037,21 @@ background: #834aff !important;
     padding: 1.2em 2.5em;
     margin: 0 1rem;
 }
+.g-1{
+    gap: 1rem;
+}
 /* End Paying  */
 /* Check out */
 .check-out-list{
     width: 50%;
 }
+.check-out-item{
+    align-items: end;
+}
 .check-out-item .frame_img{
     width: 130px;
     overflow: visible;
     margin: 0 2rem 0 0;
-}
-.alignItem-end{
-    align-items: end;
 }
 .check-out-item .flex-colum{
     height: 130px;
@@ -1123,6 +1125,10 @@ background: #834aff !important;
     border: 1px solid var(--headding-violet);
     outline-color: var(--headding-violet);
 }
+.field-required, .field-required-notmatch, .required-formatEmail{
+    color: red;
+    display: none;
+}
 /* End Login */
 /* Account */
 .account{
@@ -1172,5 +1178,11 @@ background: #834aff !important;
     border: 1px solid var(--headding-violet);
     border-radius: 10px;
     text-decoration: none;
+}
+.account-list .list-none li:hover a{
+    color: #AB2A8B;
+}
+.account-list > p{
+    display: inline-block;
 }
 /* End Account */

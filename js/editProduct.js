@@ -1,0 +1,177 @@
+const API_PRODUCT = "https://kid-clothes-store.onrender.com/api/v1/products";
+const API_CATEGORY = "https://kid-clothes-store.onrender.com/api/v1/categories";
+
+const params = new URLSearchParams(window.location.search);
+const productId = params.get("id");
+
+let imageArray = []; // 🔥 lưu danh sách ảnh
+
+// ================= LOAD CATEGORY =================
+async function loadCategories(selectedId){
+    const token = localStorage.getItem("token");
+
+    const res = await fetch(API_CATEGORY, {
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    });
+
+    const data = await res.json();
+
+    const select = document.getElementById("category");
+
+    select.innerHTML = `<option value="">-- Select Category --</option>`;
+
+    data.result.forEach(cat => {
+        const option = document.createElement("option");
+        option.value = cat.id;
+        option.textContent = cat.name;
+
+        if(cat.id == selectedId){
+            option.selected = true;
+        }
+
+        select.appendChild(option);
+    });
+}
+
+// ================= LOAD PRODUCT =================
+async function loadProduct(){
+    const res = await fetch(`${API_PRODUCT}/${productId}`);
+    const data = await res.json();
+
+    const p = data.result;
+
+    document.getElementById("productId").value = p.id;
+    document.getElementById("name").value = p.name;
+    document.getElementById("price").value = p.price;
+    document.getElementById("description").value = p.description || "";
+
+    // 🔥 set image array
+    imageArray = [...p.images];
+    document.getElementById("images").value = imageArray.join(", ");
+
+    renderPreview();
+
+    const variant = p.variants[0];
+    document.getElementById("size").value = variant.size;
+    document.getElementById("color").value = variant.color;
+    document.getElementById("stock").value = variant.stock;
+    
+
+    await loadCategories(p.categoryId);
+}
+
+// ================= RENDER PREVIEW =================
+function renderPreview(){
+    const preview = document.getElementById("preview");
+    preview.innerHTML = "";
+
+    imageArray.forEach((url, index) => {
+        const col = document.createElement("div");
+        col.className = "col-md-3 mb-3";
+
+        col.innerHTML = `
+            <div class="card shadow-sm position-relative">
+                
+                <button 
+                    class="btn btn-danger btn-sm position-absolute top-0 end-0 m-1 remove-btn"
+                    style="z-index:10; border-radius:50%; width:28px; height:28px; padding:0;">
+                    ✕
+                </button>
+
+                <img 
+                    src="${url}" 
+                    class="card-img-top" 
+                    style="height:150px; object-fit:cover;"
+                    onerror="this.src='https://via.placeholder.com/150?text=Error'">
+            </div>
+        `;
+
+        // 🔥 XÓA ẢNH
+        col.querySelector(".remove-btn").addEventListener("click", () => {
+            imageArray.splice(index, 1);
+
+            document.getElementById("images").value = imageArray.join(", ");
+            renderPreview();
+        });
+
+        preview.appendChild(col);
+    });
+}
+
+// ================= INPUT IMAGE =================
+document.getElementById("images").addEventListener("input", function(){
+    imageArray = this.value
+        .split(",")
+        .map(i => i.trim())
+        .filter(i => i !== "");
+
+    renderPreview();
+});
+
+// ================= UPDATE PRODUCT =================
+document.getElementById("editForm").addEventListener("submit", async function(e){
+    e.preventDefault();
+
+    const token = localStorage.getItem("token");
+
+    const id = document.getElementById("productId").value;
+    const name = document.getElementById("name").value;
+    const price = parseFloat(document.getElementById("price").value);
+    const categoryId = parseInt(document.getElementById("category").value);
+    const description = document.getElementById("description").value;
+
+    const size = document.getElementById("size").value;
+    const color = document.getElementById("color").value;
+    const stock = parseInt(document.getElementById("stock").value);
+
+    if(imageArray.length === 0){
+        alert("Vui lòng nhập ít nhất 1 ảnh");
+        return;
+    }
+
+    const productData = {
+        name,
+        price,
+        categoryId,
+        description,
+        images: imageArray, // 🔥 dùng trực tiếp
+        variants: [
+            {
+                size,
+                color,
+                stock
+            }
+        ]
+    };
+
+    console.log("DATA UPDATE:", productData);
+
+    try {
+        const res = await fetch(`${API_PRODUCT}/${id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify(productData)
+        });
+
+        const data = await res.json();
+
+        if(data.code === 1000){
+            alert("Cập nhật thành công!");
+            window.location.href = "productList.html";
+        }else{
+            alert(data.message || "Cập nhật thất bại");
+        }
+
+    } catch(err){
+        console.error(err);
+        alert("Lỗi server");
+    }
+});
+
+// INIT
+loadProduct();

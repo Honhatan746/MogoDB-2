@@ -48,3 +48,20 @@ menuMobileBody.addEventListener('click', (event)=>{
     event.stopPropagation();
 });
 // End Menu
+// Login and Account
+const userIcon = document.getElementById("userIcon");
+const token = localStorage.getItem("token");
+    console.log(token);
+    if(!token){
+        userIcon.title = "Login";
+    }else{
+        userIcon.title = "My Account";
+    }
+
+userIcon.addEventListener("click",function(){
+    if(!token){
+        window.location.href = "../login.html";
+    }else{
+        window.location.href = "../account.html";
+    }
+})

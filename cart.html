@@ -25,14 +25,15 @@
             <a href="./index.html"><img class="wid-logo main_logo" src="./asset/image/Logo/iuh.png" alt="Logo"></a>
             <div class="header_menu ">
                 <ul class="menu-tools menu-tools-md">
-                    <li class="link-hover pad-1rem"><a title="Home" href="index.html">Home</a></li>
-                    <li class="link-hover pad-1rem"><a title="Infomation about us" href="./about.html">About</a></li>
+                    <li class="link-hover pad-1rem"><a title="Home" href="index.html">Trang chủ</a></li>
+                    <li class="link-hover pad-1rem"><a title="Infomation about us" href="./about.html">Về nhóm</a></li>
+                    <li class="link-hover pad-1rem"><a title="Home" href="productList.html">Quản lý sản phẩm</a></li>
                 </ul>
             </div>
             <div class="header_tool">
                 <ul class="menu-tools">
                     <li class="link-hover pad-1rem"><a title="Shopping cart" href="./cart.html"><i class="ti-shopping-cart"></i></a></li>
-                    <li class="link-hover pad-1rem"><a title="Account" href="./account.html"><i class="ti-user"></i></a></li>
+                    <li class="link-hover pad-1rem"><a id="userIcon" ><i class="ti-user"></i></a></li>
                     <li class="link-hover pad-1rem"><a title="CheckOut" href="./checkout.html"><i class="ti-bag"></i></a></li>
                     <li class="link-hover js-search-icon pad-1rem" ><a title="Search" ><i class="ti-search"></i></a></li>
                 </ul>
@@ -56,12 +57,16 @@
             </div>
             <div class="bo-bot font-title mar-t-b"><p class=" dis-in">Giỏ hàng của bạn có :<p class="dis-in heading-pink font-w-700">3 sản phẩm</p></p></div>
             <div class="cart-content di-flex">
-                <div class="cart-list">
+                <div class="cart-list" id="cartList">
                         <div class="cart-item di-flex bo-bot">
                             <i class="ti-close absolute font-w-700 font-title"></i>
                             <div class="frame_img"><img class="img-cls" src="./asset/image/Product/GirlFashion/GF01/jpeg (1).webp" alt=""></div>
                         <div class="di-flex flex-colum font-text cart-detail">
                             <p class=" font-w-700 font-price">Ao ke len</p>
+                            <div class="di-flex g-1">
+                                <p class=" font-w-100 font-text">Color,</p>
+                                <p class=" font-w-100 font-text">Size</p>
+                            </div>
                             <div class="product-dt-quantity">
                                 <p class="font-title mar-t-b">So Luong:</p>
                             <div>
@@ -126,7 +131,7 @@
                         <a href=""><i class="ti-pinterest-alt font-icon text-hover"></i></a>
                         <a href=""><i class="ti-youtube font-icon text-hover"></i></a>
                     </div>
-                </div>
+                </div>  
 
             </div>
             <div>
@@ -194,16 +199,6 @@
        </div>
        <!-- End Menu Mobile -->
         <script src="./js/modal.js"></script> 
-        <script>
-            const inputQuan = document.getElementById("quantity");
-function subtract(){
-    let value = parseInt(inputQuan.value);
-    if(value > 1) inputQuan.value = value - 1;
-}
-function add(){
-    let value = parseInt(inputQuan.value);
-    inputQuan.value = value + 1;
-}
-        </script>
+        <!-- <script src="./js/cart.js"></script> -->
 </body>
 </html>
