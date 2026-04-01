@@ -1,4 +1,6 @@
 import { addToCart } from "./cart.js";
+    let selectedSize = null;
+    let selectedColor = null;
 
 //JavaScript Thumbail
 window.changeImage  = function (img){
@@ -29,184 +31,174 @@ window.add = function (){
 }
 
 //
-const dataFile = [
-    "../data/girlFashion.json",
-    "../data/boyFashion.json",
-    "../data/Accessories.json",
-    "../data/showcase.json"
-]
+const API_PRODUCT = "https://kid-clothes-store.onrender.com/api/v1/products";
 
-Promise.all(
-    dataFile.map(file => fetch(file).then(res => res.json()))
-).then(allData => {
-    const products  = allData.flat();
-
+fetch(API_PRODUCT)
+.then(res => res.json())
+.then(data => {
+    const products = data.result;
     productDetail(products);
-})
-//show data
+});
+
 function productDetail(products){
-    var currentVariant = null;
-    var currentItem = null;
+    let currentVariant = null;
 
     const params = new URLSearchParams(window.location.search);
     const productID  = params.get("id");
 
-        const product = products.find(p => p.productID === productID);
-        if (!product) {
-            return;
+    const product = products.find(p => p.id === productID);
+    if (!product) return;
+
+    // set default variant
+    currentVariant = product.variants[0];
+    window.currentColor = currentVariant.color;
+
+    // NAME + ID
+    document.getElementById("prodcutDTName").innerText = product.name;
+    document.getElementById("prodcutDTID").innerText = product.id;
+
+    // MAIN IMAGE
+    document.getElementById("prodcutDTMainImg").innerHTML = `
+        <img id="mainImg" class="height-auto img-cls" src="${product.images[0]}" />
+    `;
+
+    // THUMBNAIL
+    let thumbail = "";
+    product.images.forEach(img => {
+        thumbail += `
+            <div class="product-dt_list_img">
+                <img class="img-cls" onclick="changeImage(this)" src="${img}">
+            </div>
+        `;
+    });
+    document.getElementById("productDTList").innerHTML = thumbail;
+
+    // PRICE
+    document.getElementById("productDTPrice").innerText =
+        product.price.toLocaleString("vi-VN") + "đ";
+
+    // SIZE (từ variants)
+    const sizeBox = document.getElementById("prodcutDTSize");
+    let sizeHTML = "";
+
+    product.variants.forEach((v, index) => {
+        sizeHTML += `
+            <div class="btn" onclick="selectSize(${index})">
+                ${v.size}
+            </div>
+        `;
+    });
+    sizeBox.innerHTML = sizeHTML;
+
+    // COLOR (simple text hoặc button)
+    const colorBox = document.getElementById("productDTcolor");
+    let colorHTML = "";
+
+    product.variants.forEach((v, index) => {
+        colorHTML += `
+            <div class="btn colorBtn" onclick="selectColor(${index})">
+                ${v.color}
+            </div>
+        `;
+    });
+    colorBox.innerHTML = colorHTML;
+
+    // DESCRIPTION
+    document.getElementById("productDTDescription").innerText =
+        product.description;
+
+    // SELECT SIZE
+    window.selectSize = function(index){
+    const sizeBtns = document.querySelectorAll("#prodcutDTSize .btn");
+
+    sizeBtns.forEach(btn => btn.classList.remove("active"));
+    sizeBtns[index].classList.add("active");
+
+    selectedSize = sizeBtns[index].innerText;
+
+    checkSelection();
+}
+    // HANDLE BTN BUY
+
+    function checkSelection(){
+    const btnReads = document.querySelectorAll(".btn-read");
+    const btnBuys = document.querySelectorAll(".btn-mua");
+
+    if(selectedSize && selectedColor){
+        // 👉 Đã chọn đủ
+        btnReads.forEach(btn => btn.style.display = "none");
+        btnBuys.forEach(btn => btn.style.display = "inline-block");
+    } else {
+        // 👉 Chưa chọn đủ
+        btnReads.forEach(btn => btn.style.display = "inline-block");
+        btnBuys.forEach(btn => btn.style.display = "none");
+    }
+}
+
+    // SELECT COLOR
+    window.selectColor = function(index){
+    const colorBtns = document.querySelectorAll("#productDTcolor .btn");
+
+    colorBtns.forEach(btn => btn.classList.remove("active"));
+    colorBtns[index].classList.add("active");
+
+    selectedColor = colorBtns[index].innerText;
+
+    checkSelection();
+}
+console.log(product.categoryId);
+// tableSize
+        const tableDTSize = document.getElementById("tableDTSize");
+        var table = "";
+        if(product.categoryId === "69c60f68556d421a9dfbcdd6" || product.categoryId === "69c4ecf1911ef2eebc32d6b0"){
+            table += `<h1 class="bo-bot upcass home-heading">Bảng Size cho bé</h1>
+                <div class="table-wrapper">
+                    <table class="table-dt-size wid-100 font-title">
+                        <thead>
+                            <tr>
+                                <th>Size</th>
+                                <th>Chiều cao</th>
+                                <th>Cân nặng</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>S</td>
+                                <td>60cm - 102cm</td>
+                                <td>8kg - 15kg</td>
+                            </tr>
+                            <tr>
+                                <td>M</td>
+                                <td>120cm - 130cm</td>
+                                <td>20kg - 29kg</td>
+                            </tr>
+                            <tr>
+                                <td>L</td>
+                                <td>110cm - 116cm</td>
+                                <td>16kg - 23kg</td>
+                            </tr>
+                            <tr>
+                                <td>XL</td>
+                                <td>140cm - 150cm</td>
+                                <td>28kg - 40kg</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>`;
+                tableDTSize.innerHTML = table;
         }
-        
-        const variant = product.variants[0];
-        currentVariant = variant;
-        currentItem = variant.item[0];
-        window.currentColor = currentVariant.color;
-        
-        document.getElementById("prodcutDTName").innerText = product.name;  // ten ban dau 
-        document.getElementById("prodcutDTID").innerText = product.productID; // list anh ban dau khi chua nhan color
-        
-        let  thumbail = "";
-        const list = document.getElementById("productDTList");
-            product.variants[0].image.forEach(img => {
-                thumbail += `
-                    <div class="product-dt_list_img" >
-                    <img class="img-cls" onclick="changeImage(this)" 
-                    src="${img}"
-                    alt=""></div>
-                `;
-            })
-        list.innerHTML = thumbail;
-
-        const sizeSection = document.getElementById("sizeSection");
-        const sizeTable = document.getElementById("tableDTSize");
-        const boxSize = document.getElementById("prodcutDTSize");
-        const btnReads = document.querySelectorAll(".btn-read");
-        const btnBuys = document.querySelectorAll(".btn-mua");
-        let sizeFirst = "";
-
-        product.variants[0].item.forEach((itemChild, index) => {
-                if(currentVariant.item.length < 2 && !currentVariant.item[0].size){
-                sizeSection.style.display = "none";
-                sizeTable.style.display = "none";
-                btnReads.forEach(btnRead => {
-                    btnRead.style.display = "none";
-                })
-                btnBuys.forEach(btnBuy => {
-                    btnBuy.style.display = "block";
-                })
-                return;
-            }
-            sizeTable.style.display = "block";
-            sizeTable.innerHTML = product.sizeTable;
-            sizeSection.style.display = "flex";
-                sizeFirst += `
-                    <div class="btn" 
-                    onclick="selectSize(${index})">${itemChild.size}</div>
-                `
-            })
-        boxSize.innerHTML = sizeFirst;
-
-        //lấy ảnh chính và giá 
-        document.getElementById("prodcutDTMainImg").innerHTML = `<img id="mainImg" class="height-auto img-cls" src="${variant.image[0]}" alt="Image">`;
-        document.getElementById("productDTPrice").innerText = variant.item[0].price.toLocaleString("vi-VN") + "đ";
-        //danh sách màu sắc
-        const colorContain = document.getElementById("productDTcolor");
-        let colorImg = "";
-        product.variants.forEach((variant, index) => {
-            colorImg += `
-                <img class="pointer heith-45 img-cls" src="${variant.image[0]}"
-                onclick="selectColor(${index})"
-                alt="${variant.color}">
-            `
-        });
-        colorContain.innerHTML = colorImg;
-//Hàm click màu sác đổi ảnh và đổi giá, mã, size
-        window.selectColor = function(index){ //Vì onclick trong type module do dùng innerHTML nên phải đưa ra window mới onclick được
-            currentVariant = product.variants[index];
-            currentItem = currentVariant.item[0];
-            window.currentColor = currentVariant.color;
-
-            document.getElementById("prodcutDTMainImg").innerHTML = `
-            <img id="mainImg" class="height-auto img-cls" src="${currentVariant.image[0]}" alt="">
-            `;
-            let  thumbail = "";
-            currentVariant.image.forEach(img => {
-                thumbail += `
-                    <div class="product-dt_list_img" >
-                    <img class="img-cls" onclick="changeImage(this)" 
-                    src="${img}"
-                    alt=""></div>
-                `;
-            })
-            list.innerHTML = thumbail;
-
-        document.getElementById("productDTPrice").innerText = currentItem.price.toLocaleString("vi-VN") + "đ";
-
-
-        document.getElementById("prodcutDTID").innerText = currentItem.sku;
-
-        renderSizes();
-        }
-        //Hàm tạo size cho mỗi color
-        
-        function renderSizes(){
-
-            if(currentVariant.item.length < 2 && !currentVariant.item[0].size){
-                sizeSection.style.display = "none";
-                btnReads.forEach(btnRead => {
-                    btnRead.style.display = "none";
-                })
-                btnBuys.forEach(btnBuy => {
-                    btnBuy.style.display = "block";
-                })
-                return;
-            }
-            sizeSection.style.display = "flex";
-            let sizeBtn = "";
-
-            currentVariant.item.forEach((itemChild, index) => {
-                const activeSize = currentItem && currentItem.sku === itemChild.sku ? "active" : "";
-
-                sizeBtn += `
-                    <div class="btn ${activeSize}" id="sizeItem" 
-                    onclick="selectSize(${index})">${itemChild.size}</div>
-                `
-            })
-            boxSize.innerHTML = sizeBtn;
-        }
-        //Hàm chọn size
-        window.selectSize = function(index){
-            btnReads.forEach(btnRead => {
-                btnRead.style.display = "none";
-            })
-            btnBuys.forEach(btnBuy => {
-                btnBuy.style.display = "block";
-            })
-            currentItem = currentVariant.item[index];
-
-            document.getElementById("productDTPrice").innerText = 
-            currentItem.price.toLocaleString("vi-VN") + "đ";
-
-            document.getElementById("prodcutDTID").innerText = currentItem.sku;
-
-            renderSizes();
-        }
-
-        const description = document.getElementById("productDTDescription");
-        description.innerHTML = product.descirption
-
 }
 
 const btnAdd = document.getElementById("addtoCart");
 
 btnAdd.addEventListener("click", function () {
     const productID = document.getElementById("prodcutDTID").innerText;
-    console.log(productID);
     const sizeBtn = document.querySelector("#prodcutDTSize .active");
     const size = sizeBtn ? sizeBtn.innerText : null;
-    console.log(size);
-    const color = window.currentColor;
-    console.log(color);
-    addToCart(productID, size, color, 1);
+    const color = selectedColor;
+    const quantity = parseInt(inputQuan.value) || 1;
+
+    addToCart(productID, size, color, quantity);
 });
 
 

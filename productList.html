@@ -29,90 +29,56 @@
     </table>
   </div>
 
-<script>
-  const API_URL = "https://kid-clothes-store.onrender.com/api/v1/products";
-  const API_CATEGORY = "https://kid-clothes-store.onrender.com/api/v1/categories";
-
-  let categoryMap = {}; // map id → name
-
-  // Load category trước
-  async function loadCategories() {
-    const token = localStorage.getItem("token");
-
-    const res = await fetch(API_CATEGORY, {
-      headers: {
-        "Authorization": `Bearer ${token}`
-      }
-    });
-
-    const data = await res.json();
-
-    if (Array.isArray(data.result)) {
-      data.result.forEach(cat => {
-        categoryMap[cat.id] = cat.name;
-      });
-    }
-  }
-
-  // Load product
-  async function fetchProducts() {
-    const res = await fetch(API_URL);
-    const data = await res.json();
-
-    const table = document.getElementById("productTable");
-    table.innerHTML = "";
-
-    if (!Array.isArray(data.result)) {
-      alert("Lỗi load sản phẩm");
-      return;
-    }
-
-    data.result.forEach((p, index) => {
-      table.innerHTML += `
-        <tr>
-          <td>${index + 1}</td>
-          <td>${p.name}</td>
-          <td>${p.price.toLocaleString()}đ</td>
-          <td>${categoryMap[p.categoryId] || "N/A"}</td>
-          <td>
-            <a href="editProduct.html?id=${p.id}" class="btn btn-warning btn-sm">Edit</a>
-            <button class="btn btn-danger btn-sm" onclick="deleteProduct('${p.id}')">Delete</button>
-          </td>
-        </tr>
-      `;
-    });
-  }
-
-  // Delete product
-  async function deleteProduct(id) {
-    if (!confirm("Are you sure to delete?")) return;
-
-    const token = localStorage.getItem("token");
-
-    const res = await fetch(`${API_URL}/${id}`, {
-      method: "DELETE",
-      headers: {
-        "Authorization": `Bearer ${token}`
-      }
-    });
-
-    const data = await res.json();
-
-    if (data.code === 1000) {
-      alert("Xóa thành công");
-      fetchProducts();
-    } else {
-      alert(data.message || "Xóa thất bại");
-    }
-  }
-
-  // chạy
-  async function init() {
-    await loadCategories(); // load trước
-    await fetchProducts(); // rồi mới render
-  }
-
-  init();
-</script>
+  <div class="modal fade" id="variantModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        
+        <div class="modal-header">
+          <h5 class="modal-title"></h5>
+          <button class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        
+        <div class="modal-body">
+          
+          <input type="hidden" id="variantProductId">
+          
+          <!-- LIST VARIANT -->
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Size</th>
+                <th>Color</th>
+                <th>Stock</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="variantTable"></tbody>
+          </table>
+          
+          <hr>
+          
+          <!-- ADD VARIANT -->
+          <div class="row">
+            <div class="col">
+              <input id="vSize" class="form-control" placeholder="Size">
+            </div>
+            <div class="col">
+              <input id="vColor" class="form-control" placeholder="Color">
+            </div>
+            <div class="col">
+              <input id="vStock" type="number" class="form-control" placeholder="Stock">
+            </div>
+            <div class="col">
+              <button class="btn btn-primary" onclick="addVariant()">Add</button>
+            </div>
+          </div>
+          
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  <script src="./js/productList.js"> </script>
+  <script src="./bootstrap/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"> </script>
 </body>
 </html>

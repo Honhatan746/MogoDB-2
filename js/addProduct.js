@@ -30,11 +30,11 @@
     });
     }
 
-const imageInput = document.getElementById("imageUrls");
-const preview = document.getElementById("preview");
-const countSpan = document.getElementById("count");
+    const imageInput = document.getElementById("imageUrls");
+    const preview = document.getElementById("preview");
+    const countSpan = document.getElementById("count");
 
-let imageArray = [];
+    let imageArray = [];
 
 // Khi nhập URL
 imageInput.addEventListener("input", () => {

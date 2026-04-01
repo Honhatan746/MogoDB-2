@@ -36,6 +36,7 @@ async function loadCategories(selectedId){
 }
 
 // ================= LOAD PRODUCT =================
+let variantsData = [];
 async function loadProduct(){
     const res = await fetch(`${API_PRODUCT}/${productId}`);
     const data = await res.json();
@@ -47,17 +48,13 @@ async function loadProduct(){
     document.getElementById("price").value = p.price;
     document.getElementById("description").value = p.description || "";
 
+    variantsData =  p.variants || [];
+
     // 🔥 set image array
     imageArray = [...p.images];
     document.getElementById("images").value = imageArray.join(", ");
 
     renderPreview();
-
-    const variant = p.variants[0];
-    document.getElementById("size").value = variant.size;
-    document.getElementById("color").value = variant.color;
-    document.getElementById("stock").value = variant.stock;
-    
 
     await loadCategories(p.categoryId);
 }
@@ -119,12 +116,8 @@ document.getElementById("editForm").addEventListener("submit", async function(e)
     const id = document.getElementById("productId").value;
     const name = document.getElementById("name").value;
     const price = parseFloat(document.getElementById("price").value);
-    const categoryId = parseInt(document.getElementById("category").value);
+    const categoryId = document.getElementById("category").value;
     const description = document.getElementById("description").value;
-
-    const size = document.getElementById("size").value;
-    const color = document.getElementById("color").value;
-    const stock = parseInt(document.getElementById("stock").value);
 
     if(imageArray.length === 0){
         alert("Vui lòng nhập ít nhất 1 ảnh");
@@ -137,13 +130,7 @@ document.getElementById("editForm").addEventListener("submit", async function(e)
         categoryId,
         description,
         images: imageArray, // 🔥 dùng trực tiếp
-        variants: [
-            {
-                size,
-                color,
-                stock
-            }
-        ]
+        variants: variantsData
     };
 
     console.log("DATA UPDATE:", productData);

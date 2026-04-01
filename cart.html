@@ -50,57 +50,67 @@
         </nav>
      <!-- End Navbar -->
       <!--Section  -->
-        <section class="home-container">
-            <div class="text-car upcass font-title heading-pink mar-t-b">
-                <h1>SHOPPING </h1>
-                <h1>Cart </h1>
+    <section class="home-container">
+
+        <div class="text-car upcass font-title heading-pink mar-t-b">
+            <h1>SHOPPING</h1>
+            <h1>Cart</h1>
+        </div>
+
+        <!-- SỐ LƯỢNG -->
+        <div class="bo-bot font-title mar-t-b">
+            <p class="dis-in">
+                Giỏ hàng của bạn có :
+                <span id="cartCount" class="heading-pink font-w-700">0</span> sản phẩm
+            </p>
+        </div>
+
+        <div class="cart-content di-flex">
+
+            <!-- LIST CART -->
+            <div class="cart-list" id="cartList">
+                <!-- JS render ở đây -->
             </div>
-            <div class="bo-bot font-title mar-t-b"><p class=" dis-in">Giỏ hàng của bạn có :<p class="dis-in heading-pink font-w-700">3 sản phẩm</p></p></div>
-            <div class="cart-content di-flex">
-                <div class="cart-list" id="cartList">
-                        <div class="cart-item di-flex bo-bot">
-                            <i class="ti-close absolute font-w-700 font-title"></i>
-                            <div class="frame_img"><img class="img-cls" src="./asset/image/Product/GirlFashion/GF01/jpeg (1).webp" alt=""></div>
-                        <div class="di-flex flex-colum font-text cart-detail">
-                            <p class=" font-w-700 font-price">Ao ke len</p>
-                            <div class="di-flex g-1">
-                                <p class=" font-w-100 font-text">Color,</p>
-                                <p class=" font-w-100 font-text">Size</p>
-                            </div>
-                            <div class="product-dt-quantity">
-                                <p class="font-title mar-t-b">So Luong:</p>
-                            <div>
-                                <button class="btn no-bor font-w-700" onclick="subtract()">–</button>
-                                <input type="text" id="quantity" class="no-bor font-w-700" value="3" readonly>
-                                <button class="btn no-bor font-w-700" onclick="add()">+</button>
-                            </div>
-                            </div>
-                            <p class="font-w-700 heading-pink font-price under-line absolute">379.000đ</p>  
-                        </div> 
-                        </div>
-                </div>
-                <div class="cart-total di-flex flex-colum">
-                    <div class="di-flex flex-colum total-text ">
-                            <div class="di-flex justi-btw">
-                                <p>Tien hang hoa</p>
-                                <p>1.137.000đ</p>
-                            </div>
-                            <div  class="di-flex justi-btw">
-                                <p>Giam gia</p>
-                                <p>0đ</p>
-                            </div >
-                            <div class="di-flex justi-btw bo-bot">
-                                <p class="heading-pink">Tong cong</p>
-                                <p class="heading-pink font-w-700 font-icon" >1.137.000đ</p>
-                            </div>
+
+            <!-- TOTAL -->
+            <div class="cart-total di-flex flex-colum">
+                <div class="di-flex flex-colum total-text">
+
+                    <div class="di-flex justi-btw">
+                        <p>Tiền hàng hóa</p>
+                        <p id="cartSubTotal">0đ</p>
                     </div>
-                    
-                    <button class="btn upcass font-w-700 background-violet hover color-white">Dac hang ngay</button>
+
+                    <div class="di-flex justi-btw">
+                        <p>Giảm giá</p>
+                        <p>0đ</p>
+                    </div>
+
+                    <div class="di-flex justi-btw bo-bot">
+                        <p class="heading-pink">Tổng cộng</p>
+                        <p id="cartTotal" class="heading-pink font-w-700 font-icon">0đ</p>
+                    </div>
+
                 </div>
+
+                <button class="btn upcass font-w-700 background-violet hover color-white">
+                    Đặt hàng ngay
+                </button>
             </div>
-            <p class="font-title mar-t-b heading-pink font-w-700"> <i class="ti-arrow-left"></i> Tiếp tục mua sắm</p>
-            <p class="font-title heading-pink font-w-700 bo-bot mar-t-b"> <i class="ti-bag"></i> <a class="heading-pink upcass" href="">Check out</a></p>
-        </section>
+
+        </div>
+
+        <p class="font-title mar-t-b heading-pink font-w-700">
+            <i class="ti-arrow-left"></i> 
+            <a class="font-title heading-pink font-w-700" href="./index.html">Tiếp tục mua sắm</a>
+        </p>
+
+        <p class="font-title heading-pink font-w-700 bo-bot mar-t-b">
+            <i class="ti-bag"></i>
+            <a class="heading-pink upcass" href="./checkout.html">Check out</a>
+        </p>
+
+    </section>
      <!--  End Section-->
     <footer>
         <div class="footer_background">
@@ -198,7 +208,8 @@
             </div>
        </div>
        <!-- End Menu Mobile -->
-        <script src="./js/modal.js"></script> 
+        <script  src="./js/modal.js"></script> 
+        <script type="module" src="./js/cart.js"></script>
         <!-- <script src="./js/cart.js"></script> -->
 </body>
 </html>

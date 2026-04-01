@@ -767,7 +767,7 @@ header{
     font-weight: 600;
     font-size: 1.6rem;
 }
-.size-frame .btn.active{
+.size-frame .btn.active, .colorBtn.active{
     background-color: var(--headding-violet);
     color: var(--white-color);
 }
@@ -885,6 +885,7 @@ background: #834aff !important;
 }
 .cart-item{
     position: relative;
+    padding: 1rem;
     width: 100%;
 }
 .cart-item .absolute{
@@ -1065,6 +1066,10 @@ background: #834aff !important;
     color: #ffffff;
     border: 2px solid #ffffff;
     font-weight: 700;
+}
+.check-out-item button{
+    padding: 1rem 1.4rem;
+    font-size: 1.4rem;
 }
 .dis-none{
     display: none;
