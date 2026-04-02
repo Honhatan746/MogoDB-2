@@ -88,29 +88,20 @@
                                 <p>Thanh toán khi giao hàng</p>
                             </div>
                         </div>
-                        <button class="btn upcass font-w-700 background-violet hover color-white">Xác nhận đặt hàng</button>
+                        <button type="button" class="btn upcass font-w-700 background-violet hover color-white" onclick="creatOrder()">Xác nhận đặt hàng</button>
                     </form>
                 </div>
                 <div class="paying-display font-title">
                     <div class="paying-list">
-                        <div class="paying-item di-flex alignItem-cen wid-100 justi-btw bo-bot mar-t-b">
-                            <div class="di-flex alignItem-cen ">
-                                <div class="frame_img paying-item-img"><img class="img-cls" src="./asset/image/Product/GirlFashion/GF01/jpeg (1).webp" alt="">
-                                    <div class="absolute">3</div>
-                                </div>
-                                
-                                <p class="font-price">Ao ke len</p>
-                            </div>
-                            <p >1.137.00đ</p>
-                        </div>
+                        <!-- Js render ra -->
                     </div>
                     <div class="di-flex justi-btw mar-t-b">
                                 <p>Tien hang hoa</p>
-                                <p>1.137.000đ</p>
+                                <p id="totalTem">1.137.000đ</p>
                     </div>
                     <div  class="di-flex justi-btw mar-t-b">
                                 <p>Giảm giá</p>
-                                <p>0đ</p>
+                                <p id="voucher">0đ</p>
                     </div >
                     <div  class="di-flex justi-btw mar-t-b">
                                 <p>Phí vận chuyển</p>
@@ -118,11 +109,11 @@
                     </div >
                     <div class="di-flex justi-btw bo-bot mar-t-b">
                                 <p class="heading-pink font-icon mar-t-b font-w-700">Tong cong</p>
-                                <p class="heading-pink font-w-700 font-icon" >1.137.000đ</p>
+                                <p class="heading-pink font-w-700 font-icon" id="total" >1.137.000đ</p>
                     </div>
             </div>
 
-            <div class="fix-bottom" style="display: block;">
+            <div class="fix-bottom pay-fixed">
                 <div class="di-flex alignItem-cen">
                     <button class="btn font-w-700 font-title background-violet color-white hover upcass">Đặt hàng</button>
                    <div>
@@ -232,5 +223,6 @@
             </div>
        </div>
         <script src="./js/modal.js"></script> 
+        <script src="./js/paying.js"></script>
 </body>
 </html>

@@ -203,3 +203,20 @@ window.removeItem = async function(productId, size, color){
         console.error(err);
     }
 }
+// Payment
+window.goToPaying = function(){
+    const token = localStorage.getItem("token");
+
+    if(!token){
+        alert("Vui lòng đăng nhập");
+        return;
+    }
+
+    // kiểm tra cart có hàng không
+    if(document.getElementById("cartCount").innerText == "0"){
+        alert("Giỏ hàng trống");
+        return;
+    }
+
+    window.location.href ="../paying.html";
+}

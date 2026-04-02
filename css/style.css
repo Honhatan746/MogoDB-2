@@ -325,6 +325,18 @@ header{
 .cart:hover{
     transform: rotate(1deg) scale(1.02);
 }
+.btnEditCart{
+    padding: 0.8rem 2.6rem;
+    background-color: #B999FD;
+    color: white;
+    border: 1px solid var(--headding-violet);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1.2rem;
+    display: flex;
+    gap: 8px;
+}
 .aspect-ratio-auto{
     aspect-ratio: auto !important;
 }
@@ -1040,6 +1052,9 @@ background: #834aff !important;
 }
 .g-1{
     gap: 1rem;
+}
+.pay-fixed{
+    display: none;
 }
 /* End Paying  */
 /* Check out */

@@ -127,7 +127,7 @@ async function addVariant(){
   const data = await res.json();
   const product = data.result;
 
-  // ❗ check trùng
+  //  check trùng
   const exists = product.variants.some(v => v.size === size && v.color === color);
   if(exists){
     alert("Variant đã tồn tại");
@@ -153,7 +153,7 @@ async function deleteVariant(index){
 async function updateVariants(productId, variants){
   const token = localStorage.getItem("token");
 
-  // 👉 lấy product hiện tại
+  //  lấy product hiện tại
   const res = await fetch(`${API_URL}/${productId}`);
   const data = await res.json();
   const product = data.result;
@@ -167,7 +167,7 @@ async function updateVariants(productId, variants){
       variants: variants
     });
 
-  // 👉 gửi full data (QUAN TRỌNG)
+  //  gửi full data 
   const resUpdate = await fetch(`${API_URL}/${productId}`, {
     method: "PUT",
     headers: {

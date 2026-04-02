@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quản lý Người dùng (Staff)</title>
+  <link href="./bootstrap/bootstrap-5.3.8-dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2>Danh sách Người dùng</h2>
+      <a href="register.html" class="btn btn-primary">+ Tạo người dùng mới</a>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <div class="input-group">
+          <input type="text" id="searchKeyword" class="form-control" placeholder="Tìm theo tên (keyword)...">
+          <button class="btn btn-outline-secondary" onclick="searchUsers()">Tìm kiếm</button>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <select id="roleFilter" class="form-select" onchange="filterByRole()">
+          <option value="">Tất cả vai trò</option>
+          <option value="CUSTOMER">CUSTOMER</option>
+          <option value="STAFF">STAFF</option>
+        </select>
+      </div>
+    </div>
+
+    <table class="table table-bordered table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th>ID</th>
+          <th>Họ tên</th>
+          <th>Email</th>
+          <th>Số điện thoại</th>
+          <th>Địa chỉ</th>
+          <th>Vai trò</th>
+          <th>Hành động</th>
+        </tr>
+      </thead>
+      <tbody id="userTable">
+        </tbody>
+    </table>
+  </div>
+
+  <div class="modal fade" id="userModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Cập nhật thông tin người dùng</h5>
+          <button class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="editUserForm">
+            <div class="mb-3">
+              <label class="form-label">Email (Không thể sửa)</label>
+              <input type="email" id="editEmail" class="form-control" readonly>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Họ tên</label>
+              <input type="text" id="editFullName" class="form-control">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Số điện thoại</label>
+              <input type="text" id="editPhone" class="form-control">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Địa chỉ</label>
+              <input type="text" id="editAddress" class="form-control">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Mật khẩu mới (Nếu cần đổi)</label>
+              <input type="password" id="editPassword" class="form-control" placeholder="Tối thiểu 8 ký tự">
+            </div>
+            <button type="button" class="btn btn-success" onclick="saveUser()">Lưu thay đổi</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./js/userManagement.js"></script>
+  <script src="./bootstrap/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

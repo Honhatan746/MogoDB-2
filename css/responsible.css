@@ -118,6 +118,7 @@
     box-shadow: -2px -2px 8px #00000040;
     background-color: white;
     display: flex;
+    justify-content: end;
     }
     .btn-mua{
         width: 100%;
@@ -165,5 +166,11 @@
     }
     .mobile-account{
         display: flex;
+    }
+    .pay-fixed{
+        display: block;
+    }
+    .paying-form .btn{
+        display: none;
     }
 }
