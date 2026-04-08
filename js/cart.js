@@ -1,5 +1,5 @@
 const API_CART = "https://kid-clothes-store.onrender.com/api/v1/cart";
-getCart();
+document.addEventListener("DOMContentLoaded", getCart);
 // ================= GET CART =================
 export async function getCart(){
     const token = localStorage.getItem("token");
@@ -14,9 +14,10 @@ export async function getCart(){
         });
 
         const data = await res.json();
+        console.log(data);
 
         if(data.code === 1000){
-            renderCart(data.result.items || []);
+            renderCart(data.result.items);
         }
     } catch(err){
         console.error("Lỗi load cart:", err);
@@ -24,41 +25,41 @@ export async function getCart(){
 }
 
 // ================= RENDER CART =================
-function renderCart(items){
+function renderCart(items) {
     const cartList = document.getElementById("cartList");
     const cartCount = document.getElementById("cartCount");
     const cartSubTotal = document.getElementById("cartSubTotal");
     const cartTotal = document.getElementById("cartTotal");
 
-    cartList.innerHTML = "";
+    if (!cartList) return;
 
-    if(items.length === 0){
+    if (!items || items.length === 0) {
         cartList.innerHTML = "<p>Giỏ hàng trống</p>";
-        cartCount.innerText = 0;
+        cartCount.innerText = "0";
         cartSubTotal.innerText = "0đ";
         cartTotal.innerText = "0đ";
         return;
     }
 
     let total = 0;
+    // 1. Tạo một biến trung gian để chứa toàn bộ HTML
+    let htmlContent = ""; 
 
     items.forEach(item => {
         total += item.subTotal || 0;
 
-        cartList.innerHTML += `
+        // 2. Cộng dồn chuỗi vào biến htmlContent 
+        htmlContent += `
             <div class="cart-item di-flex bo-bot">
-                
                 <i class="ti-close pointer absolute font-w-700 font-title"
                    onclick="removeItem('${item.productId}', '${item.size}', '${item.color}')"></i>
 
                 <div class="frame_img">
-                    <img class="img-cls" src="${item.imageUrl}" alt="">
+                    <img class="img-cls" src="${item.imageUrl}" alt="${item.productName}">
                 </div>
 
                 <div class="di-flex flex-colum font-text cart-detail">
-                    
                     <p class="font-w-700 font-price">${item.productName}</p>
-
                     <div class="di-flex g-1">
                         <p>${item.color},</p>
                         <p>${item.size}</p>
@@ -67,28 +68,26 @@ function renderCart(items){
                     <div class="product-dt-quantity">
                         <p class="font-title mar-t-b">Số lượng:</p>
                         <div>
-                            <button class="btn no-bor font-w-700"
+                            <button class="btncss no-bor font-w-700"
                                 onclick="decrease('${item.productId}', '${item.size}', '${item.color}', ${item.quantity})">–</button>
-
-                            <input type="text" 
-                                class="quantity-input no-bor font-w-700"
-                                value="${item.quantity}" readonly>
-
-                            <button class="btn no-bor font-w-700"
+                            <input type="text" class="quantity-input no-bor font-w-700" value="${item.quantity}" readonly>
+                            <button class="btncss no-bor font-w-700"
                                 onclick="increase('${item.productId}', '${item.size}', '${item.color}', ${item.quantity})">+</button>
                         </div>
                     </div>
 
                     <p class="font-w-700 heading-pink font-price under-line absolute">
                         ${Number(item.subTotal || 0).toLocaleString("vi-VN")}đ
-                    </p>  
-
+                    </p>
                 </div> 
             </div>
         `;
     });
 
-    // cập nhật tổng
+    // 3. Sau khi chạy xong vòng lặp, mới gán một lần duy nhất vào DOM
+    cartList.innerHTML = htmlContent;
+
+    // Cập nhật tổng
     cartCount.innerText = items.length;
     cartSubTotal.innerText = total.toLocaleString("vi-VN") + "đ";
     cartTotal.innerText = total.toLocaleString("vi-VN") + "đ";

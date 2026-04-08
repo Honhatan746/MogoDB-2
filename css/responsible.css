@@ -120,7 +120,7 @@
     display: flex;
     justify-content: end;
     }
-    .btn-mua{
+    .btncss-mua{
         width: 100%;
         font-size: var(--font-price);
     }
@@ -140,7 +140,7 @@
     .cart-detail .product-dt-quantity input{
         width: 4rem;
     }
-    .cart-detail .product-dt-quantity .btn{
+    .cart-detail .product-dt-quantity .btncss{
     padding: 1rem 1em;
 }
     .cart-item .frame_img{
@@ -170,7 +170,7 @@
     .pay-fixed{
         display: block;
     }
-    .paying-form .btn{
+    .paying-form .btncss{
         display: none;
     }
 }

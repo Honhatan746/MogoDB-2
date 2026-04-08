@@ -20,6 +20,7 @@ async function handeLogin(){
 
     if(result.result?.token){
         localStorage.setItem("token", result.result.token);
+        await getProfile();
         alert("Đăng nhập thành công");
         window.location.href = "../index.html";
     }else{
@@ -27,3 +28,17 @@ async function handeLogin(){
     }
 
 }
+async function getProfile(){
+        const token = localStorage.getItem("token");
+
+        const res = await fetch("https://kid-clothes-store.onrender.com/api/v1/users/myInfo", {
+        headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+        });
+        const data = await res.json();
+        if(data.code === 1000){
+                localStorage.setItem("role", data.result.role);
+                localStorage.setItem("userId", data.result.id);
+            }
+        }

@@ -43,9 +43,9 @@
           <td>${p.price.toLocaleString()}đ</td>
           <td>${categoryMap[p.categoryId] || "N/A"}</td>
           <td>
-            <a href="editProduct.html?id=${p.id}" class="btn btn-warning btn-sm">Edit</a>
-            <button class="btn btn-danger btn-sm" onclick="deleteProduct('${p.id}')">Delete</button>
-            <button class="btn btn-secondary btn-sm" onclick="viewVariants('${p.id}')">Variants</button>
+            <a href="editProduct.html?id=${p.id}" class="btn btn-warning btn-sm font-title">Edit</a>
+            <button class="btn btn-danger btn-sm font-title" onclick="deleteProduct('${p.id}')">Delete</button>
+            <button class="btn btn-secondary btn-sm font-title" onclick="viewVariants('${p.id}')">Variants</button>
           </td>
         </tr>
       `;
@@ -82,38 +82,68 @@
   }
 
   init();
+  let variantModal = null;
+  let currentProducts = [];
 //   Handle variant
  async function viewVariants(productId){
     const modalTitle = document.querySelector(".modal-title");
     const res = await fetch(`${API_URL}/${productId}`);
     const data = await res.json();
 
-    const product = data.result;
-    modalTitle.textContent = product.name;
+    currentProducts = data.result;
+    modalTitle.textContent = currentProducts.name;
     document.getElementById("variantProductId").value = productId;
     
 
-    renderVariantTable(product.variants);
-    const model = new bootstrap.Modal(document.getElementById("variantModal"));
-    model.show();
+    renderVariantTable(currentProducts.variants);
+    if(!variantModal){
+    variantModal = new bootstrap.Modal(document.getElementById("variantModal"));
+    }
+    variantModal.show();
+}
+function renderVariantTable(variants) {
+    const table = document.getElementById("variantTable");
+    let tableHtml = "";
+
+    variants.forEach((variant, index) => {
+        tableHtml += `
+            <tr>
+                <td style="min-width = 80px;">
+                    <input type="text" class="form-control form-control-sm edit-size font-title border border-0 p-2 " 
+                           value="${variant.size}" onchange="updateLocalVariant(${index}, 'size', this.value)">
+                </td>
+                <td>
+                    <input type="text" class="form-control form-control-sm edit-color font-title border border-0 p-2" 
+                           value="${variant.color}" onchange="updateLocalVariant(${index}, 'color', this.value)">
+                </td>
+                <td>
+                    <input type="number" class="form-control form-control-sm edit-stock font-title border border-0 p-2" 
+                           value="${variant.stock}" onchange="updateLocalVariant(${index}, 'stock', this.value)">
+                </td>
+                <td class="text-center">
+                    <button class="btn btnTrashVariant btn-sm font-title" onclick="deleteVariantLocal(${index})">
+                        <i class="ti-trash"></i> <span class="d-none d-md-inline">Xóa</span>
+                    </button>
+                </td>
+            </tr>
+        `;
+    });
+    table.innerHTML = tableHtml;
+}
+// Cập nahajt lại giá trị vào mảng
+function updateLocalVariant(index, field, value) {
+    if (field === 'stock') {
+        currentProducts.variants[index][field] = parseInt(value) || 0;
+    } else {
+        currentProducts.variants[index][field] = value;
+    }
 }
 
-function renderVariantTable(variants){
-    const table = document.getElementById("variantTable");
-    table.innerHTML = "";
-    variants.forEach((variant, index) => {
-        table.innerHTML += `
-            <tr>
-        <td>${variant.size}</td>
-        <td>${variant.color}</td>
-        <td>${variant.stock}</td>
-        <td>
-          <button class="btn btn-danger btn-sm"
-            onclick="deleteVariant(${index})">X</button>
-        </td>
-      </tr>
-        `
-    });
+function deleteVariantLocal(index) {
+    if (confirm("Bạn có chắc muốn xóa variant này không?")) {
+        currentProducts.variants.splice(index, 1); // Xóa khỏi mảng tạm
+        renderVariantTable(currentProducts.variants); // Vẽ lại bảng
+    }
 }
 // add variant
 async function addVariant(){
@@ -138,17 +168,40 @@ async function addVariant(){
 
   await updateVariants(productId, product.variants);
 }
-// delete variant
-async function deleteVariant(index){
-  const productId = document.getElementById("variantProductId").value;
-  const res = await fetch(`${API_URL}/${productId}`);
-  const data = await res.json();
-  const product = data.result;
+// Save chỉnh sửa
+async function saveAllChanges() {
+    const productId = document.getElementById("variantProductId").value;
+    const token = localStorage.getItem("token"); // Lấy token của STAFF
 
-  product.variants.splice(index, 1);
+    if (!token) {
+        alert("Vui lòng đăng nhập quyền STAFF!");
+        return;
+    }
 
-  await updateVariants(productId, product.variants);
+    try {
+        const res = await fetch(`${API_URL}/${productId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(currentProducts)
+        });
+
+        const data = await res.json();
+
+        if (data.code === 1000) {
+            alert("Cập nhật thành công!");
+            currentProducts = data.result;
+        } else {
+            alert("Lỗi: " + (data.message || "Không thể cập nhật"));
+        }
+    } catch (error) {
+        console.error("Lỗi kết nối:", error);
+        alert("Lỗi server, vui lòng thử lại sau!");
+    }
 }
+
 // update lại 
 async function updateVariants(productId, variants){
   const token = localStorage.getItem("token");
@@ -192,3 +245,45 @@ async function updateVariants(productId, variants){
     alert("Lỗi update");
   }
 }
+
+async function findProduct() {
+    const inputId = document.getElementById("findProductId").value.trim();
+    const table = document.getElementById("productTable");
+
+    if (!inputId) {
+        fetchProducts(); // Nếu để trống thì hiện lại tất cả
+        return;
+    }
+
+    try {
+        const res = await fetch(`${API_URL}/${inputId}`);
+        const data = await res.json();
+
+        if (data.code === 1000) {
+            const p = data.result;
+            // Chỉ hiển thị duy nhất sản phẩm tìm được lên bảng
+            table.innerHTML = `
+              <tr class="align-middle">
+                    <td>1</td>
+                    <td>${p.name}</td>
+                    <td>${p.price.toLocaleString()}đ</td>
+                    <td>${categoryMap[p.categoryId] || "N/A"}</td>
+                    <td>
+                      <a href="editProduct.html?id=${p.id}" class="btn btn-warning btn-sm font-title">Edit</a>
+                      <button class="btn btn-danger btn-sm font-title" onclick="deleteProduct('${p.id}')">Delete</button>
+                      <button class="btn btn-secondary btn-sm font-title" onclick="viewVariants('${p.id}')">Variants</button>
+                    </td>
+              </tr>
+              `;
+        } else {
+            alert("Không tìm thấy mã sản phẩm này!");
+        }
+    } catch (error) {
+        alert("Mã ID không hợp lệ hoặc lỗi server!");
+    }
+}
+
+// Thêm sự kiện nhấn Enter cho ô nhập mã
+document.getElementById("findProductId")?.addEventListener("keypress", function(e) {
+    if (e.key === "Enter") findProduct();
+});

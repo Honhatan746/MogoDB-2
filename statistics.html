@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard Statistics</title>
+    <link href="./bootstrap/bootstrap-5.3.8-dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .chart-container {
+        position: relative;
+        width: 100%;
+        height: 300px; /* chỉnh ở đây */
+        }
+</style>
+</head>
+<body>
+<!-- Header -->
+     <!--Header -->
+    <header>
+        <div class="header_sub">
+            <p>Kids’s products – gentle and comfortable</p>
+            <p>Best-selling products on the market</p>
+        </div>
+        <div class="header_main">
+            <div class="menu-md">
+                <div 
+                class="menu-ti link-hover menu-ti-js"><i class="ti-menu"></i>    
+                </div>
+                <a href="./index.html"><img class="wid-logo sub_logo" src="./asset/image/Logo/iuh.png" alt="Logo"></a>
+            </div>
+            <a href="./index.html"><img class="wid-logo main_logo" src="./asset/image/Logo/iuh.png" alt="Logo"></a>
+            <div class="header_menu">
+                <!-- Cho Js reder ra theo từng role -->
+            </div>
+            <div class="header_tool">
+                <!-- Cho Js reder ra theo từng role -->
+            </div>
+        </div>
+    </header>
+ <!-- Content -->
+<div class="container mt-4">
+    <h2 class="mb-4 text-primary">Báo cáo Thống kê</h2>
+
+    <ul class="nav nav-tabs mb-4" id="statTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="revenue-tab" data-bs-toggle="tab" data-bs-target="#revenue" type="button" role="tab">Doanh thu</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="users-tab" data-bs-toggle="tab" data-bs-target="#users" type="button" role="tab">Top Khách hàng</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="products-tab" data-bs-toggle="tab" data-bs-target="#products" type="button" role="tab">Top Sản phẩm</button>
+        </li>
+    </ul>
+
+    <div class="tab-content" id="statTabsContent">
+        
+        <div class="tab-pane fade show active" id="revenue" role="tabpanel" aria-labelledby="revenue-tab">            
+            <!-- Chart -->
+            <div class="row mb-4 g-3">
+                <div class="col-md-3">
+                    <label class="small fw-bold">Xem theo năm (Tháng)</label>
+                    <input type="number" id="yearInput" class="form-control" value="2026">
+                </div>
+                <div class="col-md-4">
+                    <label class="small fw-bold">Khoảng ngày (Biểu đồ ngày)</label>
+                    <div class="input-group">
+                        <input type="date" id="dateFrom" class="form-control">
+                        <input type="date" id="dateTo" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-2 d-flex align-items-end">
+                    <button class="btn btn-primary w-100" onclick="handleLoadAllStatistics()">Lọc dữ liệu</button>
+                </div>
+            </div>
+
+            <div class="row mb-4 g-4"> <div class="col-lg-7 col-12">
+                    <div class="card shadow-sm h-100"> <div class="card-header bg-white fw-bold">Biểu đồ doanh thu ngày (Line Chart)</div>
+                        <div class="card-body">
+                            <div class="chart-container" style="position: relative; height:300px;">
+                                <canvas id="dayChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-5 col-12">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-header bg-white fw-bold">So sánh doanh thu tháng (Bar Chart)</div>
+                        <div class="card-body">
+                            <div class="chart-container" style="position: relative; height:300px;">
+                                <canvas id="monthChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Dữ liệu  -->
+
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <div class="card text-center shadow-sm">
+                        <div class="card-body">
+                            <h5>Tổng doanh thu</h5>
+                            <h3 id="totalRevenue" class="text-success">0 VND</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card text-center shadow-sm">
+                        <div class="card-body">
+                            <h5>Tổng đơn hàng</h5>
+                            <h3 id="totalOrders" class="text-info">0</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-white fw-bold">Doanh thu chi tiết theo tháng</div>
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Tháng</th>
+                                <th>Doanh thu</th>
+                                <th>Số đơn</th>
+                            </tr>
+                        </thead>
+                        <tbody id="revenueTable"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="users" role="tabpanel">
+        <div class="row g-4">
+            <div class="col-lg-5 col-12">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-header bg-white fw-bold text-center">Tỉ trọng chi tiêu khách hàng</div>
+                    <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                        <div style="position: relative; height:300px; width:100%">
+                            <canvas id="userDoughnutChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-7 col-12">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-header bg-white fw-bold">Top 5 khách hàng & Nhóm khác</div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Hạng</th>
+                                        <th>User ID</th>
+                                        <th class="text-end">Tổng chi tiêu</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="topUsersTable"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+
+        <div class="tab-pane fade" id="products" role="tabpanel">
+            <div class="row mb-4 g-2">
+                <div class="col-md-4">
+                    <label class="small fw-bold">Từ ngày</label>
+                    <input type="datetime-local" id="startDate" class="form-control">
+                </div>
+                <div class="col-md-4">
+                    <label class="small fw-bold">Đến ngày</label>
+                    <input type="datetime-local" id="endDate" class="form-control">
+                </div>
+                <div class="col-md-2">
+                    <label class="small fw-bold">Số lượng</label>
+                    <input type="number" id="limit" class="form-control" value="5">
+                </div>
+                <div class="col-md-2 d-flex align-items-end">
+                    <button class="btn btn-primary w-100" onclick="loadTopProducts()">Lọc Sản Phẩm</button>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-lg-6 col-12">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-header bg-white fw-bold">Biểu đồ sản lượng bán ra</div>
+                        <div class="card-body">
+                            <div style="position: relative; height:350px;">
+                                <canvas id="productBarChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-12">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-header bg-white fw-bold">Chi tiết sản phẩm bán chạy</div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Mã SP</th>
+                                            <th>Tên sản phẩm</th>
+                                            <th class="text-end">Số lượng</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="topProductsTable"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+ </div>
+     <!-- Footer -->
+    <footer>
+        <div class="footer_background">
+            <div class="footer_text">
+                <h1>Kidcore fashion - ultimate refinement</h1>
+            </div>
+        </div>
+        <div class="footer_body">
+            <div class="footer_info">
+                <a href=""><img class="wid-logo" src="./asset/image/Logo/iuh.png" alt=""></a>
+                <div class="mar-t-b">
+                    <i  class="ti-mobile "></i>
+                    <a class="text-hover" href=""><p>Liên hệ: 0123456789</p></a>
+                </div>
+                <div class="mar-t-b">
+                    <i class="ti-email"></i>
+                    <a class="text-hover" href=""><p>Email: KidcoreFashion@gmail.com</p></a>
+                </div>
+                <div class="mar-t-b">
+                    <i class="ti-home"></i>
+                    <a class="text-hover" href=""><p>Địa chỉ: Số 12 Nguyễn Văn Bảo, P. Hạnh Thông, Thành phố Hồ Chí Minh</p></a>
+                </div>
+                <div class="mar-t-b">
+                    <h1>Conect with us</h1>
+                    <div class="mar-t-b">
+                        <a href=""><i class="ti-instagram font-icon text-hover"></i></a>
+                        <a href=""><i class="ti-facebook font-icon text-hover"></i></a>
+                        <a href=""><i class="ti-pinterest-alt font-icon text-hover"></i></a>
+                        <a href=""><i class="ti-youtube font-icon text-hover"></i></a>
+                    </div>
+                </div>
+
+            </div>
+            <div>
+                <ul>
+                    <li>Service</li>
+                    <li><a class="text-hover" href="./index.html">Home</a></li>
+                    <li><a class="text-hover" href="./about.html">About</a></li>
+                    <li><a class="text-hover" href="./cart.html">My Cart</a></li>
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    <li>Customer support</li>
+                    <li><a class="text-hover" href="">Payment support</a></li>
+                    <li><a class="text-hover" href="">Ordering support</a></li>
+                    <li><a class="text-hover" href="">Delivery and shipping</a></li>
+                    <li><a class="text-hover" href="">Check orders</a></li>
+                    <li><a class="text-hover" href="">Contact us: 0123456789</a></li>
+                </ul>
+            </div>  
+        </div>
+        <div class="footer_end">
+            <p>Welcome <sup>©</sup> 2026    </p>
+        </div>
+    </footer>
+    <!-- Footer -->
+    <!-- Search -->
+     <div class="search js_search">
+        <div class="search_body js-search_body">
+            <a href=""><img class="wid-logo-big " src="./asset/image/Logo/iuh.png" alt=""></a>
+            <div class="search_content">
+                <div class="search_input">
+                    <input placeholder="Search your favorate products..." type="text" id="serach_input">
+                    <button class="btn-search absout-search"><i class="ti-search"></i></button>
+                    
+                    <div class="" id="listProductSearch">
+                              <!--Render ra sản phẩm ở đây  -->
+                    </div>
+                </div>
+            </div>
+            <div class="header_tool searchTool">
+                <!-- Render ra ở đây -->
+            </div>
+        </div>
+     </div>
+     <!-- End Search -->
+      <!-- Menu Mobile -->
+       <div class="menu-mobile menu-mobile-js">
+            <div class="menu-mobile_body" > 
+                    <div class="menu-mobile_header">
+                        <div class="wid-logo"><img src="./asset/image/Logo/iuh.png" alt="Logo"></div>
+                        <h1>Catalogue</h1>
+                    </div>
+                    <div class="header_menu alignItem-star">
+                        <ul class=" menu-tools flex-colum menu-tools-mobile">
+                            <li class="pad-2rem link-hover"><a class="text-hover" href="">Home</a></li>
+                            <li class="pad-2rem link-hover"><a class="text-hover" href="">About</a></li>
+                        </ul>
+                    </div>
+                    <div class="menu-mobile_img ">
+                        <div><img src="./asset/image/Slide/anh_tet.webp" alt="anhTet"></div>
+                        <div><img src="./asset/image/Slide/anh_trung_thu.webp" alt="anhTrungThu"></div>
+                    </div>
+            </div>
+       </div>
+       <!-- End Menu Mobile -->
+<script src="./js/chart.umd.min.js"></script>
+<script src="./js/modal.js"></script>
+<script src="./js/statistics.js"></script>
+<script src="./bootstrap/bootstrap-5.3.8-dist/js/bootstrap.bundle.js"></script>
+</body>
+</html>

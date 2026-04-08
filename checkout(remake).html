@@ -1,15 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders</title>
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./asset/icon/themify-icons-font/themify-icons/themify-icons.css">
-    <link rel="stylesheet" href="./css/responsible.css">
-    <title>Cart</title>
+    <link rel="stylesheet" href="./css/responsible.css"> 
+    <!-- Bootstrap 5 -->
+    <link href="./bootstrap/bootstrap-5.3.8-dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        .order-card {
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+        .product-img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .status-badge {
+            font-size: 0.85rem;
+        }
+    </style>
 </head>
-<body>
-    <!--Header -->
+<!-- header -->
+     <!--Header -->
     <header>
         <div class="header_sub">
             <p>Kids’s products – gentle and comfortable</p>
@@ -31,78 +49,42 @@
             </div>
         </div>
     </header>
-    <!--End Header -->
-                <!-- Navbar  -->
-     <nav class="navbar margin-t-77">
-            <ul>
-                <i><li><a href="./index.html">Home</a></li></i>
-                <i><li>Cart</li></i>
-            </ul>
-        </nav>
-     <!-- End Navbar -->
-      <!--Section  -->
-    <section class="home-container">
+ <!-- Content -->
+<body class="bg-light">
 
-        <div class="text-car upcass font-title heading-pink mar-t-b">
-            <h1>SHOPPING</h1>
-            <h1>Cart</h1>
-        </div>
+<div class="container py-4">
 
-        <!-- SỐ LƯỢNG -->
-        <div class="bo-bot font-title mar-t-b">
-            <p class="dis-in">
-                Giỏ hàng của bạn có :
-                <span id="cartCount" class="heading-pink font-w-700">0</span> sản phẩm
-            </p>
-        </div>
+    <h3 class="mb-4">Đơn hàng của bạn</h3>
+    <div id="staffControls" class="mb-3" style="display:none;">
+    <select id="statusFilter" class="form-select w-25">
+        <option value="PENDING_PAYMENT">Chờ thanh toán</option>
+        <option value="PENDING_DELIVERY">Chờ giao</option>
+        <option value="DELIVERING">Đang giao</option>
+        <option value="COMPLETED">Hoàn thành</option>
+        <option value="CANCELED">Đã hủy</option>
+    </select>
+</div>
+    <div id="orderContainer"></div>
 
-        <div class="cart-content di-flex">
+</div>
 
-            <!-- LIST CART -->
-            <div class="cart-list" id="cartList">
-                <!-- JS render ở đây -->
-            </div>
+<div class="modal fade" id="orderDetailModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
 
-            <!-- TOTAL -->
-            <div class="cart-total di-flex flex-colum">
-                <div class="di-flex flex-colum total-text">
+      <div class="modal-header">
+        <h5 class="modal-title">Chi tiết đơn hàng</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
 
-                    <div class="di-flex justi-btw">
-                        <p>Tiền hàng hóa</p>
-                        <p id="cartSubTotal">0đ</p>
-                    </div>
+      <div class="modal-body" id="orderDetailContent">
+        <!-- JS render vào đây -->
+      </div>
 
-                    <div class="di-flex justi-btw">
-                        <p>Giảm giá</p>
-                        <p>0đ</p>
-                    </div>
+    </div>
+  </div>
+</div>
 
-                    <div class="di-flex justi-btw bo-bot">
-                        <p class="heading-pink">Tổng cộng</p>
-                        <p id="cartTotal" class="heading-pink font-w-700 font-icon">0đ</p>
-                    </div>
-
-                </div>
-
-                <button class="btncss upcass font-w-700 background-violet hover color-white" onclick="goToPaying()">
-                    Đặt hàng ngay
-                </button>
-            </div>
-
-        </div>
-
-        <p class="font-title mar-t-b heading-pink font-w-700">
-            <i class="ti-arrow-left"></i> 
-            <a class="font-title heading-pink font-w-700" href="./index.html">Tiếp tục mua sắm</a>
-        </p>
-
-        <p class="font-title heading-pink font-w-700 bo-bot mar-t-b">
-            <i class="ti-bag"></i>
-            <a class="heading-pink upcass" href="./checkout.html">Check out</a>
-        </p>
-
-    </section>
-     <!--  End Section-->
     <!-- Footer -->
     <footer>
         <div class="footer_background">
@@ -201,7 +183,7 @@
        </div>
        <!-- End Menu Mobile -->
        <script src="./js/modal.js"></script>
-        <script type="module" src="./js/cart.js"></script>
-        <!-- <script src="./js/cart.js"></script> -->
+<script src="./js/checkout.js"></script>
+<script src="./bootstrap/bootstrap-5.3.8-dist/js/bootstrap.bundle.js"></script>
 </body>
 </html>

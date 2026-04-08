@@ -4,108 +4,181 @@
   <meta charset="UTF-8">
   <title>Edit Product</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- Bootstrap -->
   <link href="./bootstrap/bootstrap-5.3.8-dist/css/bootstrap.min.css" rel="stylesheet">
-
+  <link rel="stylesheet" href="./asset/icon/themify-icons-font/themify-icons/themify-icons.css">
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/responsible.css">
   <style>
-    body{
-      background: #f5f6fa;
+    body { background: #f5f6fa; }
+    /* Responsive image preview */
+    .preview-img-container {
+      position: relative;
+      padding-top: 100%; /* Giữ khung vuông */
+      overflow: hidden;
+      border-radius: 8px;
     }
-
-    .card{
-      border-radius: 12px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    .preview-img-container img {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      object-fit: cover;
     }
-
-    .title{
-      font-weight: 700;
-      color: #333;
-    }
-
-    /* preview ảnh */
     .remove-btn {
+      position: absolute;
+      top: 5px; right: 5px;
       opacity: 0;
       transition: 0.2s;
+      z-index: 10;
     }
-
-    .card:hover .remove-btn {
-      opacity: 1;
-    }
+    .col-preview:hover .remove-btn { opacity: 1; }
   </style>
 </head>
 
 <body>
-
-<div class="container mt-5">
-  <div class="card p-4">
+    <!--Header -->
+    <header>
+        <div class="header_sub">
+            <p>Kids’s products – gentle and comfortable</p>
+            <p>Best-selling products on the market</p>
+        </div>
+        <div class="header_main">
+            <div class="menu-md">
+                <div 
+                class="menu-ti link-hover menu-ti-js"><i class="ti-menu"></i>    
+                </div>
+                <a href="./index.html"><img class="wid-logo sub_logo" src="./asset/image/Logo/iuh.png" alt="Logo"></a>
+            </div>
+            <a href="./index.html"><img class="wid-logo main_logo" src="./asset/image/Logo/iuh.png" alt="Logo"></a>
+            <div class="header_menu">
+                <!-- Cho Js reder ra theo từng role -->
+            </div>
+            <div class="header_tool">
+                <!-- Cho Js reder ra theo từng role -->
+            </div>
+        </div>
+    </header>
+    <!-- Navbar -->
+                  <!-- Navbar  -->
+     <nav class="navbar" style="margin-top: 95px;">
+            <ul style="margin: 0;">
+                <i><li><a href="./index.html">Home</a></li></i>
+                <i><li><a href="./productList.html">Manage Product</a></li></i>
+                <i><li>Edit Product</li></i>
+            </ul>
+        </nav>
+  <!-- Content -->
+<div class="container-fluid container-lg my-4 my-md-5">
+  <div class="cardEdit p-3 p-md-4">
     
-    <div class="d-flex justify-content-between align-items-center mb-4">
-      <h2 class="title">Edit Product</h2>
-      <a href="productList.html" class="btn btn-secondary">← Back</a>
+    <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center mb-4 gap-3">
+      <h2 class="title m-0 text-center text-sm-start font-heading heading-pink fw-bold">Edit Product</h2>
+      <a href="productList.html" class="btn btn-sm px-3 font-title rounded-3 back">← Back</a>
     </div>
 
     <form id="editForm">
-
       <input type="hidden" id="productId">
 
-      <div class="row">
+      <div class="row g-3 g-md-4">
 
-        <!-- LEFT -->
-        <div class="col-md-6">
-
+        <div class="col-12 col-lg-6">
           <div class="mb-3">
-            <label class="form-label">Product Name</label>
-            <input type="text" id="name" class="form-control">
+            <label class="form-label fw-semibold font-price">Product Id</label>
+            <input type="text" id="idInput" class="form-control font-title form-control-lg-custom border border-0" readonly>
           </div>
 
           <div class="mb-3">
-            <label class="form-label">Price</label>
-            <input type="number" id="price" class="form-control">
+            <label class="form-label fw-semibold font-price">Product Name</label>
+            <input type="text" id="name" class="form-control font-title form-control-lg-custom">
+          </div>
+
+          <div class="row g-2">
+             <div class="col-12 col-sm-6 mb-3">
+                <label class="form-label fw-semibold font-price">Price (VNĐ)</label>
+                <input type="number" id="price" class="form-control font-title">
+             </div>
+             <div class="col-12 col-sm-6 mb-3">
+                <label class="form-label fw-semibold font-price">Category</label>
+                <select id="category" class="form-select font-title"></select>
+             </div>
           </div>
 
           <div class="mb-3">
-            <label class="form-label">Category</label>
-            <select id="category" class="form-select"></select>
+            <label class="form-label fw-semibold font-price">Description</label>
+            <textarea id="description" class="form-control font-title" rows="5" placeholder="Mô tả sản phẩm..."></textarea>
           </div>
-
-          <div class="mb-3">
-            <label class="form-label">Description</label>
-            <textarea id="description" class="form-control" rows="3"></textarea>
-          </div>
-
         </div>
 
-        <!-- RIGHT -->
-        <div class="col-md-6">
-
-          <!-- IMAGE INPUT -->
+        <div class="col-12 col-lg-6">
           <div class="mb-3">
-            <label class="form-label">Image URLs (phân cách dấu ,)</label>
-            <input 
-              type="text" 
-              id="images" 
-              class="form-control" 
-              placeholder="https://a.jpg, https://b.png"
-            >
+            <label class="form-label fw-semibold font-price">Image URLs (dấu phẩy để ngăn cách)</label>
+            <div class="input-group ">
+                <span class="input-group-text bg-white"><i class="ti-image font-title"></i></span>
+                <input 
+                  type="text" 
+                  id="images" 
+                  class="form-control font-title" 
+                  placeholder="https://a.jpg, https://b.png"
+                >
+            </div>
 
-            <!-- PREVIEW GRID -->
-            <div class="row mt-3" id="preview"></div>
-
+            <div class="row row-cols-2 row-cols-sm-3 g-2 mt-2" id="preview">
+            </div>
           </div>
-
         </div>
 
       </div>
 
-      <button class="btn btn-success w-100 mt-3">Update Product</button>
+      <div class="mt-4">
+          <button class="btn updateProduct w-100 py-2 fw-bold shadow-sm font-title">
+            <i class="ti-save font-title "></i> UPDATE PRODUCT
+          </button>
+      </div>
 
     </form>
 
   </div>
 </div>
-
+    <!-- Footer -->
+    <!-- Search -->
+     <div class="search js_search">
+        <div class="search_body js-search_body">
+            <a href=""><img class="wid-logo-big " src="./asset/image/Logo/iuh.png" alt=""></a>
+            <div class="search_content">
+                <div class="search_input">
+                    <input placeholder="Search your favorate products..." type="text" id="serach_input">
+                    <button class="btn-search absout-search"><i class="ti-search"></i></button>
+                    
+                    <div class="" id="listProductSearch">
+                              <!--Render ra sản phẩm ở đây  -->
+                    </div>
+                </div>
+            </div>
+            <div class="header_tool searchTool">
+                <!-- Render ra ở đây -->
+            </div>
+        </div>
+     </div>
+     <!-- End Search -->
+      <!-- Menu Mobile -->
+       <div class="menu-mobile menu-mobile-js">
+            <div class="menu-mobile_body" > 
+                    <div class="menu-mobile_header">
+                        <div class="wid-logo"><img src="./asset/image/Logo/iuh.png" alt="Logo"></div>
+                        <h1>Catalogue</h1>
+                    </div>
+                    <div class="header_menu alignItem-star">
+                        <ul class=" menu-tools flex-colum menu-tools-mobile">
+                            <li class="pad-2rem link-hover"><a class="text-hover" href="">Home</a></li>
+                            <li class="pad-2rem link-hover"><a class="text-hover" href="">About</a></li>
+                        </ul>
+                    </div>
+                    <div class="menu-mobile_img ">
+                        <div><img src="./asset/image/Slide/anh_tet.webp" alt="anhTet"></div>
+                        <div><img src="./asset/image/Slide/anh_trung_thu.webp" alt="anhTrungThu"></div>
+                    </div>
+            </div>
+       </div>
+       <!-- End Menu Mobile -->
 <script src="./js/editProduct.js"></script>
-
+<script src="./js/modal.js"></script>
 </body>
 </html>

@@ -8,10 +8,16 @@ fetch( "https://kid-clothes-store.onrender.com/api/v1/products")
     const top8 = sortedProducts.slice(0, 8);
 
     var cart = '';
+function getProductLink(productId){
+    const role = localStorage.getItem("role");
+    if(role === "STAFF") return `../editProduct.html?id=${productId}`;
+    else return `../productDetail.html?id=${productId}`;
+}
     
     top8.forEach(product => {
+        const productLink = getProductLink(product.id);
         cart += `
-             <a href="../productDetail.html?id=${product.id}" class="cart swiper-slide mr-10-30 max-width-cart-swiper">
+             <a href="${productLink}" class="cart swiper-slide mr-10-30 max-width-cart-swiper">
                 <div class="frame_img">
                     <img src="${product.images[0]}" class="img-cls">
                 </div>

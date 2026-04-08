@@ -1,6 +1,57 @@
 
 const API_ORDER = "https://kid-clothes-store.onrender.com/api/v1/orders";
 const API_CART = "https://kid-clothes-store.onrender.com/api/v1/cart";
+
+function hide(){
+    const dangNhapPaying = document.getElementById("dangNhapPaying");
+    const token = localStorage.getItem("token");
+    if(!token){
+        dangNhapPaying.style.display = "block";
+    }else {
+        dangNhapPaying.style.display = "none";
+    }
+}
+hide();
+async function fetchMyInfo(){
+    const token = localStorage.getItem("token");
+    if(!token){
+        alert("Bạn chưa đăngn nhập");
+        return;
+    }
+    else{
+        try {
+            const res = await fetch("https://kid-clothes-store.onrender.com/api/v1/users/myInfo", {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                }
+            });
+
+            const data = await res.json();
+            if(data.code === 1000 ){
+                fillForm(data.result);
+            }else{
+                console.log("Không thể lấy thông tin người dùng");
+            }
+        } catch (error) {
+            
+        }
+    }
+}
+function fillForm(user) {
+    // Gán dữ liệu vào các input dựa trên ID trong HTML của bạn
+    if (user.fullName) document.getElementById("payingName").value = user.fullName;
+    if (user.email) document.getElementById("payingEmail").value = user.email;
+    if (user.phone) document.getElementById("payingTel").value = user.phone;
+    if (user.address) document.getElementById("payingAddress").value = user.address;
+    
+    // Nếu bạn muốn hiển thị thông báo "Chào mừng" tại phần đăng nhập
+    const dangNhapText = document.getElementById("dangNhapPaying");
+    if (dangNhapText) {
+        dangNhapText.innerHTML = `Chào, <strong>${user.fullName}</strong>`;
+    }
+}
 async function getCart(){
     const token = localStorage.getItem("token");
     if(!token){
@@ -54,7 +105,10 @@ function renderProduct(items){
     totalTem.innerText = total.toLocaleString("vi-VN") + "đ";
 }
 
-document.addEventListener("DOMContentLoaded", getCart);
+document.addEventListener("DOMContentLoaded", () => {
+    getCart();
+    fetchMyInfo();
+});
 
 async function creatOrder(){
     const token = localStorage.getItem("token");

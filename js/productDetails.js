@@ -83,7 +83,7 @@ function productDetail(products){
 
     product.variants.forEach((v, index) => {
         sizeHTML += `
-            <div class="btn" onclick="selectSize(${index})">
+            <div class="btncss" onclick="selectSize(${index})">
                 ${v.size}
             </div>
         `;
@@ -96,7 +96,7 @@ function productDetail(products){
 
     product.variants.forEach((v, index) => {
         colorHTML += `
-            <div class="btn colorBtn" onclick="selectColor(${index})">
+            <div class="btncss colorBtn" onclick="selectColor(${index})">
                 ${v.color}
             </div>
         `;
@@ -109,10 +109,10 @@ function productDetail(products){
 
     // SELECT SIZE
     window.selectSize = function(index){
-    const sizeBtns = document.querySelectorAll("#prodcutDTSize .btn");
+    const sizeBtns = document.querySelectorAll("#prodcutDTSize .btncss");
 
-    sizeBtns.forEach(btn => btn.classList.remove("active"));
-    sizeBtns[index].classList.add("active");
+    sizeBtns.forEach(btn => btn.classList.remove("activecss"));
+    sizeBtns[index].classList.add("activecss");
 
     selectedSize = sizeBtns[index].innerText;
 
@@ -137,10 +137,10 @@ function productDetail(products){
 
     // SELECT COLOR
     window.selectColor = function(index){
-    const colorBtns = document.querySelectorAll("#productDTcolor .btn");
+    const colorBtns = document.querySelectorAll("#productDTcolor .btncss");
 
-    colorBtns.forEach(btn => btn.classList.remove("active"));
-    colorBtns[index].classList.add("active");
+    colorBtns.forEach(btn => btn.classList.remove("activecss"));
+    colorBtns[index].classList.add("activecss");
 
     selectedColor = colorBtns[index].innerText;
 
@@ -193,7 +193,7 @@ const btnAdd = document.getElementById("addtoCart");
 
 btnAdd.addEventListener("click", function () {
     const productID = document.getElementById("prodcutDTID").innerText;
-    const sizeBtn = document.querySelector("#prodcutDTSize .active");
+    const sizeBtn = document.querySelector("#prodcutDTSize .activecss");
     const size = sizeBtn ? sizeBtn.innerText : null;
     const color = selectedColor;
     const quantity = parseInt(inputQuan.value) || 1;

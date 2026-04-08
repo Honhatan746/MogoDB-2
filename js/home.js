@@ -1,9 +1,14 @@
 const API_PRODUCT = "https://kid-clothes-store.onrender.com/api/v1/products";
-
 // ID category áo bé gái
 const GIRL_CATEGORY_ID = "69c60f68556d421a9dfbcdd6";
 const BOY_CATEGORY_Id = "69c4ecf1911ef2eebc32d6b0"
 const ACCESSORIES_CATEGORY_ID = "69c60f83556d421a9dfbcdd7";
+
+function getProductLink(productId){
+    const role = localStorage.getItem("role");
+    if(role === "STAFF") return `../editProduct.html?id=${productId}`;
+    else return `../productDetail.html?id=${productId}`;
+}
 fetch(API_PRODUCT)
 .then(res => res.json())
 .then(data => {
@@ -19,8 +24,9 @@ fetch(API_PRODUCT)
     );
 
     girlProducts.forEach(p => {
+        const productLink = getProductLink(p.id);
         cart += `
-            <a href="../productDetail.html?id=${p.id}" class="cart swiper-slide mr-10-30 max-width-cart-swiper">
+            <a href="${productLink}" class="cart swiper-slide mr-10-30 max-width-cart-swiper">
                 <div class="frame_img">
                     <img src="${p.images[0]}" class="img-cls">
                 </div>
@@ -58,8 +64,10 @@ fetch(API_PRODUCT)
     );
 
     boyProducts.forEach(boyProduct => {
+        const productLink = getProductLink(boyProduct.id);
+
         cart +=`
-            <a href="../productDetail.html?id=${boyProduct.id}" class="cart swiper-slide mr-10-30 max-width-cart-swiper">
+            <a href="${productLink}" class="cart swiper-slide mr-10-30 max-width-cart-swiper">
                 <div class="frame_img">
                     <img src="${boyProduct.images[0]}" class="img-cls">
                 </div>
@@ -100,8 +108,9 @@ fetch(API_PRODUCT)
         p.categoryId === ACCESSORIES_CATEGORY_ID
     );
     accessProducts.forEach(accessProduct => {
+        const productLink = getProductLink(accessProduct.id);
         cart +=`
-            <a href="../productDetail.html?id=${accessProduct.id}" class="cart swiper-slide mr-10-30 max-width-cart-swiper">
+            <a href="${productLink}" class="cart swiper-slide mr-10-30 max-width-cart-swiper">
                 <div class="frame_img">
                     <img src="${accessProduct.images[0]}" class="img-cls">
                 </div>

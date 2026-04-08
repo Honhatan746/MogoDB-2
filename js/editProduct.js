@@ -43,6 +43,7 @@ async function loadProduct(){
 
     const p = data.result;
 
+    document.getElementById("idInput").value = p.id;
     document.getElementById("productId").value = p.id;
     document.getElementById("name").value = p.name;
     document.getElementById("price").value = p.price;
@@ -61,29 +62,34 @@ async function loadProduct(){
 
 // ================= RENDER PREVIEW =================
 function renderPreview(){
-    const preview = document.getElementById("preview");
-    preview.innerHTML = "";
+        const preview = document.getElementById("preview");
+        preview.innerHTML = "";
 
-    imageArray.forEach((url, index) => {
-        const col = document.createElement("div");
-        col.className = "col-md-3 mb-3";
+        imageArray.forEach((url, index) => {
+           const col = document.createElement("div");
+    // Responsive: 2 cột (mobile), 3 cột (tablet), 4 cột (desktop)
+    col.className = "col-6 col-sm-4 col-lg-3 mb-3 col-preview";
 
-        col.innerHTML = `
-            <div class="card shadow-sm position-relative">
-                
-                <button 
-                    class="btn btn-danger btn-sm position-absolute top-0 end-0 m-1 remove-btn"
-                    style="z-index:10; border-radius:50%; width:28px; height:28px; padding:0;">
-                    ✕
-                </button>
+    col.innerHTML = `
+        <div class="card shadow-sm border-0 position-relative overflow-hidden" style="border-radius: 10px;">
+            
+            <button 
+                type="button"
+                class="btn btn-danger btn-sm position-absolute top-0 end-0 m-2 remove-btn shadow"
+                onclick="removeImage(${index})"
+                style="z-index:10; border-radius:50%; width:26px; height:26px; line-height:26px; padding:0; border: 2px solid white;">
+                <i class="ti-close"></i>
+            </button>
 
+            <div style="width: 100%; padding-top: 100%; position: relative; background: #eee;">
                 <img 
                     src="${url}" 
-                    class="card-img-top" 
-                    style="height:150px; object-fit:cover;"
+                    alt="Product Image"
+                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"
                     onerror="this.src='https://via.placeholder.com/150?text=Error'">
             </div>
-        `;
+        </div>
+    `;
 
         // 🔥 XÓA ẢNH
         col.querySelector(".remove-btn").addEventListener("click", () => {

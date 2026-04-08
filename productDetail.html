@@ -11,7 +11,7 @@
     </style>
 </head>
 <body>
-       <!-- Header -->
+    <!--Header -->
     <header>
         <div class="header_sub">
             <p>Kids’s products – gentle and comfortable</p>
@@ -25,20 +25,11 @@
                 <a href="./index.html"><img class="wid-logo sub_logo" src="./asset/image/Logo/iuh.png" alt="Logo"></a>
             </div>
             <a href="./index.html"><img class="wid-logo main_logo" src="./asset/image/Logo/iuh.png" alt="Logo"></a>
-            <div class="header_menu ">
-                <ul class="menu-tools menu-tools-md">
-                    <li class="link-hover pad-1rem"><a title="Home" href="index.html">Trang chủ</a></li>
-                    <li class="link-hover pad-1rem"><a title="Infomation about us" href="./about.html">Về nhóm</a></li>
-                    <li class="link-hover pad-1rem"><a title="Home" href="productList.html">Quản lý sản phẩm</a></li>
-                </ul>
+            <div class="header_menu">
+                <!-- Cho Js reder ra theo từng role -->
             </div>
             <div class="header_tool">
-                <ul class="menu-tools">
-                    <li class="link-hover pad-1rem"><a title="Shopping cart" href="./cart.html"><i class="ti-shopping-cart"></i></a></li>
-                    <li class="link-hover pad-1rem"><a id="userIcon" ><i class="ti-user"></i></a></li>
-                    <li class="link-hover pad-1rem"><a title="CheckOut" href="./checkout.html"><i class="ti-bag"></i></a></li>
-                    <li class="link-hover js-search-icon pad-1rem" ><a title="Search" ><i class="ti-search"></i></a></li>
-                </ul>
+                <!-- Cho Js reder ra theo từng role -->
             </div>
         </div>
     </header>
@@ -67,26 +58,27 @@
                     <h1 class="heading-pink bo-bot" id="productDTPrice" ></h1>
                     <h3>Color: </h3>
                     <div class="product-dt-color di-flex" id="productDTcolor">
-                        
+                        <!-- Color sản phẩm -->
                     </div>
                     <div class="prodcut-dt-size di-flex justi-btw j" id="sizeSection">
                         <div class="size-frame" id="prodcutDTSize">
+                            <!-- Size sản phẩm -->
                         </div>
                         <a href="#tableDTSize" id="labelBangSize" class="heading-pink under-line font-title font-w-700">Bảng size</a>
                     </div>
                     <div class="product-dt-quantity">
                         <h3 class="mar-t-b">Quantity: </h3>
                         <div>
-                            <button class="btn no-bor font-w-700" onclick="subtract()">–</button>
+                            <button class="btncss no-bor font-w-700" onclick="subtract()">–</button>
                             <input type="text" id="quantity" class="no-bor font-w-700" value="1" readonly>
-                            <button class="btn no-bor font-w-700" onclick="add()">+</button>
+                            <button class="btncss no-bor font-w-700" onclick="add()">+</button>
                         </div>
                     </div>
                     <div class="di-flex fix-bottom" >
                         <button class="btn-read bor-radis-0 upcass color-violet  font-w-700 font-text ">Vui lòng chọn Size</button>
                         <button class="btn-read bor-radis-0 upcass color-white background-violet  font-w-700 font-text  " >Vui lòng chọn Size</button>
-                        <button class="btn bor-radis-0 upcass btn-mua color-violet font-text  font-w-700 " id="addtoCart">Thêm vào giỏ hàng</button>
-                        <button class="btn bor-radis-0 background-violet font-title color-white upcass btn-mua hover font-w-700" >Mua Ngay</button>
+                        <button class="btncss bor-radis-0 upcass btn-mua color-violet font-text  font-w-700 " id="addtoCart">Thêm vào giỏ hàng</button>
+                        <button class="btncss bor-radis-0 background-violet font-title color-white upcass btn-mua hover font-w-700" >Mua Ngay</button>
                     </div>
                 </div>
             </div>
@@ -110,7 +102,7 @@
         </div>
         </section>
        <!-- End Section -->
-        <!-- Footer -->
+     <!-- Footer -->
     <footer>
         <div class="footer_background">
             <div class="footer_text">
@@ -158,7 +150,7 @@
                     <li><a class="text-hover" href="">Ordering support</a></li>
                     <li><a class="text-hover" href="">Delivery and shipping</a></li>
                     <li><a class="text-hover" href="">Check orders</a></li>
-                    <li><a class="text-hover"a href="">Contact us: 0123456789</a></li>
+                    <li><a class="text-hover" href="">Contact us: 0123456789</a></li>
                 </ul>
             </div>  
         </div>
@@ -175,14 +167,14 @@
                 <div class="search_input">
                     <input placeholder="Search your favorate products..." type="text" id="serach_input">
                     <button class="btn-search absout-search"><i class="ti-search"></i></button>
+                    
+                    <div class="" id="listProductSearch">
+                              <!--Render ra sản phẩm ở đây  -->
+                    </div>
                 </div>
             </div>
-            <div class="header_tool">
-                <ul class="menu-tools">
-                    <li class="link-hover"><a title="Shopping cart" href=""><i class="ti-shopping-cart"></i></a></li>
-                    <li class="link-hover"><a title="Account" href=""><i class="ti-user"></i></a></li>
-                    <li class="link-hover"><a title="CheckOut" href=""><i class="ti-bag"></i></a></li>
-                </ul>
+            <div class="header_tool searchTool">
+                <!-- Render ra ở đây -->
             </div>
         </div>
      </div>
@@ -207,7 +199,7 @@
             </div>
        </div>
        <!-- End Menu Mobile -->
-        <script src="./js/modal.js"></script> 
+       <script src="./js/modal.js"></script>
         <script type="module" src="./js/productDetails.js"></script>
        <script src="./js/showcase.js "></script>
 </body>
