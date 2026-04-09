@@ -17,14 +17,14 @@ if(role === "STAFF"){
     `;
     headerTool.innerHTML = `
         <ul class="menu-tools">
-                    <li class="link-hover pad-1rem"><a class="userIcon" onclick="locationAuth()" ><i class="ti-user"></i></a></li>
+                    <li class="link-hover pad-1rem"><a class="userIcon" onclick="handleAuthRedirect()" ><i class="ti-user"></i></a></li>
                     <li class="link-hover pad-1rem"><a title="CheckOut" href="./checkout(remake).html"><i class="ti-bag"></i></a></li>
                     <li class="link-hover js-search-icon pad-1rem" ><a title="Search" ><i class="ti-search"></i></a></li>
         </ul>
     `;
     searchTool.innerHTML = `
         <ul class="menu-tools">
-                    <li class="link-hover pad-1rem"><a class="userIcon" onclick="locationAuth()" ><i class="ti-user"></i></a></li>
+                    <li class="link-hover pad-1rem"><a class="userIcon" onclick="handleAuthRedirect()" ><i class="ti-user"></i></a></li>
                     <li class="link-hover pad-1rem"><a title="CheckOut" href="./checkout(remake).html"><i class="ti-bag"></i></a></li>
         </ul>
     `;
@@ -38,7 +38,7 @@ if(role === "STAFF"){
     headerTool.innerHTML = `
         <ul class="menu-tools">
                     <li class="link-hover pad-1rem"><a title="Shopping cart" href="./cart.html"><i class="ti-shopping-cart"></i></a></li>
-                    <li class="link-hover pad-1rem"><a class="userIcon" onclick="locationAuth()" ><i class="ti-user"></i></a></li>
+                    <li class="link-hover pad-1rem"><a class="userIcon" onclick="handleAuthRedirect()" ><i class="ti-user"></i></a></li>
                     <li class="link-hover pad-1rem"><a title="CheckOut" href="./checkout(remake).html"><i class="ti-bag"></i></a></li>
                     <li class="link-hover js-search-icon pad-1rem" ><a title="Search" ><i class="ti-search"></i></a></li>
                 </ul>
@@ -46,7 +46,7 @@ if(role === "STAFF"){
     searchTool.innerHTML = `
         <ul class="menu-tools">
                     <li class="link-hover pad-1rem"><a title="Shopping cart" href="./cart.html"><i class="ti-shopping-cart"></i></a></li>
-                    <li class="link-hover pad-1rem"><a class="userIcon" onclick="locationAuth()" ><i class="ti-user"></i></a></li>
+                    <li class="link-hover pad-1rem"><a class="userIcon" onclick="handleAuthRedirect()" ><i class="ti-user"></i></a></li>
                     <li class="link-hover pad-1rem"><a title="CheckOut" href="./checkout(remake).html"><i class="ti-bag"></i></a></li>
         </ul>
     `;
@@ -54,36 +54,41 @@ if(role === "STAFF"){
 }
 document.addEventListener("DOMContentLoaded", () => {
     getHeader();
+    setupSearchEvent();
+    showMenu();
 });
-// Search
-const btnsSearch = document.querySelectorAll('.js-search-icon');
-const searchModal = document.querySelector('.js_search');
-const searchContent = document.querySelector('.js-search_body');
+function setupSearchEvent() {
+    const btnsSearch = document.querySelectorAll('.js-search-icon');
+    const searchModal = document.querySelector('.js_search');
+    const searchContent = document.querySelector('.js-search_body');
 
-function showModal(){
-    
-    searchModal.classList.add('open');
-    searchContent.classList.add('open');
-}
-function hideModal() {
-    searchModal.classList.remove('open');
-    searchContent.classList.remove('open');
-  }
+    function showModal(){
+        searchModal.classList.add('open');
+        searchContent.classList.add('open');
+    }
 
-btnsSearch.forEach(btnSearch => {
-    btnSearch.addEventListener('click', (event)=>{
+    function hideModal(){
+        searchModal.classList.remove('open');
+        searchContent.classList.remove('open');
+    }
+
+    btnsSearch.forEach(btnSearch => {
+        btnSearch.addEventListener('click', (event)=>{
+            event.stopPropagation();
+            showModal();
+        });
+    });
+
+    searchModal.addEventListener('click', hideModal);
+
+    searchContent.addEventListener('click', (event)=>{
         event.stopPropagation();
-        showModal();
-    })
-});
-searchModal.addEventListener('click', hideModal);
+    });
 
-searchContent.addEventListener('click', (event)=>{ // ngăn chặn sự kiện nổi bọt, vì khi nhấn vào các phần tử con thì phần search cũng đóng lại nên phải ngăn chặn nó
-    event.stopPropagation();
-})
-window.addEventListener('scroll', hideModal);
-// End Search
-// Menu 
+    window.addEventListener('scroll', hideModal);
+}
+function showMenu(){
+    // Menu 
 const btnsMenuMobile = document.querySelectorAll('.menu-ti-js');
 const menuMobile = document.querySelector('.menu-mobile-js');
 const menuMobileBody = document.querySelector('.menu-mobile_body');
@@ -105,6 +110,7 @@ menuMobileBody.addEventListener('click', (event)=>{
     event.stopPropagation();
 });
 
+}
 // Search Prodcut
 let timer = null;
 const serachInput = document.getElementById("serach_input");
@@ -159,7 +165,7 @@ function renderProductSearch(products){
 }
 // End Menu
 // Login and Account
-const userIcons = document.querySelectorAll("userIcon");
+const userIcons = document.querySelectorAll(".userIcon");
 const token = localStorage.getItem("token");
     console.log(token);
     userIcons.forEach(userIcon => {
@@ -169,10 +175,73 @@ const token = localStorage.getItem("token");
             userIcon.title = "My Account";
         }
     })
-function locationAuth(){
+function handleAuthRedirect(){
         if(!token){
             window.location.href = "../login.html";
         }else{
             window.location.href = "../account(remake).html";
         }
+}
+// Show message 
+/**
+ * Hàm hiển thị thông báo dùng chung
+ * @param {Object} options - {title, message, type, showCancel, onOk, onCancel}
+ */
+function showMessage({
+    title = "Thông báo",
+    message = "",
+    type = "success", // success | error | warning
+    showCancel = false,
+    okText = "Đồng ý",
+    cancelText = "Hủy",
+    onOk = null,
+    onCancel = null
+}) {
+    const modal = document.getElementById("globalModal");
+    const titleEl = document.getElementById("gModalTitle");
+    const msgEl = document.getElementById("gModalMessage");
+    const iconEl = document.getElementById("gModalIcon");
+    const btnOk = document.getElementById("gModalOk");
+    const btnCancel = document.getElementById("gModalCancel");
+
+    if (!modal) return; // Bảo vệ nếu chưa có HTML
+
+    // 1. Set Nội dung
+    titleEl.innerText = title;
+    msgEl.innerText = message;
+    btnOk.innerText = okText;
+    btnCancel.innerText = cancelText;
+
+    // 2. Set Icon & Màu sắc theo loại
+    const icons = {
+        success: { img: "✅", color: "#b999fd" },
+        error: { img: "❌", color: "#ff6b6b" },
+        warning: { img: "⚠️", color: "#ffd93d" }
+    };
+    iconEl.innerText = icons[type].img;
+
+    // 3. Ẩn/Hiện nút Hủy
+    btnCancel.style.display = showCancel ? "inline-block" : "none";
+
+    // 4. Mở Modal
+    modal.classList.add("open");
+
+    // 5. Hàm đóng Modal
+    const close = () => {
+        modal.classList.remove("open");
+    };
+
+    // 6. Xử lý sự kiện (Xóa sự kiện cũ tránh trùng lặp)
+    btnOk.onclick = () => {
+        close();
+        if (onOk) onOk();
+    };
+
+    btnCancel.onclick = () => {
+        close();
+        if (onCancel) onCancel();
+    };
+
+    // Click ra ngoài để đóng
+    modal.querySelector(".g-modal-overlay").onclick = close;
 }

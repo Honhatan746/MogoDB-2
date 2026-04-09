@@ -57,11 +57,6 @@
                         <input type="text"  id="payingAddress" placeholder="Your Address">
                         <div class="di-flex header_tool ">
                             <input type="text" id="payingCountruy" placeholder="Your Countruy">
-                            <input type="text" id="payingProvince" placeholder="Your Province">
-                        </div>
-                        <div class="di-flex header_tool ">
-                            <input type="text"  id="payingQuan" placeholder="Your Quan">
-                            <input type="text" id="payingPhuong" placeholder="Your Phuong">
                         </div>
                         <div>
                             <h3 class="mar-t-b">Phuong Thuc Van Chuyen</h3>
@@ -214,6 +209,18 @@
             </div>
        </div>
        <!-- End Menu Mobile -->
+        <!-- Message -->
+        <div id="globalModal" class="g-modal">
+    <div class="g-modal-overlay"></div>
+    <div class="g-modal-box">
+        <div class="g-modal-icon" id="gModalIcon"></div>
+        <h2 id="gModalTitle" class="font-heading">Thông báo</h2>
+        <p id="gModalMessage" class="font-title"></p>
+        <div class="g-modal-buttons">
+            <button class="g-btn g-btn-cancel" id="gModalCancel">Hủy</button>
+            <button class="g-btn g-btn-ok" id="gModalOk">Đồng ý</button>
+        </div>
+    </div>
        <script src="./js/modal.js"></script>
         <script src="./js/paying.js"></script>
 </body>

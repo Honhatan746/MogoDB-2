@@ -4,26 +4,330 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Orders</title>
-    <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./asset/icon/themify-icons-font/themify-icons/themify-icons.css">
+    <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/responsible.css"> 
-    <!-- Bootstrap 5 -->
     <link href="./bootstrap/bootstrap-5.3.8-dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap 5 -->
 
-    <style>
-        .order-card {
-            border-radius: 12px;
-            margin-bottom: 20px;
-        }
-        .product-img {
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
-            border-radius: 8px;
-        }
-        .status-badge {
-            font-size: 0.85rem;
-        }
+    <style>/* Tối ưu Header và Filter */
+    body{
+    background-color: #fcfaff;
+    }
+#statusFilter {
+    font-size: 1.4rem;
+    border-radius: 10px;
+    border: 2px solid #eee;
+    padding: 0.8rem 1.5rem;
+    transition: all 0.3s ease;
+}
+
+#statusFilter:focus {
+    border-color: var(--primary-color);
+    box-shadow: none;
+    outline: none;
+}
+
+/* Card Đơn hàng - Đã gộp và sửa mâu thuẫn */
+.order-card {
+    background: #fff;
+    border: none;
+    border-radius: 1.2rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    margin-bottom: 2rem;
+    transition: all 0.3s ease;
+    border-top: 4px solid var(--primary-color); /* Chọn border-top để hiện đại hơn */
+    overflow: hidden;
+}
+
+.order-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(185, 153, 253, 0.15) !important;
+}
+
+/* Badge trạng thái */
+.status-badge, .badge-status {
+    padding: 0.6rem 1.2rem;
+    border-radius: 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+/* Hình ảnh sản phẩm */
+.product-img {
+    width: 7rem;
+    height: 7rem;
+    object-fit: cover;
+    border-radius: 0.8rem;
+    background-color: #f8f9fa;
+    border: 1px solid #eee;
+}
+
+/* Nội dung văn bản */
+.order-card strong {
+    color: #444;
+}
+
+.product-name {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.order-card small {
+    font-size: 1.25rem;
+}
+
+/* Phần tổng tiền */
+.total-section span {
+    font-size: 1.4rem;
+}
+
+.total-amount {
+    font-size: 1.8rem !important;
+    color: var(--color-price) !important;
+    font-weight: 700;
+}
+
+/* Nút bấm */
+.btn-detail {
+    background-color: #f3edff;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    font-weight: 600;
+    font-size: 1.3rem;
+    padding: 0.6rem 2rem;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.btn-detail:hover {
+    background-color: var(--primary-color);
+    color: #fff;
+}
+
+.btn-outline-danger {
+    font-size: 1.3rem;
+    padding: 0.6rem 1.5rem;
+    border-radius: 0.8rem;
+    border: 1px solid #ffb3b3;
+    color: #ff5252;
+    transition: 0.3s;
+}
+
+.btn-outline-danger:hover:not(:disabled) {
+    background-color: #ff5252;
+    border-color: #ff5252;
+    color: #fff;
+}
+/* Nút xác nhận nhận hàng */
+.btn-confirm-order {
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 1.3rem;
+    padding: 0.6rem 1.5rem;
+    border-radius: 0.8rem;
+    border: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-confirm-order:hover {
+    background-color: var(--primary-hover);
+    box-shadow: 0 4px 12px rgba(185, 153, 253, 0.3);
+    color: white;
+}
+
+/* Hiệu ứng khi bấm vào (active) */
+.btn-confirm-order:active {
+    transform: scale(0.95);
+}
+/* Responsive cho Mobile */
+@media (max-width: 576px) {
+    #statusFilter {
+        width: 100% !important;
+    }
+    
+    .order-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .product-img {
+        width: 6rem;
+        height: 6rem;
+    }
+}
+/* Tùy chỉnh Table STAFF */
+.table-staff {
+    background-color: #fff;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.table-staff thead th {
+    background-color: var(--primary-color) !important;
+    color: white;
+    font-size: 1.6rem;
+    font-weight: 600;
+    padding: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.table-staff tbody td {
+    font-size: 1.6rem;
+    padding: 1.5rem;
+    vertical-align: middle;
+    color: #444;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+/* Hiệu ứng cho Order ID */
+.order-id-text {
+    font-weight: bold;
+    padding: 0.4rem 0.8rem;
+}
+/* Style cho các nút Action */
+.btn-staff-edit {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    font-size: 1.3rem;
+    padding: 0.6rem 1.5rem;
+    border-radius: 0.8rem;
+    transition: 0.3s;
+}
+
+.btn-staff-edit:hover {
+    background-color: var(--primary-hover);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.btn-staff-cancel {
+    background-color: transparent;
+    color: #ff5252;
+    border: 1px solid #ffb3b3;
+    font-size: 1.3rem;
+    padding: 0.6rem 1.5rem;
+    border-radius: 0.8rem;
+    transition: 0.3s;
+}
+
+.btn-staff-cancel:hover {
+    background-color: #ff5252;
+    color: white;
+    border-color: #ff5252;
+}
+/* Container bao bọc bảng để tạo thanh cuộn */
+.table-responsive-custom {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; /* Cuộn mượt trên iPhone */
+    margin-bottom: 2rem;
+    border-radius: 1rem;
+}
+
+/* Tối ưu kích thước bảng khi ở màn hình nhỏ */
+@media (max-width: 768px) {
+    .table-staff {
+        min-width: 800px; /* Ép bảng có độ rộng tối thiểu để không bị dồn chữ */
+    }
+    
+    .table-staff thead th, 
+    .table-staff tbody td {
+        padding: 1.2rem 0.8rem !important; /* Giảm padding một chút để tiết kiệm diện tích */
+        font-size: 1.3rem !important; /* Chữ nhỏ xuống một chút (13px) */
+    }
+
+    .order-id-text {
+        font-size: 1.2rem;
+        padding: 0.2rem 0.5rem;
+    }
+
+    .btn-staff-edit, .btn-staff-cancel {
+        padding: 0.5rem 1rem;
+        font-size: 1.2rem;
+    }
+}
+
+/* Tùy chỉnh thanh cuộn cho đẹp và đồng bộ màu tím */
+.table-responsive-custom::-webkit-scrollbar {
+    height: 6px;
+}
+.table-responsive-custom::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+.table-responsive-custom::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 10px;
+}
+.table-responsive-custom::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-hover);
+}
+/* Container Modal Body */
+#orderDetailContent {
+    font-size: 1.5rem; /* ~15px */
+    color: #444;
+    padding: 1rem;
+}
+
+/* Header thông tin mã đơn */
+.order-detail-header {
+    background-color: #fcfaff;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    border: 1px solid #f0e6ff;
+    margin-bottom: 2rem;
+}
+
+/* Tùy chỉnh Select và Button Cập nhật */
+#updateStatus {
+    font-size: 1.4rem;
+    padding: 1rem;
+    border-radius: 0.8rem;
+    border: 2px solid #eee;
+    margin-bottom: 1rem;
+}
+
+#updateStatus:focus {
+    border-color: var(--primary-color);
+    box-shadow: none;
+}
+
+.btn-update-status {
+    background-color: var(--primary-color);
+    border: none;
+    color: white;
+    font-size: 1.4rem;
+    font-weight: 600;
+    padding: 1rem 2rem;
+    border-radius: 0.8rem;
+    width: 100%; /* Full width trên mobile */
+}
+.btn-update-status:hover{
+    background-color: var(--primary-hover);
+    color: white;
+}
+
+
+/* Responsive cho layout sản phẩm */
+@media (max-width: 576px) {
+    .product-item {
+        flex-direction: column;
+        align-items: flex-start !important;
+    }
+    .product-avatar {
+        margin-bottom: 1rem;
+    }
+    .btn-update-status {
+        width: 100%;
+    }
+}
     </style>
 </head>
 <!-- header -->
@@ -49,12 +353,19 @@
             </div>
         </div>
     </header>
+<!-- Navbar  -->
+     <nav class="navbar" style="margin-top: 100px;">
+            <ul>
+                <i><li><a href="./index.html">Home</a></li></i>
+                <i><li>Order Manage</li></i>
+            </ul>
+        </nav>
  <!-- Content -->
 <body class="bg-light">
 
 <div class="container py-4">
 
-    <h3 class="mb-4">Đơn hàng của bạn</h3>
+    <h3 class="mb-4 font-heading heading-pink fw-bold text-uppercase">Đơn hàng của bạn</h3>
     <div id="staffControls" class="mb-3" style="display:none;">
     <select id="statusFilter" class="form-select w-25">
         <option value="PENDING_PAYMENT">Chờ thanh toán</option>
@@ -70,18 +381,16 @@
 
 <div class="modal fade" id="orderDetailModal" tabindex="-1">
   <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-
-      <div class="modal-header">
-        <h5 class="modal-title">Chi tiết đơn hàng</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-
-      <div class="modal-body" id="orderDetailContent">
-        <!-- JS render vào đây -->
-      </div>
-
+    <div class="modal-content" style=" border: none;">
+    <div class="modal-header" style="background-color: #fcfaff; border-bottom: 1px solid #eee;">
+        <h5 class="modal-title" style="font-size: 1.8rem; color: var(--primary-color);">
+            <i class="bi bi-receipt"></i> Chi tiết đơn hàng
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" style="font-size: 1.2rem;"></button>
     </div>
+    <div class="modal-body" id="orderDetailContent" style="font-size: 1.5rem; line-height: 1.6;">
+        </div>
+</div>
   </div>
 </div>
 
@@ -182,6 +491,18 @@
             </div>
        </div>
        <!-- End Menu Mobile -->
+        <!-- Message -->
+        <div id="globalModal" class="g-modal">
+    <div class="g-modal-overlay"></div>
+    <div class="g-modal-box">
+        <div class="g-modal-icon" id="gModalIcon"></div>
+        <h2 id="gModalTitle" class="font-heading">Thông báo</h2>
+        <p id="gModalMessage" class="font-title"></p>
+        <div class="g-modal-buttons">
+            <button class="g-btn g-btn-cancel" id="gModalCancel">Hủy</button>
+            <button class="g-btn g-btn-ok" id="gModalOk">Đồng ý</button>
+        </div>
+    </div>
        <script src="./js/modal.js"></script>
 <script src="./js/checkout.js"></script>
 <script src="./bootstrap/bootstrap-5.3.8-dist/js/bootstrap.bundle.js"></script>

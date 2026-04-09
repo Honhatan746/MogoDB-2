@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./bootstrap/bootstrap-5.3.8-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./asset/icon/themify-icons-font/themify-icons/themify-icons.css">
     <link rel="stylesheet" href="./css/responsible.css">    
@@ -42,25 +43,33 @@
      <!-- End Navbar -->
             <!--Section  -->
             <section class="login-container">
-                <div class="login">
-                    <h1 class="heading-pink upcass font-heading bo-bot">Login</h1>
-                    <form action="" class="di-flex flex-colum justi-btw font-price alignItem-cen">
-                        <div class="di-flex flex-colum alignItem-cen">
-                            <div class="di-flex flex-colum">
-                                <label for="loginEmail">Login</label>
-                                <input type="email" id="loginEmail">
-                            </div>
-                            <div class="di-flex flex-colum">
-                                <label for="loginPass">PassWord</label>
-                                <input type="password" id="loginPass">
-                            </div>
-                            <button class="btncss background-violet color-white hover font-title" id="loginBtn">Đăng Nhập</button>
-                        </div>      
-                        <p>Chưa có Tài khoản ? <a href="./register.html">Đăng ký tài khoản</a></p>
-                        
-                    </form>
+    <div class="login">
+        <h1 class="heading-pink upcass font-heading bo-bot mb-5 fw-bold">LOGIN</h1>
+        
+        <form action="" id="loginForm" class="di-flex flex-colum">
+            
+            <div class="di-flex flex-colum mb-3">
+                <label for="loginEmail">Email / Login</label>
+                <input type="email" id="loginEmail" placeholder="example@gmail.com" required>
+            </div>
+            
+            <div class="di-flex flex-colum mb-4">
+                <label for="loginPass">Password</label>
+                <div class="password-group position-relative">
+                    <input type="password" id="loginPass" placeholder="••••••••" required>
+                    <i class="ti-lock toggle-password" data-target="loginPass"></i>
                 </div>
-            </section>
+            </div>
+            
+            <button type="submit" class="btncss background-violet color-white hover font-title" id="loginBtn">
+                Đăng Nhập
+            </button>
+            
+            <p>Chưa có tài khoản? <a href="./register.html">Đăng ký ngay</a></p>
+            
+        </form>
+    </div>
+</section>
      <!--  End Section-->
     <!-- Footer -->
     <footer>
@@ -159,6 +168,18 @@
             </div>
        </div>
        <!-- End Menu Mobile -->
+        <!-- Message -->
+        <div id="globalModal" class="g-modal">
+    <div class="g-modal-overlay"></div>
+    <div class="g-modal-box">
+        <div class="g-modal-icon" id="gModalIcon"></div>
+        <h2 id="gModalTitle" class="font-heading">Thông báo</h2>
+        <p id="gModalMessage" class="font-title"></p>
+        <div class="g-modal-buttons">
+            <button class="g-btn g-btn-cancel" id="gModalCancel">Hủy</button>
+            <button class="g-btn g-btn-ok" id="gModalOk">Đồng ý</button>
+        </div>
+    </div>
        <script src="./js/modal.js"></script>
     <script type="module" src="./js/login.js"></script>
 </body>

@@ -4,7 +4,173 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Add Product</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="./bootstrap/bootstrap-5.3.8-dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/responsible.css">
+  <link rel="stylesheet" href="./asset/icon/themify-icons-font/themify-icons/themify-icons.css">
+  <style>
+    /* --- ADMIN PRODUCT FORM --- */
+    /* Container chính cho preview */
+.preview-card-v2 {
+    background: #fff;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    border: 1px solid #f0e6ff;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.preview-card-v2:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 1rem 2rem rgba(185, 153, 253, 0.2) !important;
+}
+
+/* Ép ảnh luôn vuông bất kể ảnh gốc dài hay ngắn */
+.preview-image-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1; 
+    overflow: hidden;
+    background: #f8f9fa;
+}
+
+.preview-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Quan trọng: ảnh không bị méo */
+    transition: transform 0.5s ease;
+}
+
+.preview-card-v2:hover img {
+    transform: scale(1.1); /* Zoom nhẹ khi hover */
+}
+
+/* Lớp phủ nút xóa hiện lên khi hover */
+.preview-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(185, 153, 253, 0.3); /* Màu tím lavender trong suốt */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(2px);
+}
+
+.preview-card-v2:hover .preview-overlay {
+    opacity: 1;
+}
+
+/* Nút xóa kiểu mới */
+.btn-remove-v2 {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    background: #fff;
+    color: #ff4757;
+    border: none;
+    font-size: 1.6rem;
+    z-index: 1;
+    cursor: pointer;
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
+    transition: all 0.2s ease;
+    opacity: 1;
+}
+
+.btn-remove-v2:hover {
+    background: #ff4757;
+    color: #fff;
+    transform: scale(1.2);
+}
+
+/* Dòng chữ nhỏ bên dưới ảnh */
+.preview-info {
+    padding: 0.8rem;
+    text-align: center;
+    font-size: 1.2rem;
+    color: #888;
+    background: #fafaff;
+}
+.container-admin {
+    padding: 4rem 2rem;
+    background-color: #fcfaff;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+.card-pdt {
+    background: #fff;
+    width: 100%;
+    max-width: 80rem; /* Rộng hơn để chia 2 cột */
+    padding: 3.5rem;
+    border-radius: 2.5rem;
+    border: 1px solid #f0e6ff;
+    box-shadow: 0 1rem 3rem rgba(185, 153, 253, 0.1);
+}
+
+.card-pdt label {
+    font-size: 1.45rem;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 0.8rem;
+    padding-left: 0.5rem;
+}
+
+.card-pdt input, 
+.card-pdt select, 
+.card-pdt textarea {
+    padding: 1.2rem 1.8rem;
+    font-size: 1.5rem;
+    border-radius: 1.2rem;
+    border: 2px solid #eee;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.card-pdt input:focus, 
+.card-pdt select:focus, 
+.card-pdt textarea:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(185, 153, 253, 0.1);
+}
+
+/* Preview ảnh */
+#preview img {
+    width: 100%;
+    height: 20rem;
+    object-fit: cover;
+    border-radius: 1rem;
+    border: 2px solid #f0e6ff;
+}
+
+/* Nút bấm tùy chỉnh */
+.flex-1 { flex: 1; }
+.gap-20 { gap: 2rem; }
+
+.btn-outline {
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    background: transparent;
+    border-radius: 1.5rem;
+    padding: 1.2rem;
+    font-weight: 600;
+}
+
+.btn-outline:hover {
+    background: #f6f0ff;
+}
+
+/* Responsive cho Mobile */
+@media (max-width: 600px) {
+    .card-pdt .di-flex.gap-20 {
+        flex-direction: column;
+        gap: 0;
+    }
+}
+  </style>
 </head>
 <body>
   <!-- Header -->
@@ -30,67 +196,138 @@
             </div>
         </div>
     </header>
+    <!-- Nav -->
+         <nav class="navbar" style="margin-top: 90px;">
+            <ul>
+                <i><li><a href="./index.html">Home</a></li></i>
+                <i><li>Add Product</li></i>
+            </ul>
+        </nav>
    <!-- Content -->
-  <div class="container mt-5">
-    <h2 class="mb-4">Add Product (Staff)</h2>
+<div class="container-admin">
+    <div class="card-pdt shadow-sm">
+        <h2 class="heading-pink upcass font-heading bo-bot fw-bold">Add New Product</h2>
 
-    <form id="productForm" class="card p-4">
-      <div class="mb-3">
-        <label class="form-label">Product Name</label>
-        <input type="text" name="name" id="nameProduct" class="form-control" required>
-      </div>
+        <form id="productForm" class="di-flex flex-colum font-title">
+            
+            <div class="di-flex gap-20 wid-100">
+                <div class="di-flex flex-colum wid-100 mb-2">
+                    <label>Product Name</label>
+                    <input type="text" id="nameProduct" placeholder="Ví dụ: Áo thun Kidcore">
+                </div>
+                <div class="di-flex flex-colum wid-100 mb-2">
+                    <label>Price (VNĐ)</label>
+                    <input type="number" id="priceProduct" placeholder="0.00">
+                </div>
+            </div>
 
-      <div class="mb-3">
-        <label class="form-label">Price</label>
-        <input type="number" name="price" id="priceProduct" class="form-control" required>
-      </div>
+            <div class="di-flex gap-20 wid-100">
+                <div class="di-flex flex-colum wid-100 mb-2">
+                    <label>Stock</label>
+                    <input type="number" id="stockProduct" placeholder="Số lượng nhập kho">
+                </div>
+                <div class="di-flex flex-colum wid-100 mb-2">
+                    <label>Category</label>
+                    <select id="categoryID">
+                        <option value="" disabled selected>-- Select Category --</option>
+                    </select>
+                </div>
+            </div>
 
-      <div class="mb-3">
-        <label class="form-label">Stock</label>
-        <input type="number" name="stock" id="stockProduct" class="form-control" required>
-      </div>
+            <div class="di-flex gap-20 wid-100">
+                <div class="di-flex flex-colum wid-100 mb-2">
+                    <label>Size</label>
+                    <input type="text" id="size" placeholder="S, M, L, XL">
+                </div>
+                <div class="di-flex flex-colum wid-100 mb-2">
+                    <label>Color</label>
+                    <input type="text" id="color" placeholder="Red, Blue, White">
+                </div>
+            </div>
 
-      <div class="mb-3">
-        <label class="form-label">CategoryID</label>
-        <select name="categoryId" id="categoryID" class="form-select" required>
-          <option value="">-- Select Category --</option>
-        </select>
-      </div>
+            <div class="di-flex flex-colum wid-100 mb-2">
+                <label>Image URLs (Cách nhau bằng dấu phẩy)</label>
+                <input type="text" id="imageUrls" placeholder="https://anh1.jpg, https://anh2.png">
+                <div id="preview" class="di-flex gap-10 mar-t-b"></div>
+                <p class="font-small">Tổng ảnh: <span id="count" class="fw-bold color-violet">0</span></p>
+            </div>
 
-        <div class="mb-3">
-        <label class="form-label">Size</label>
-        <input type="text" id="size" class="form-control" placeholder="S, M, L">
+            <div class="di-flex flex-colum wid-100 mb-2">
+                <label>Description</label>
+                <textarea id="descriptionProduct" rows="4" placeholder="Mô tả chi tiết sản phẩm..."></textarea>
+            </div>
+
+            <div class="di-flex flex-colum wid-100 mb-3">
+                <label>Status</label>
+                <select id="statusProduct">
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                </select>
+            </div>
+
+            <div class="di-flex gap-15 mar-t-b">
+                <button type="submit" class="btncss background-violet color-white hover font-title flex-1" id="addPdtBtn">
+                    Add Product
+                </button>
+                <a href="./productList.html" class="btncss btn-outline flex-1 text-deco-none text-cen">
+                    Back to List
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+    <!-- Search -->
+     <div class="search js_search">
+        <div class="search_body js-search_body">
+            <a href=""><img class="wid-logo-big " src="./asset/image/Logo/iuh.png" alt=""></a>
+            <div class="search_content">
+                <div class="search_input">
+                    <input placeholder="Search your favorate products..." type="text" id="serach_input">
+                    <button class="btn-search absout-search"><i class="ti-search"></i></button>
+                    
+                    <div class="" id="listProductSearch">
+                              <!--Render ra sản phẩm ở đây  -->
+                    </div>
+                </div>
+            </div>
+            <div class="header_tool searchTool">
+                <!-- Render ra ở đây -->
+            </div>
         </div>
-
-        <div class="mb-3">
-        <label class="form-label">Color</label>
-        <input type="text" id="color" class="form-control" placeholder="RED, BLUE">
+     </div>
+     <!-- End Search -->
+      <!-- Menu Mobile -->
+       <div class="menu-mobile menu-mobile-js">
+            <div class="menu-mobile_body" > 
+                    <div class="menu-mobile_header">
+                        <div class="wid-logo"><img src="./asset/image/Logo/iuh.png" alt="Logo"></div>
+                        <h1>Catalogue</h1>
+                    </div>
+                    <div class="header_menu alignItem-star">
+                        <ul class=" menu-tools flex-colum menu-tools-mobile">
+                            <li class="pad-2rem link-hover"><a class="text-hover" href="">Home</a></li>
+                            <li class="pad-2rem link-hover"><a class="text-hover" href="">About</a></li>
+                        </ul>
+                    </div>
+                    <div class="menu-mobile_img ">
+                        <div><img src="./asset/image/Slide/anh_tet.webp" alt="anhTet"></div>
+                        <div><img src="./asset/image/Slide/anh_trung_thu.webp" alt="anhTrungThu"></div>
+                    </div>
+            </div>
+       </div>
+<!-- Message -->
+        <div id="globalModal" class="g-modal">
+    <div class="g-modal-overlay"></div>
+    <div class="g-modal-box">
+        <div class="g-modal-icon" id="gModalIcon"></div>
+        <h2 id="gModalTitle" class="font-heading">Thông báo</h2>
+        <p id="gModalMessage" class="font-title"></p>
+        <div class="g-modal-buttons">
+            <button class="g-btn g-btn-cancel" id="gModalCancel">Hủy</button>
+            <button class="g-btn g-btn-ok" id="gModalOk">Đồng ý</button>
         </div>
-
-        <div class="mb-3">
-          <label>Nhập URL ảnh (cách nhau bằng dấu ,)</label>
-          <input type="text" id="imageUrls" class="form-control" placeholder="https://a.jpg, https://b.png">
-        </div>
-
-        <div class="row" id="preview"></div>
-            <p>Tổng ảnh: <span id="count">0</span></p>
-        <div class="mb-3">
-        <label class="form-label">Description</label>
-        <textarea name="description" id="descriptionProduct" class="form-control" rows="3"></textarea>
-      </div>
-
-      <div class="mb-3">
-        <label class="form-label">Status</label>
-        <select name="status" class="form-select">
-          <option value="active">Active</option>
-          <option value="inactive">Inactive</option>
-        </select>
-      </div>
-
-      <button type="submit" class="btn btn-success">Add Product</button>
-      <a href="./productList.html" class="btn btn-secondary">Back</a>
-    </form>
-  </div>
+    </div>
+    <script src="./js/modal.js"></script>
   <script src="./js/addProduct.js"></script>
 </body>
 </html>

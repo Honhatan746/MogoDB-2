@@ -1,11 +1,39 @@
+
+function handleAuthRedirect(){
+    const token = localStorage.getItem("token");
+
+    if(!token){
+        showMessage({
+            title: "Chưa đăng nhập",
+            message: "Bạn cần đăng nhập để tiếp tục",
+            type: "warning",
+            showCancel: true,
+            onOk: () => {
+                window.location.href = "login.html";
+            }
+        });
+    }else{
+        window.location.href = "account(remake).html";
+    }
+}
 // log out
 const logout = document.getElementById("logout");
 
 if(logout){
     logout.addEventListener("click", function(e){
         e.preventDefault();
-        localStorage.removeItem("token");
-        window.location.href = "./index.html";
+        showMessage({
+        title: "Xác nhận đăng xuất ?",
+        message: "Bạn có muốn đăng xuất không này không?",
+        type: "warning",
+        showCancel: true,
+        okText: "Xóa ngay",
+        onOk:() => {
+            localStorage.removeItem("token");
+            localStorage.removeItem("role");
+            window.location.href = "index.html";
+        }
+    });
     });
 }
 document.addEventListener("DOMContentLoaded", () => {
@@ -46,9 +74,9 @@ async function getUserInfo(){
                 roleBadge.classList.add("badge-staff");
             }
             document.getElementById("fullNameAccount").innerText = user.fullName;
-            document.getElementById("emailAccount").innerHTML = `<i class="bi bi-envelope me-1"></i> ${user.email}`;
-            document.getElementById("addressAccount").innerHTML = user.address ? `<i class="bi bi-geo-alt me-2"></i> ${user.address}` : "";
-            document.getElementById("telAccount").innerHTML =user.phone ? `<i class="bi bi-telephone me-2"></i> ${user.phone}` : "";
+            document.getElementById("emailAccount").innerHTML = `<i class="ti-email"></i> ${user.email}`;
+            document.getElementById("addressAccount").innerHTML = user.address ? `<i class="ti-map-alt"></i> ${user.address}` : "";
+            document.getElementById("telAccount").innerHTML =user.phone ? `<i class="ti-mobile"></i> ${user.phone}` : "";
             
             document.querySelector("input[name='fullName']").value = user.fullName;
             document.querySelector("input[name='phone']").value = user.phone || "";
@@ -86,6 +114,7 @@ async function getUserInfo(){
             const token = localStorage.getItem("token");
             if(!token){
                 showToast("Vui lòng đăng nhập", true);
+                window.location.href ="../index.html";
                 return;
             }
 
@@ -152,6 +181,7 @@ function handleChangePassword(){
         const token = localStorage.getItem("token");
         if(!token){
             showToast("Vui lòng đăng nhập", true);
+            window.location.href ="../index.html";
             return;
         }
 

@@ -3,10 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./bootstrap/bootstrap-5.3.8-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./asset/icon/themify-icons-font/themify-icons/themify-icons.css">
     <link rel="stylesheet" href="./css/responsible.css">    
     <title>Register</title>
+    <style>
+        @media (max-width: 576px) {
+    .register {
+        margin: 1.5rem;
+        padding: 2.5rem 2rem;
+    }
+    .register .di-flex {
+        flex-direction: column !important; /* Trên mobile các ô nằm dọc */
+    }
+}
+    </style>
 </head>
 <body>
     <!--Header -->
@@ -41,59 +53,74 @@
         </nav>
      <!-- End Navbar -->
             <!--Section  -->
-        <section class="register-container">
-            <div class="register">
-                    <h1 class="heading-pink upcass font-heading bo-bot">Register</h1>
-                    <form action="" class="di-flex flex-colum alignItem-cen font-title">
-                    <div class="di-flex justi-cen wid-100">
-                        <div class="di-flex flex-colum alignItem-star wid-100" >
-                            <label for="registerFull">Full Name</label>
-                            <input type="text" id="registerFull" class="wid-100">
-                            <p class="field-required">*This field is required.</p>
-                        </div>
-                    </div>  
-                    <div class="di-flex flex-colum alignItem-star wid-100">
-                        <label for="registerEmail" >Email</label>
-                        <input  type="email" id="registerEmail" class="wid-100">
-                        <p class="field-required">*This field is required.</p>
-                        <p class="required-formatEmail">*Email format is inaccurate</p>
-                    </div>  
-                    <div class="di-flex wid-100">
-                        <div class="di-flex flex-colum alignItem-star wid-100">
-                            <label for="registerGender">Gender</label>
-                            <select id="registerGender" class="wid-100">
-                                <option value=""></option>
-                                <option value="Boy">Nam</option>
-                                <option value="Girl">Nữ</option>
-                                <option value="Other">Khác</option>
-                            </select>
-                        </div>
-                        <div class="di-flex flex-colum alignItem-star wid-100">
-                            <label for="registerTel">Telephone Number</label>
-                            <input type="text" id="registerTel" class="wid-100">
-                            <p class="field-required">*Phone number is not valid</p>
-                        </div>
-                    </div>
-                    <div class="di-flex flex-colum alignItem-star wid-100" >
-                        <label for="registerPass">Password</label>
-                        <input type="password" id="registerPass" class="wid-100">
-                        <p class="field-required">*This field is at least 8 letter.</p>
-                    </div>
-                    <div class="di-flex flex-colum alignItem-star wid-100">
-                        <label for="registerRePass">Re-Password</label>
-                        <input type="password" id="registerRePass" class="wid-100">
-                        <p class="field-required">*You must rewrite password here.</p>
-                        <p class="field-required-notmatch">*Password not match</p>
-                    </div>
-                    <div class="di-flex flex-colum alignItem-star wid-100">
-                        <label for="registerAddress">Address</label>
-                        <input type="text" id="registerAddress" class="wid-100">
-                    </div>
-                    <button class="btncss background-violet color-white hover font-title" id="registerBtn">Đăng Ký</button>
-                    <p>Bạn có tài khoản? <a href="./login.html">Đăng nhập</a></p>
-                    </form>
-                </div>
-        </section>
+<section class="register-container">
+    <div class="register shadow-sm">
+    <h1 class="heading-pink upcass font-heading bo-bot fw-bold">REGISTER</h1>
+    
+    <form action="" id="registerForm" class="di-flex flex-colum font-title">
+        
+        <div class="di-flex flex-colum wid-100 mb-2">
+            <label for="registerFull">Full Name</label>
+            <input type="text" id="registerFull" class="wid-100" placeholder="Nhập họ và tên...">
+            <p class="field-required">*Họ tên là bắt buộc.</p>
+        </div>
+
+        <div class="di-flex flex-colum wid-100 mb-2">
+            <label for="registerEmail">Email Address</label>
+            <input type="email" id="registerEmail" class="wid-100" placeholder="example@gmail.com">
+            <p class="field-required">*Email là bắt buộc.</p>
+            <p class="required-formatEmail">*Định dạng email không hợp lệ.</p>
+        </div>
+
+        <div class="di-flex gap-15 wid-100">
+            <div class="di-flex flex-colum wid-100 mb-2">
+                <label for="registerGender">Gender</label>
+                <select id="registerGender" class="wid-100">
+                    <option value="" disabled selected>Chọn giới tính</option>
+                    <option value="Boy">Nam</option>
+                    <option value="Girl">Nữ</option>
+                    <option value="Other">Khác</option>
+                </select>
+            </div>
+            <div class="di-flex flex-colum wid-100 mb-2">
+                <label for="registerTel">Telephone Number</label>
+                <input type="text" id="registerTel" class="wid-100" placeholder="090...">
+                <p class="field-required">*Số điện thoại không hợp lệ.</p>
+            </div>
+        </div>
+
+        <div class="di-flex flex-colum wid-100 mb-2">
+            <label for="registerPass">Password</label>
+            <div class="password-group position-relative di-flex flex-column justify-content-start">
+                <input type="password" id="registerPass" class="wid-100" placeholder="Tối thiểu 8 ký tự">
+                <i class="ti-lock toggle-password" style="top: 1.3rem;" data-target="registerPass"></i>
+                <p class="field-required w-100">*Mật khẩu phải từ 8 ký tự trở lên.</p>
+            </div>
+        </div>
+
+        <div class="di-flex flex-colum wid-100 mb-2">
+            <label for="registerRePass">Re-Password</label>
+            <div class="password-group position-relative di-flex flex-column justify-content-start">
+                <input type="password" id="registerRePass" class="wid-100" placeholder="Nhập lại mật khẩu...">
+                <i class="ti-lock toggle-password" style="top: 1.3rem;" data-target="registerRePass"></i>
+                <p class="field-required w-100">*Vui lòng xác nhận mật khẩu.</p>
+                <p class="field-required-notmatch w-100">*Mật khẩu không khớp.</p>
+            </div>
+        </div>
+
+        <div class="di-flex flex-colum wid-100 mb-3">
+            <label for="registerAddress">Address</label>
+            <input type="text" id="registerAddress" class="wid-100" placeholder="Số nhà, tên đường, quận/huyện...">
+        </div>
+
+        <button type="submit" class="btncss background-violet color-white hover font-title" id="registerBtn">
+            Đăng Ký Tài Khoản
+        </button>
+
+        <p class="textLogin">Đã có tài khoản? <a href="./login.html">Đăng nhập tại đây</a></p>
+    </form>
+</div>
+</section>
      <!--  End Section-->
     <!-- Footer -->
     <footer>
@@ -192,6 +219,18 @@
             </div>
        </div>
        <!-- End Menu Mobile -->
+         <!-- Message -->
+        <div id="globalModal" class="g-modal">
+    <div class="g-modal-overlay"></div>
+    <div class="g-modal-box">
+        <div class="g-modal-icon" id="gModalIcon"></div>
+        <h2 id="gModalTitle" class="font-heading">Thông báo</h2>
+        <p id="gModalMessage" class="font-title"></p>
+        <div class="g-modal-buttons">
+            <button class="g-btn g-btn-cancel" id="gModalCancel">Hủy</button>
+            <button class="g-btn g-btn-ok" id="gModalOk">Đồng ý</button>
+        </div>
+    </div>
        <script src="./js/modal.js"></script>
     <script type="module" src="./js/register.js"></script>
 </body>

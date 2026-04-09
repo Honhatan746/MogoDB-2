@@ -1,28 +1,49 @@
 const API_BASE_URL = "https://kid-clothes-store.onrender.com/api/v1";
-// Lấy token từ localStorage (phải có để dùng quyền STAFF) [cite: 293]
-const token = localStorage.getItem('token'); 
-
-// Hàm bổ sung Header để tránh lỗi 401/403 
-const getHeaders = () => ({
-    'Authorization': `Bearer ${token}`,
-    'Content-Type': 'application/json'
-});
+function getTokenOrWarn() {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        showMessage({
+            title: "Chưa đăng nhập",
+            message: "Vui lòng đăng nhập để sử dụng chức năng này!",
+            type: "warning",
+            onOk: () => window.location.href = "../login.html"
+        });
+        return null;
+    }
+    return token;
+}
 
 // 1. Lấy toàn bộ danh sách người dùng [cite: 289]
+// 1. FETCH USERS
 async function fetchUsers() {
+    const token = getTokenOrWarn();
+    if (!token) return;
+
     try {
         const response = await fetch(`${API_BASE_URL}/users`, {
-            method: 'GET',
-            headers: getHeaders()
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
         });
+
         const data = await response.json();
+
         if (data.code === 1000) {
             renderTable(data.result);
         } else {
-            alert("Lỗi: " + data.message);
+            showMessage({
+                title: "Lỗi",
+                message: data.message || "Không thể tải danh sách",
+                type: "error"
+            });
         }
+
     } catch (error) {
-        console.error("Lỗi kết nối:", error);
+        showMessage({
+            title: "Lỗi server",
+            message: "Không thể kết nối server",
+            type: "error"
+        });
     }
 }
 
@@ -32,165 +53,226 @@ function renderTable(users) {
     tableBody.innerHTML = ''; 
 
     users.forEach(user => {
-        const row = `
-            <tr>
-                <td>${user.id}</td>
-                <td>${user.fullName}</td>
-                <td>${user.email}</td>
-                <td>${user.phone || 'N/A'}</td>
-                <td>${user.address || 'N/A'}</td>
-                <td><span class="badge ${user.role === 'STAFF' ? 'bg-danger' : 'bg-info'}">${user.role}</span></td>
-                <td>
-                    <button class="btn btn-sm btn-warning" onclick="openEditModal('${user.email}')">Sửa</button>
-                    <button class="btn btn-sm btn-danger" onclick="deleteUser('${user.email}')">Xóa</button>
-                </td>
-            </tr>
-        `;
+        const row = `<tr>
+    <td><span class="fw-bold text-muted">${user.id}</span></td>
+    <td >${user.fullName}</td>
+    <td class="">${user.email}</td>
+    <td>${user.phone || 'N/A'}</td>
+    <td>${user.address || 'N/A'}</td>
+    <td>
+        <span class="badge" style="background-color: ${user.role === 'STAFF' ? '#B999FD' : '#6c757d'}; font-size: 1.2rem; padding: 0.5rem 1rem;">
+            ${user.role}
+        </span>
+    </td>
+    <td>
+        <div class="d-flex gap-2">
+            <button class="btn btn-sm btn-action-edit" style="font-size: 1.6rem" onclick="openEditModal('${user.email}')">
+                <i class="fas fa-edit"></i> Sửa
+            </button>
+            <button class="btn btn-sm btn-action-remove" style="font-size: 1.6rem" onclick="deleteUser('${user.email}')">
+                <i class="fas fa-trash"></i> Xóa
+            </button>
+        </div>
+    </td>
+</tr>`;
         tableBody.innerHTML += row;
     });
 }
 
 // 3. Tìm kiếm theo tên (Sử dụng Query Parameter: keyword) [cite: 249, 259]
 async function searchUsers() {
+    const token = getTokenOrWarn();
+    if (!token) return;
+
     const keyword = document.getElementById('searchKeyword').value;
     if (!keyword) return fetchUsers();
-    
+
     try {
         const response = await fetch(`${API_BASE_URL}/users/search?keyword=${encodeURIComponent(keyword)}`, {
-            method: 'GET',
-            headers: getHeaders()
+            headers: { "Authorization": `Bearer ${token}` }
         });
+
         const data = await response.json();
-        if (data.code === 1000) renderTable(data.result);
+
+        if (data.code === 1000) {
+            renderTable(data.result);
+        }
+
     } catch (error) {
-        console.error("Lỗi tìm kiếm:", error);
+        showMessage({
+            title: "Lỗi",
+            message: "Không thể tìm kiếm",
+            type: "error"
+        });
     }
 }
 
 // 4. Lọc theo vai trò (Path Parameter) [cite: 312, 321]
 async function filterByRole() {
+    const token = getTokenOrWarn();
+    if (!token) return;
+
     const role = document.getElementById('roleFilter').value;
     if (!role) return fetchUsers();
 
     try {
         const response = await fetch(`${API_BASE_URL}/users/role/${role}`, {
-            method: 'GET',
-            headers: getHeaders()
+            headers: { "Authorization": `Bearer ${token}` }
         });
-        
-        // Xử lý lỗi 500 nếu server không trả về JSON hợp lệ
-        if (!response.ok) throw new Error("Server trả về lỗi " + response.status);
-        
-        const data = await response.json();
-        if (data.code === 1000) renderTable(data.result);
-    } catch (error) {
-        console.error("Lỗi lọc vai trò:", error);
-        alert("Hiện không thể lọc theo vai trò này. Vui lòng thử lại sau.");
-    }
-}
 
-// 5. Mở Modal và đổ dữ liệu cũ vào để sửa [cite: 81, 198]
-async function openEditModal(email) {
-    try {
-        const response = await fetch(`${API_BASE_URL}/users/${email}`, {
-            method: 'GET',
-            headers: getHeaders()
-        });
         const data = await response.json();
+
         if (data.code === 1000) {
-            const user = data.result;
-            document.getElementById('editEmail').value = user.email;
-            document.getElementById('editFullName').value = user.fullName;
-            document.getElementById('editPhone').value = user.phone || '';
-            document.getElementById('editAddress').value = user.address || '';
-            
-            const modal = new bootstrap.Modal(document.getElementById('userModal'));
-            modal.show();
+            renderTable(data.result);
         }
+
     } catch (error) {
-        alert("Không thể lấy thông tin người dùng.");
+        showMessage({
+            title: "Lỗi",
+            message: "Không thể lọc theo vai trò",
+            type: "error"
+        });
     }
 }
 
 // 6. Lưu thay đổi (PUT) [cite: 198, 208]
 async function saveUser() {
+    const token = getTokenOrWarn();
+    if (!token) return;
+
     const email = document.getElementById('editEmail').value;
+
     const updateData = {
         fullName: document.getElementById('editFullName').value,
         phone: document.getElementById('editPhone').value,
         address: document.getElementById('editAddress').value
     };
-    
+
     const password = document.getElementById('editPassword').value;
     if (password) updateData.password = password;
 
     try {
         const response = await fetch(`${API_BASE_URL}/users/${email}`, {
             method: 'PUT',
-            headers: getHeaders(),
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json"
+            },
             body: JSON.stringify(updateData)
         });
+
         const data = await response.json();
+
         if (data.code === 1000) {
-            alert("Cập nhật thành công!");
-            bootstrap.Modal.getInstance(document.getElementById('userModal')).hide();
-            fetchUsers();
+            showMessage({
+                title: "Thành công",
+                message: "Cập nhật người dùng thành công!",
+                type: "success",
+                onOk: () => {
+                    bootstrap.Modal.getInstance(document.getElementById('userModal')).hide();
+                    fetchUsers();
+                }
+            });
         }
+
     } catch (error) {
-        alert("Lỗi khi cập nhật.");
+        showMessage({
+            title: "Lỗi",
+            message: "Không thể cập nhật người dùng",
+            type: "error"
+        });
     }
 }
-
 // 7. Xóa người dùng [cite: 231, 240]
 async function deleteUser(email) {
-    if (!confirm(`Bạn có chắc chắn muốn xóa ${email}?`)) return;
+    const token = getTokenOrWarn();
+    if (!token) return;
 
-    try {
-        const response = await fetch(`${API_BASE_URL}/users/${email}`, {
-            method: 'DELETE',
-            headers: getHeaders()
-        });
-        const data = await response.json();
-        if (data.code === 1000) {
-            alert("Đã xóa người dùng!");
-            fetchUsers();
+    showMessage({
+        title: "Xác nhận xóa",
+        message: `Bạn có chắc muốn xóa ${email}?`,
+        type: "warning",
+        showCancel: true,
+        onOk: async () => {
+            try {
+                const response = await fetch(`${API_BASE_URL}/users/${email}`, {
+                    method: "DELETE",
+                    headers: { "Authorization": `Bearer ${token}` }
+                });
+
+                const data = await response.json();
+
+               if (data.code === 1000) {
+                showMessage({
+                    title: "Thành công",
+                    message: "Đã xóa người dùng!",
+                    type: "success",
+                    onOk: fetchUsers
+                });
+            } else {
+                showMessage({
+                    title: "Xóa thất bại",
+                    message: data.message || "Không thể xóa",
+                    type: "error"
+                });
+            }
+
+            } catch (error) {
+                showMessage({
+                    title: "Lỗi",
+                    message: "Không thể xóa người dùng",
+                    type: "error"
+                });
+            }
         }
-    } catch (error) {
-        alert("Lỗi khi xóa người dùng.");
-    }
+    });
 }
 
 // Khởi tạo danh sách khi trang tải xong
-document.addEventListener('DOMContentLoaded', fetchUsers);
+let userModal = null;
+let isLoading = false;
 
 async function openEditModal(email) {
-    const token = localStorage.getItem('token');
+    if (isLoading) return;
+    
+    const token = getTokenOrWarn();
+    if (!token) return;
+    
+    isLoading = true;
+    
     try {
-        // Gọi API lấy thông tin theo email [cite: 81]
-        const response = await fetch(`https://kid-clothes-store.onrender.com/api/v1/users/${email}`, {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${token}` // Yêu cầu quyền STAFF [cite: 89]
-            }
+        const response = await fetch(`${API_BASE_URL}/users/${email}`, {
+            headers: { "Authorization": `Bearer ${token}` }
         });
-
+        
         const data = await response.json();
-
+        
         if (data.code === 1000) {
             const user = data.result;
-            // Đổ dữ liệu từ API vào các input của Modal [cite: 95]
+            
             document.getElementById('editEmail').value = user.email;
             document.getElementById('editFullName').value = user.fullName;
             document.getElementById('editPhone').value = user.phone || '';
             document.getElementById('editAddress').value = user.address || '';
             
-            // Hiển thị Modal
-            const modal = new bootstrap.Modal(document.getElementById('userModal'));
-            modal.show();
-        } else if (data.code === 777) {
-            alert("Người dùng không tồn tại!");
+            const modalElement = document.getElementById('userModal');
+            
+            if (!userModal) {
+                userModal = new bootstrap.Modal(modalElement);
+            }
+            
+            userModal.show();
         }
+        
     } catch (error) {
-        console.error("Lỗi khi lấy thông tin chi tiết:", error);
+        showMessage({
+            title: "Lỗi",
+            message: "Không thể lấy thông tin người dùng",
+            type: "error"
+        });
+    } finally {
+        isLoading = false;
     }
 }
+// Init
+document.addEventListener('DOMContentLoaded', fetchUsers);

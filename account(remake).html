@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hồ Sơ Người Dùng</title>
     <link href="./bootstrap/bootstrap-5.3.8-dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/responsible.css">
+    <link rel="stylesheet" href="./asset/icon/themify-icons-font/themify-icons/themify-icons.css">
 </head>
 <body>
-<!-- Header -->
-     <!--Header -->
+    <!--Header -->
     <header>
         <div class="header_sub">
             <p>Kids’s products – gentle and comfortable</p>
@@ -32,6 +32,13 @@
             </div>
         </div>
     </header>
+                <!-- Navbar  -->
+     <nav class="navbar" style="margin-top: 90px;">
+            <ul>
+                <i><li><a href="./index.html">Home</a></li></i>
+                <i><li>Login</li></i>
+            </ul>
+        </nav>
  <!-- Content -->
 <div class="container py-5 font-title">
     <div class="row justify-content-center">
@@ -231,10 +238,21 @@
                     </div>
             </div>
        </div>
-       <!-- End Menu Mobile -->
-       
-<script src="./js/modal.js"></script>
-<script src="./js/account.js"></script>
-<script src="./bootstrap/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"></script>
+       <!-- Message -->
+        <div id="globalModal" class="g-modal">
+    <div class="g-modal-overlay"></div>
+    <div class="g-modal-box">
+        <div class="g-modal-icon" id="gModalIcon"></div>
+        <h2 id="gModalTitle" class="font-heading">Thông báo</h2>
+        <p id="gModalMessage" class="font-title"></p>
+        <div class="g-modal-buttons">
+            <button class="g-btn g-btn-cancel" id="gModalCancel">Hủy</button>
+            <button class="g-btn g-btn-ok" id="gModalOk">Đồng ý</button>
+        </div>
+    </div>
+</div>
+       <script src="./js/modal.js"></script>
+       <script src="./bootstrap/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"></script>
+       <script src="./js/account.js"></script>
 </body>
 </html>

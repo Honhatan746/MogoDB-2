@@ -16,9 +16,11 @@ async function renderRevenueTable(result){
 
         table.innerHTML += `
             <tr>
-                <td>Tháng ${r.month}</td>
-                <td>${r.totalRevenue.toLocaleString()} VND</td>
-                <td>${r.totalOrders}</td>
+                <td class="ps-4 fw-bold">Tháng ${r.month}</td>
+                <td style="color: #333; font-weight: 600;">
+                    ${r.totalRevenue.toLocaleString("vi-VN")} <small>VND</small>
+                </td>
+                <td class="pe-4 text-end text-muted">${r.totalOrders} đơn</td>
             </tr>
         `
     });
@@ -59,7 +61,7 @@ function renderUserTable(users) {
             <tr>
                 <td><span class="badge ${rankClass} rounded-pill">${index + 1}</span></td>
                 <td class="fw-bold text-truncate-id">${u.userId}</td>
-                <td class="text-end fw-bold text-primary">${u.totalSpent.toLocaleString()} VND</td>
+                <td class="text-end fw-bold heading-pink">${u.totalSpent.toLocaleString("vi-VN")} VND</td>
             </tr>`;
     });
 }
@@ -329,8 +331,8 @@ async function loadDailyChart() {
     if (!from || !to) return;
 
     const token = localStorage.getItem("token");
-    const fromISO = `${from}T00:00:00`;
-    const toISO = `${to}T23:59:59`;
+    const fromISO = formatLocalDateTime(from);
+    const toISO = formatLocalDateTime(to, true);
 
     try {
         const res = await fetch(`${API}/statistics/orders?from=${fromISO}&to=${toISO}`, {
@@ -359,7 +361,7 @@ function processAndRenderDayChart(orders) {
     const canvas = document.getElementById('dayChart');
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
-
+    if (!ctx) return;
     if (dayChartInstance) dayChartInstance.destroy();
 
     dayChartInstance = new Chart(ctx, {

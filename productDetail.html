@@ -78,7 +78,7 @@
                         <button class="btn-read bor-radis-0 upcass color-violet  font-w-700 font-text ">Vui lòng chọn Size</button>
                         <button class="btn-read bor-radis-0 upcass color-white background-violet  font-w-700 font-text  " >Vui lòng chọn Size</button>
                         <button class="btncss bor-radis-0 upcass btn-mua color-violet font-text  font-w-700 " id="addtoCart">Thêm vào giỏ hàng</button>
-                        <button class="btncss bor-radis-0 background-violet font-title color-white upcass btn-mua hover font-w-700" >Mua Ngay</button>
+                        <button class="btncss bor-radis-0 background-violet font-title color-white upcass btn-mua hover font-w-700" id="buyNow">Mua Ngay</button>
                     </div>
                 </div>
             </div>
@@ -199,6 +199,18 @@
             </div>
        </div>
        <!-- End Menu Mobile -->
+        <!-- Message -->
+        <div id="globalModal" class="g-modal">
+    <div class="g-modal-overlay"></div>
+    <div class="g-modal-box">
+        <div class="g-modal-icon" id="gModalIcon"></div>
+        <h2 id="gModalTitle" class="font-heading">Thông báo</h2>
+        <p id="gModalMessage" class="font-title"></p>
+        <div class="g-modal-buttons">
+            <button class="g-btn g-btn-cancel" id="gModalCancel">Hủy</button>
+            <button class="g-btn g-btn-ok" id="gModalOk">Đồng ý</button>
+        </div>
+    </div>
        <script src="./js/modal.js"></script>
         <script type="module" src="./js/productDetails.js"></script>
        <script src="./js/showcase.js "></script>

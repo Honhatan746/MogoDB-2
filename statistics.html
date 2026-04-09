@@ -4,12 +4,460 @@
     <meta charset="UTF-8">
     <title>Dashboard Statistics</title>
     <link href="./bootstrap/bootstrap-5.3.8-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/responsible.css">
+    <link rel="stylesheet" href="./asset/icon/themify-icons-font/themify-icons/themify-icons.css">
     <style>
         .chart-container {
         position: relative;
         width: 100%;
         height: 300px; /* chỉnh ở đây */
         }
+/* 1. Tối ưu thanh Tab (Menu thống kê) */
+#statTabs {
+    border-bottom: 2px solid #f0e6ff;
+    gap: 1rem;
+}
+#statTabs .nav-link {
+    font-size: 1.6rem; /* Font size lớn cho STAFF */
+    font-weight: 600;
+    color: #777;
+    border: none;
+    padding: 1.2rem 2rem;
+    border-radius: 1rem 1rem 0 0;
+    transition: all 0.3s ease;
+}
+
+#statTabs .nav-link:hover {
+    color: var(--primary-color);
+    background-color: #fcfaff;
+}
+
+#statTabs .nav-link.active {
+    color: var(--primary-color);
+    background-color: transparent;
+    border-bottom: 3px solid var(--primary-color);
+}
+/* 2. Tối ưu các thẻ Card chứa biểu đồ */
+.cardChart {
+    background: #fff;
+    border-radius: 1.5rem;
+    box-shadow: 0 0.5rem 2rem rgba(185, 153, 253, 0.1) !important;
+    overflow: hidden;
+}
+.card-header-chart{
+    background-color: #fff !important;
+    border-bottom: 1px solid #f0f0f0 !important;
+    padding: 1.5rem 2rem !important;
+    font-size: 1.7rem !important;
+    color: var(--primary-color);
+}
+.card-body-chart{
+    padding: 2rem;
+}
+/* 4. Tối ưu Label cho các ô lọc dữ liệu */
+label.small.fw-bold {
+    font-size: 1.3rem;
+    color: #555;
+    margin-bottom: 0.8rem;
+    display: block;
+}
+.form-control {
+    font-size: 1.5rem;
+    padding: 1rem 1.5rem;
+    border-radius: 1rem;
+    border: 1px solid #ddd;
+}
+@media (max-width: 768px) {
+    #statTabs {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        white-space: nowrap;
+        padding-bottom: 0.5rem;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    #statTabs::-webkit-scrollbar {
+        height: 3px;
+    }
+
+    #statTabs .nav-link {
+        font-size: 1.4rem;
+        padding: 1rem 1.5rem;
+    }
+}
+/* Container của bộ lọc */
+.filter-section {
+    background-color: #fcfaff;
+    padding: 2rem;
+    border-radius: 1.2rem;
+    border: 1px solid #f0e6ff;
+}
+
+/* Tăng font-size cho Label */
+.filter-section label {
+    font-size: 1.4rem !important; /* ~14px */
+    color: #555;
+    margin-bottom: 0.8rem;
+    display: block;
+}
+
+/* Tối ưu ô Input */
+.filter-section .form-control {
+    font-size: 1.5rem; /* Chữ nhập vào to rõ */
+    padding: 1.1rem 1.5rem;
+    border-radius: 0.8rem;
+    border: 2px solid #eee;
+    transition: all 0.3s ease;
+}
+
+.filter-section .form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(185, 153, 253, 0.1);
+    outline: none;
+}
+
+/* Nút Lọc dữ liệu */
+.btn-filter{
+    background-color: var(--primary-color);
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 600;
+    padding: 1.1rem;
+    border-radius: 0.8rem;
+    transition: all 0.3s ease;
+    height: 4.8rem; /* Đảm bảo bằng chiều cao với input */
+}
+
+.btn-filter:hover {
+    background-color: var(--primary-hover);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(185, 153, 253, 0.3);
+}
+
+/* Responsive cho Mobile */
+@media (max-width: 768px) {
+    .filter-section .input-group {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .filter-section .input-group > .form-control {
+        width: 100% !important;
+        border-radius: 0.8rem !important; /* Bỏ bo góc dính nhau của bootstrap */
+    }
+}
+/* Container chứa Canvas */
+.chart-container{
+    position: relative;
+    height: 30rem; /* Sử dụng rem để đồng bộ (300px) */
+    width: 100%;
+}
+
+/* Tối ưu Card Header của biểu đồ */
+.card-header-chart.bg-white.fw-bold {
+    font-size: 1.6rem !important; /* Chữ tiêu đề biểu đồ to rõ */
+    color: #444;
+    padding: 1.5rem 2rem !important;
+    border-bottom: 1px solid #f0f0f0 !important;
+}
+
+/* Hiệu ứng bóng đổ nhẹ cho Card biểu đồ */
+.cardChart.shadow-sm {
+    box-shadow: 0 0.5rem 1.5rem rgba(185, 153, 253, 0.1) !important;
+    border: 1px solid #f0e6ff;
+    transition: transform 0.3s ease;
+}
+
+.cardChart.shadow-sm:hover {
+    transform: translateY(-3px);
+}
+
+/* Responsive cho biểu đồ trên Mobile */
+@media (max-width: 991px) {
+    .chart-container {
+        height: 25rem; /* Giảm chiều cao một chút trên mobile để đỡ chiếm diện tích */
+    }
+}
+/* Card chứa số liệu lớn */
+.stat-card{
+    border: none;
+    border-radius: 1.5rem;
+    transition: all 0.3s ease;
+    background: #fff;
+    border-bottom: 4px solid #eee; /* Tạo chiều sâu */
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 1rem 2rem rgba(185, 153, 253, 0.15) !important;
+}
+
+/* Tiêu đề nhỏ phía trên con số */
+.stat-card h5 {
+    font-size: 1.6rem; /* 16px */
+    color: #777;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Con số chính */
+.stat-card h3 {
+    font-size: 3.2rem; /* Rất to để dễ nhìn (32px) */
+    font-weight: 800;
+    margin-bottom: 0;
+}
+
+#totalOrders {
+    color: #4db8ff !important; /* Màu xanh nước biển nhạt cho cân bằng */
+}
+
+/* Icon đi kèm (nếu bạn muốn thêm) */
+.stat-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+/* Container bao bọc bảng để cuộn ngang trên mobile */
+.table-responsive-stats {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 0.8rem;
+}
+.table-responsive-stats table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+.table-responsive-stats thead th {
+    background-color: #fcfaff !important; /* Màu tím Lavender cực nhạt */
+    color: var(--primary-color);
+    font-size: var(--font-title);
+    font-weight: 700;
+    padding: 1.8rem 1.5rem;
+    border-bottom: 2px solid #f0e6ff !important;
+    text-transform: none;
+}
+/* 1. Thiết lập chung cho bảng để giống ảnh mẫu */
+#revenueTable {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background-color: #fff;
+}
+/* 2. Header của bảng (Phần Tháng - Doanh thu - Số đơn hàng) */
+.table-light th {
+    background-color: #ffffff !important; /* Trắng tinh khôi như ảnh */
+    color: #333;
+    font-size: 1.4rem; /* ~14px */
+    font-weight: 600;
+    padding: 1.5rem;
+    border-bottom: 1px solid #f0f0f0 !important;
+    text-transform: none; /* Giữ nguyên chữ hoa/thường */
+}
+
+/* 3. Tối ưu các ô dữ liệu (td) */
+#revenueTable td {
+    font-size: 1.5rem;
+    padding: 1.8rem 1.5rem;
+    color: #444;
+    border-bottom: 1px solid #f8f9fa;
+    vertical-align: middle;
+}
+#revenueTable tr:hover {
+    background-color: #fcfaff !important;
+    transition: all 0.2s ease;
+}
+/* 4. Tăng khoảng cách lề theo JS của bạn (ps-4 và pe-4) */
+.ps-4{
+    padding-left: 2.5rem !important; /* Đẩy chữ "Tháng" vào trong một chút */
+}
+
+.pe-4 {
+    padding-right: 2.5rem !important; /* Đẩy chữ "đơn" cách mép phải */
+    text-align: right; /* Cột số đơn nên căn phải cho đẹp */
+}
+
+/* 5. Style cho con số doanh thu (Class: revenue-amount) */
+.revenue-amount {
+    font-weight: 700; /* In đậm số tiền như trong ảnh */
+    color: #000;      /* Màu đen đậm sang trọng */
+}
+
+@media (max-width: 768px) {
+    .table-responsive-stats table {
+        min-width: 550px; /* STAFF vuốt ngang để không bị kít chữ */
+    }
+}
+/* 6. Hiệu ứng sọc vằn (Zebra Striping) cực nhẹ giống ảnh */
+#revenueTable tbody tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+/* 7. Hiệu ứng khi STAFF di chuột vào hàng */
+#revenueTable tbody tr:hover {
+    background-color: #fcfaff !important; /* Màu tím cực nhạt khi hover */
+    transition: background-color 0.2s ease;
+}
+
+/* 8. Responsive: Thanh cuộn ngang khi màn hình nhỏ */
+.table-responsive-stats {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 1rem;
+}
+
+@media (max-width: 768px) {
+    #revenueTable {
+        min-width: 500px; /* Không cho bảng bị co quá nhỏ trên mobile */
+    }
+}
+/* --- PHẦN TOP KHÁCH HÀNG --- */
+
+/* 1. Chiều cao wrapper biểu đồ cho STAFF dễ nhìn */
+.chart-wrapper-users {
+    position: relative;
+    height: 35rem; /* ~360px */
+    width: 100%;
+}
+
+/* 2. Style cho Bảng Top Khách hàng */
+#topUsersTableMain thead th {
+    font-size: 1.5rem;
+    padding: 1.8rem 1rem;
+    color: #666;
+    border-top: none;
+}
+
+#topUsersTableMain tbody td {
+    font-size: 1.6rem;
+    padding: 2rem 1rem;
+    border-bottom: 1px solid #f8f9fa;
+}
+
+/* 3. Style cho User ID (Làm gọn nếu ID quá dài) */
+.user-id-text {
+    font-family: monospace;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+/* 4. Responsive cho Mobile */
+@media (max-width: 991px) {
+    .chart-wrapper-users {
+        height: 30rem;
+    }
+}
+
+@media (max-width: 768px) {
+    #topUsersTableMain {
+        min-width: 550px; /* STAFF vuốt ngang để xem đủ 3 cột */
+    }
+    
+    .users-stats-container .card-header-chart {
+        font-size: 1.6rem !important;
+        padding: 1.5rem !important;
+    }
+}
+/* Tối ưu ô nhập liệu Datetime và Number */
+.custom-input {
+    height: 4.8rem; /* Đồng bộ độ cao với nút bấm */
+    font-size: 1.5rem !important;
+    border: 2px solid #eee !important;
+    border-radius: 1rem !important;
+    color: #444;
+}
+
+.custom-input:focus {
+    border-color: var(--primary-color) !important;
+    background-color: #fff;
+    box-shadow: 0 0 0 4px rgba(185, 153, 253, 0.1) !important;
+}
+
+/* Điều chỉnh khoảng cách cho Label */
+label.small.fw-bold {
+    font-size: 1.35rem !important;
+    margin-bottom: 0.7rem;
+    color: #666 !important;
+}
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .filter-section {
+        padding: 1.5rem;
+    }
+    
+    .custom-input {
+        font-size: 1.4rem !important; /* Hơi nhỏ lại một chút trên mobile để không tràn */
+    }
+}
+/* --- CSS RIÊNG CHO TAB SẢN PHẨM --- */
+
+/* 1. Wrapper cho biểu đồ cột */
+.product-chart-wrapper {
+    position: relative;
+    height: 35rem; /* ~365px - đủ rộng để hiện tên SP ở trục X */
+    width: 100%;
+}
+
+/* 2. Tối ưu bảng sản phẩm */
+#mainProductTable thead th {
+    font-size: 1.4rem;
+    padding: 1.8rem 1rem;
+    background-color: #fcfaff !important; /* Màu nền tím cực nhạt cho header */
+    color: var(--primary-color);
+    border-bottom: 2px solid #f0e6ff !important;
+}
+
+#mainProductTable tbody td {
+    font-size: 1.5rem;
+    padding: 1.8rem 1rem;
+    border-bottom: 1px solid #f8f9fa;
+}
+
+/* Mã sản phẩm: Làm mờ nhẹ và dùng font gọn gàng */
+.product-id-sm {
+    font-size: 1.2rem;
+    color: #999;
+    font-family: monospace;
+}
+
+/* Tên sản phẩm: In đậm và màu đen sang trọng */
+.product-name-bold {
+    font-weight: 600;
+    color: #333;
+    display: block;
+    max-width: 25rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Nếu tên dài quá sẽ có dấu ... */
+}
+
+/* Số lượng: Dùng màu tím chủ đạo */
+.product-qty{
+    font-weight: 800;
+    font-size: 1.7rem;
+    color: var(--primary-color);
+}
+
+/* 3. Responsive */
+@media (max-width: 768px) {
+    .product-chart-wrapper {
+        height: 30rem;
+    }
+    
+    #mainProductTable {
+        min-width: 500px; /* STAFF vuốt ngang trên mobile */
+    }
+
+    #mainProductTable tbody td {
+        padding: 1.5rem 1rem;
+    }
+}
 </style>
 </head>
 <body>
@@ -36,188 +484,247 @@
             </div>
         </div>
     </header>
+                <!-- Navbar  -->
+     <nav class="navbar" style="margin-top: 90px;">
+            <ul>
+                <i><li><a href="./index.html">Home</a></li></i>
+                <i><li>Login</li></i>
+            </ul>
+        </nav>
  <!-- Content -->
 <div class="container mt-4">
-    <h2 class="mb-4 text-primary">Báo cáo Thống kê</h2>
+    <div class="container py-5">
+    <h2 class="mb-4 fw-bold font-heading heading-pink text-primary">
+        Báo cáo Thống kê
+    </h2>
 
     <ul class="nav nav-tabs mb-4" id="statTabs" role="tablist">
         <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="revenue-tab" data-bs-toggle="tab" data-bs-target="#revenue" type="button" role="tab">Doanh thu</button>
+            <button class="nav-link active" id="revenue-tab" data-bs-toggle="tab" data-bs-target="#revenue" type="button" role="tab">
+                Doanh thu
+            </button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="users-tab" data-bs-toggle="tab" data-bs-target="#users" type="button" role="tab">Top Khách hàng</button>
+            <button class="nav-link" id="users-tab" data-bs-toggle="tab" data-bs-target="#users" type="button" role="tab">
+                Top Khách hàng
+            </button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="products-tab" data-bs-toggle="tab" data-bs-target="#products" type="button" role="tab">Top Sản phẩm</button>
+            <button class="nav-link" id="products-tab" data-bs-toggle="tab" data-bs-target="#products" type="button" role="tab">
+                Top Sản phẩm
+            </button>
         </li>
     </ul>
+
+    <div class="tab-content pt-3" id="statTabsContent">
+        </div>
+</div>
 
     <div class="tab-content" id="statTabsContent">
         
         <div class="tab-pane fade show active" id="revenue" role="tabpanel" aria-labelledby="revenue-tab">            
             <!-- Chart -->
-            <div class="row mb-4 g-3">
-                <div class="col-md-3">
-                    <label class="small fw-bold">Xem theo năm (Tháng)</label>
-                    <input type="number" id="yearInput" class="form-control" value="2026">
-                </div>
-                <div class="col-md-4">
-                    <label class="small fw-bold">Khoảng ngày (Biểu đồ ngày)</label>
-                    <div class="input-group">
-                        <input type="date" id="dateFrom" class="form-control">
-                        <input type="date" id="dateTo" class="form-control">
-                    </div>
-                </div>
-                <div class="col-md-2 d-flex align-items-end">
-                    <button class="btn btn-primary w-100" onclick="handleLoadAllStatistics()">Lọc dữ liệu</button>
+            <div class="filter-section mb-4">
+    <div class="row g-3">
+        <div class="col-lg-3 col-md-4">
+            <label class="small fw-bold">Xem theo năm (Tháng)</label>
+            <input type="number" id="yearInput" class="form-control" value="2026" placeholder="VD: 2026">
+        </div>
+
+        <div class="col-lg-6 col-md-8">
+            <label class="small fw-bold">Khoảng ngày (Biểu đồ ngày)</label>
+            <div class="input-group">
+                <input type="date" id="dateFrom" class="form-control">
+                <span class="input-group-text bg-white border-0 d-none d-md-flex font-title">đến</span>
+                <input type="date" id="dateTo" class="form-control">
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-12 d-flex align-items-end">
+            <button class="btn btn-filter w-100" onclick="handleLoadAllStatistics()">
+                <i class="bi bi-funnel-fill me-2"></i>Lọc dữ liệu
+            </button>
+        </div>
+    </div>
+</div>
+
+            <div class="row mb-4 g-4"> 
+    <div class="col-lg-7 col-12">
+        <div class="cardChart shadow-sm h-100"> 
+            <div class="card-header-chart bg-white fw-bold">
+                <i class="bi bi-graph-up text-primary me-2"></i>Biểu đồ doanh thu ngày
+            </div>
+            <div class="card-body-chart">
+                <div class="chart-container">
+                    <canvas id="dayChart"></canvas>
                 </div>
             </div>
+        </div>
+    </div>
 
-            <div class="row mb-4 g-4"> <div class="col-lg-7 col-12">
-                    <div class="card shadow-sm h-100"> <div class="card-header bg-white fw-bold">Biểu đồ doanh thu ngày (Line Chart)</div>
-                        <div class="card-body">
-                            <div class="chart-container" style="position: relative; height:300px;">
-                                <canvas id="dayChart"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-5 col-12">
-                    <div class="card shadow-sm h-100">
-                        <div class="card-header bg-white fw-bold">So sánh doanh thu tháng (Bar Chart)</div>
-                        <div class="card-body">
-                            <div class="chart-container" style="position: relative; height:300px;">
-                                <canvas id="monthChart"></canvas>
-                            </div>
-                        </div>
-                    </div>
+    <div class="col-lg-5 col-12">
+        <div class="cardChart shadow-sm h-100">
+            <div class="card-header-chart bg-white fw-bold">
+                <i class="bi bi-bar-chart-line text-primary me-2"></i>So sánh doanh thu tháng
+            </div>
+            <div class="card-body-chart">
+                <div class="chart-container">
+                    <canvas id="monthChart"></canvas>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
             <!-- Dữ liệu  -->
 
-            <div class="row mb-4">
-                <div class="col-md-6">
-                    <div class="card text-center shadow-sm">
-                        <div class="card-body">
-                            <h5>Tổng doanh thu</h5>
-                            <h3 id="totalRevenue" class="text-success">0 VND</h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card text-center shadow-sm">
-                        <div class="card-body">
-                            <h5>Tổng đơn hàng</h5>
-                            <h3 id="totalOrders" class="text-info">0</h3>
-                        </div>
-                    </div>
-                </div>
+            <div class="row mb-4 g-4">
+    <div class="col-md-6">
+        <div class="cardChart text-center shadow-sm stat-card" style="border-bottom-color: var(--primary-color);">
+            <div class="card-body-chart py-4">
+                <i class="bi bi-cash-stack stat-icon" style="color: var(--primary-color);"></i>
+                <h5>Tổng doanh thu</h5>
+                <h3 id="totalRevenue" class="heading-pink">0 VND</h3>
             </div>
+        </div>
+    </div>
 
-            <div class="card border-0 shadow-sm">
-                <div class="card-header bg-white fw-bold">Doanh thu chi tiết theo tháng</div>
-                <div class="card-body">
-                    <table class="table table-hover">
-                        <thead class="table-light">
+    <div class="col-md-6">
+        <div class="cardChart text-center shadow-sm stat-card" style="border-bottom-color: #4db8ff;">
+            <div class="card-body-chart py-4">
+                <i class="bi bi-cart-check stat-icon" style="color: #4db8ff;"></i>
+                <h5>Tổng đơn hàng</h5>
+                <h3 id="totalOrders">0</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+                    <div class="cardChart border-0 shadow-sm mt-4">
+            <div class="card-header-chart bg-white fw-bold d-flex align-items-center">
+                <i class="bi bi-list-stars text-primary me-2"></i>
+                <span>Doanh thu chi tiết theo tháng</span>
+            </div>
+            <div class="card-body-chart p-0"> 
+                <div class="table-responsive-stats">
+                    <table class="table table-hover mb-0">
+                        <thead>
                             <tr>
-                                <th>Tháng</th>
+                                <th class="ps-4">Tháng</th>
                                 <th>Doanh thu</th>
-                                <th>Số đơn</th>
+                                <th class="pe-4">Số đơn hàng</th>
                             </tr>
                         </thead>
-                        <tbody id="revenueTable"></tbody>
+                        <tbody id="revenueTable">
+                            </tbody>
                     </table>
                 </div>
             </div>
         </div>
+        </div>
 
         <div class="tab-pane fade" id="users" role="tabpanel">
-        <div class="row g-4">
-            <div class="col-lg-5 col-12">
-                <div class="card border-0 shadow-sm h-100">
-                    <div class="card-header bg-white fw-bold text-center">Tỉ trọng chi tiêu khách hàng</div>
-                    <div class="card-body d-flex flex-column align-items-center justify-content-center">
-                        <div style="position: relative; height:300px; width:100%">
-                            <canvas id="userDoughnutChart"></canvas>
-                        </div>
-                    </div>
-                </div>
+        <div class="row g-4 users-stats-container">
+    <div class="col-lg-5 col-12">
+        <div class="cardChart border-0 shadow-sm h-100 chart-card">
+            <div class="card-header-chart bg-white fw-bold text-center border-0 pt-4">
+                <i class="bi bi-pie-chart-fill me-2"></i>Tỉ trọng chi tiêu khách hàng
             </div>
-
-            <div class="col-lg-7 col-12">
-                <div class="card border-0 shadow-sm h-100">
-                    <div class="card-header bg-white fw-bold">Top 5 khách hàng & Nhóm khác</div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-hover align-middle">
-                                <thead class="table-light">
-                                    <tr>
-                                        <th>Hạng</th>
-                                        <th>User ID</th>
-                                        <th class="text-end">Tổng chi tiêu</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="topUsersTable"></tbody>
-                            </table>
-                        </div>
-                    </div>
+            <div class="card-body-chart d-flex flex-column align-items-center justify-content-center p-4">
+                <div class="chart-wrapper-users">
+                    <canvas id="userDoughnutChart"></canvas>
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="col-lg-7 col-12">
+        <div class="cardChart border-0 shadow-sm h-100 table-card">
+            <div class="card-header-chart bg-white fw-bold d-flex align-items-center">
+                <i class="bi bi-trophy-fill text-warning me-2"></i>
+                Top 5 khách hàng & Nhóm khác
+            </div>
+            <div class="card-body-chart p-0">
+                <div class="table-responsive-stats">
+                    <table class="table table-hover align-middle mb-0" id="topUsersTableMain">
+                        <thead class="table-light">
+                            <tr>
+                                <th class="ps-4">Hạng</th>
+                                <th>Khách hàng (User ID)</th>
+                                <th class="pe-4 text-end">Tổng chi tiêu</th>
+                            </tr>
+                        </thead>
+                        <tbody id="topUsersTable">
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </div>
 
         <div class="tab-pane fade" id="products" role="tabpanel">
-            <div class="row mb-4 g-2">
-                <div class="col-md-4">
-                    <label class="small fw-bold">Từ ngày</label>
-                    <input type="datetime-local" id="startDate" class="form-control">
-                </div>
-                <div class="col-md-4">
-                    <label class="small fw-bold">Đến ngày</label>
-                    <input type="datetime-local" id="endDate" class="form-control">
-                </div>
-                <div class="col-md-2">
-                    <label class="small fw-bold">Số lượng</label>
-                    <input type="number" id="limit" class="form-control" value="5">
-                </div>
-                <div class="col-md-2 d-flex align-items-end">
-                    <button class="btn btn-primary w-100" onclick="loadTopProducts()">Lọc Sản Phẩm</button>
+            <div class="filter-section mb-4">
+    <div class="row g-3">
+        <div class="col-lg-3 col-md-6">
+            <label class="small fw-bold text-muted">Từ ngày</label>
+            <input type="datetime-local" id="startDate" class="form-control custom-input">
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <label class="small fw-bold text-muted">Đến ngày</label>
+            <input type="datetime-local" id="endDate" class="form-control custom-input">
+        </div>
+
+        <div class="col-lg-2 col-md-6">
+            <label class="small fw-bold text-muted">Số lượng Top</label>
+            <input type="number" id="limit" class="form-control custom-input" value="5" min="1" max="50">
+        </div>
+
+        <div class="col-lg-4 col-md-6 d-flex align-items-end">
+            <button class="btn btn-filter w-100 d-flex align-items-center justify-content-center" onclick="loadTopProducts()">
+                <i class="bi bi-search me-2"></i>Lọc Sản Phẩm Bán Chạy
+            </button>
+        </div>
+    </div>
+</div>
+
+            <div class="row g-4 products-stats-container">
+    <div class="col-lg-6 col-12">
+        <div class="cardChart border-0 shadow-sm h-100 chart-card">
+            <div class="card-header-chart bg-white fw-bold">
+                <i class="bi bi-bar-chart-fill me-2"></i>Biểu đồ sản lượng bán ra
+            </div>
+            <div class="card-body-chart">
+                <div class="product-chart-wrapper">
+                    <canvas id="productBarChart"></canvas>
                 </div>
             </div>
+        </div>
+    </div>
 
-            <div class="row g-4">
-                <div class="col-lg-6 col-12">
-                    <div class="card border-0 shadow-sm h-100">
-                        <div class="card-header bg-white fw-bold">Biểu đồ sản lượng bán ra</div>
-                        <div class="card-body">
-                            <div style="position: relative; height:350px;">
-                                <canvas id="productBarChart"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-6 col-12">
-                    <div class="card border-0 shadow-sm h-100">
-                        <div class="card-header bg-white fw-bold">Chi tiết sản phẩm bán chạy</div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-hover align-middle">
-                                    <thead class="table-light">
-                                        <tr>
-                                            <th>Mã SP</th>
-                                            <th>Tên sản phẩm</th>
-                                            <th class="text-end">Số lượng</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="topProductsTable"></tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
+    <div class="col-lg-6 col-12">
+        <div class="cardChart border-0 shadow-sm h-100 table-card">
+            <div class="card-header-chart bg-white fw-bold">
+                <i class="bi bi-box-seam-fill me-2"></i>Chi tiết sản phẩm bán chạy
+            </div>
+            <div class="card-body-chart p-0"> <div class="table-responsive-stats">
+                    <table class="table table-hover align-middle mb-0" id="mainProductTable">
+                        <thead class="table-light">
+                            <tr>
+                                <th class="ps-4">Mã SP</th>
+                                <th>Tên sản phẩm</th>
+                                <th class="pe-4 text-end">Số lượng</th>
+                            </tr>
+                        </thead>
+                        <tbody id="topProductsTable">
+                            </tbody>
+                    </table>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
         </div>
 
     </div>
@@ -319,6 +826,18 @@
             </div>
        </div>
        <!-- End Menu Mobile -->
+        <!-- Message -->
+        <div id="globalModal" class="g-modal">
+    <div class="g-modal-overlay"></div>
+    <div class="g-modal-box">
+        <div class="g-modal-icon" id="gModalIcon"></div>
+        <h2 id="gModalTitle" class="font-heading">Thông báo</h2>
+        <p id="gModalMessage" class="font-title"></p>
+        <div class="g-modal-buttons">
+            <button class="g-btn g-btn-cancel" id="gModalCancel">Hủy</button>
+            <button class="g-btn g-btn-ok" id="gModalOk">Đồng ý</button>
+        </div>
+    </div>
 <script src="./js/chart.umd.min.js"></script>
 <script src="./js/modal.js"></script>
 <script src="./js/statistics.js"></script>

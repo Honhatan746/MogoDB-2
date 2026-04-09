@@ -1,16 +1,34 @@
   const API_URL = "https://kid-clothes-store.onrender.com/api/v1/products";
   const API_CATEGORY = "https://kid-clothes-store.onrender.com/api/v1/categories";
 
+  function requireAuth() {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    showMessage({
+      title: "Chưa đăng nhập",
+      message: "Bạn cần đăng nhập để thực hiện chức năng này",
+      type: "warning",
+      onOk: () => {
+        window.location.href = "../login.html";
+      }
+    });
+    return null;
+  }
+
+  return token;
+}
+
   let categoryMap = {}; // map id → name
 
   // Load category trước
-  async function loadCategories() {
-    const token = localStorage.getItem("token");
+async function loadCategories() {
+  const token = requireAuth();
+  if (!token) return;
 
+  try {
     const res = await fetch(API_CATEGORY, {
-      headers: {
-        "Authorization": `Bearer ${token}`
-      }
+      headers: { Authorization: `Bearer ${token}` }
     });
 
     const data = await res.json();
@@ -19,11 +37,26 @@
       data.result.forEach(cat => {
         categoryMap[cat.id] = cat.name;
       });
+    } else {
+      showMessage({
+        title: "Lỗi",
+        message: "Không load được category",
+        type: "error"
+      });
     }
+
+  } catch (err) {
+    showMessage({
+      title: "Server Error",
+      message: "Không thể tải category",
+      type: "error"
+    });
   }
+}
 
   // Load product
-  async function fetchProducts() {
+async function fetchProducts() {
+  try {
     const res = await fetch(API_URL);
     const data = await res.json();
 
@@ -31,7 +64,11 @@
     table.innerHTML = "";
 
     if (!Array.isArray(data.result)) {
-      alert("Lỗi load sản phẩm");
+      showMessage({
+        title: "Lỗi",
+        message: "Không load được sản phẩm",
+        type: "error"
+      });
       return;
     }
 
@@ -43,37 +80,67 @@
           <td>${p.price.toLocaleString()}đ</td>
           <td>${categoryMap[p.categoryId] || "N/A"}</td>
           <td>
-            <a href="editProduct.html?id=${p.id}" class="btn btn-warning btn-sm font-title">Edit</a>
-            <button class="btn btn-danger btn-sm font-title" onclick="deleteProduct('${p.id}')">Delete</button>
-            <button class="btn btn-secondary btn-sm font-title" onclick="viewVariants('${p.id}')">Variants</button>
+            <a href="editProduct.html?id=${p.id}" class="btn btn-action-edit btn-sm font-title">Edit</a>
+            <button class="btn btn-action-remove btn-sm font-title" onclick="deleteProduct('${p.id}')">Delete</button>
+            <button class="btn btn-sm font-title btn-action-variant" onclick="viewVariants('${p.id}')">Variants</button>
           </td>
         </tr>
       `;
     });
+
+  } catch (err) {
+    showMessage({
+      title: "Lỗi",
+      message: "Không thể load sản phẩm",
+      type: "error"
+    });
   }
+}
 
   // Delete product
-  async function deleteProduct(id) {
-    if (!confirm("Are you sure to delete?")) return;
+async function deleteProduct(id) {
+  const token = requireAuth();
+  if (!token) return;
 
-    const token = localStorage.getItem("token");
+  showMessage({
+    title: "Xác nhận",
+    message: "Bạn có chắc muốn xóa sản phẩm này?",
+    type: "warning",
+    showCancel: true,
+    onOk: async () => {
+      try {
+        const res = await fetch(`${API_URL}/${id}`, {
+          method: "DELETE",
+          headers: { Authorization: `Bearer ${token}` }
+        });
 
-    const res = await fetch(`${API_URL}/${id}`, {
-      method: "DELETE",
-      headers: {
-        "Authorization": `Bearer ${token}`
+        const data = await res.json();
+
+        if (data.code === 1000) {
+          showMessage({
+            title: "Thành công",
+            message: "Xóa sản phẩm thành công",
+            type: "success"
+          });
+          fetchProducts();
+        } else {
+          showMessage({
+            title: "Thất bại",
+            message: data.message || "Xóa thất bại",
+            type: "error"
+          });
+        }
+
+      } catch (err) {
+        showMessage({
+          title: "Server Error",
+          message: "Không thể kết nối server",
+          type: "error"
+        });
       }
-    });
-
-    const data = await res.json();
-
-    if (data.code === 1000) {
-      alert("Xóa thành công");
-      fetchProducts();
-    } else {
-      alert(data.message || "Xóa thất bại");
     }
-  }
+  });
+}
 
   // chạy
   async function init() {
@@ -83,23 +150,39 @@
 
   init();
   let variantModal = null;
+  let isLoading = null;
   let currentProducts = [];
 //   Handle variant
- async function viewVariants(productId){
-    const modalTitle = document.querySelector(".modal-title");
+async function viewVariants(productId){
+  if(isLoading) return;
+  isLoading = true;
+
+  try {
     const res = await fetch(`${API_URL}/${productId}`);
     const data = await res.json();
 
     currentProducts = data.result;
-    modalTitle.textContent = currentProducts.name;
+
+    document.querySelector(".modal-title").textContent = currentProducts.name;
     document.getElementById("variantProductId").value = productId;
-    
 
     renderVariantTable(currentProducts.variants);
+
     if(!variantModal){
-    variantModal = new bootstrap.Modal(document.getElementById("variantModal"));
+      variantModal = new bootstrap.Modal(document.getElementById("variantModal"));
     }
+
     variantModal.show();
+
+  } catch (err) {
+    showMessage({
+      title: "Lỗi",
+      message: "Không load được variant",
+      type: "error"
+    });
+  } finally {
+    isLoading = false;
+  }
 }
 function renderVariantTable(variants) {
     const table = document.getElementById("variantTable");
@@ -140,10 +223,16 @@ function updateLocalVariant(index, field, value) {
 }
 
 function deleteVariantLocal(index) {
-    if (confirm("Bạn có chắc muốn xóa variant này không?")) {
-        currentProducts.variants.splice(index, 1); // Xóa khỏi mảng tạm
-        renderVariantTable(currentProducts.variants); // Vẽ lại bảng
+  showMessage({
+    title: "Xác nhận",
+    message: "Bạn có chắc muốn xóa variant này?",
+    type: "warning",
+    showCancel: true,
+    onOk: () => {
+      currentProducts.variants.splice(index, 1);
+      renderVariantTable(currentProducts.variants);
     }
+  });
 }
 // add variant
 async function addVariant(){
@@ -153,14 +242,27 @@ async function addVariant(){
   const color = document.getElementById("vColor").value;
   const stock = Number(document.getElementById("vStock").value);
 
+  if(!size || !color){
+    showMessage({
+      title: "Thiếu thông tin",
+      message: "Vui lòng nhập size và color",
+      type: "warning"
+    });
+    return;
+  }
+
   const res = await fetch(`${API_URL}/${productId}`);
   const data = await res.json();
   const product = data.result;
 
-  //  check trùng
   const exists = product.variants.some(v => v.size === size && v.color === color);
+
   if(exists){
-    alert("Variant đã tồn tại");
+    showMessage({
+      title: "Trùng variant",
+      message: "Variant đã tồn tại",
+      type: "warning"
+    });
     return;
   }
 
@@ -170,36 +272,44 @@ async function addVariant(){
 }
 // Save chỉnh sửa
 async function saveAllChanges() {
-    const productId = document.getElementById("variantProductId").value;
-    const token = localStorage.getItem("token"); // Lấy token của STAFF
+  const productId = document.getElementById("variantProductId").value;
+  const token = requireAuth();
+  if (!token) return;
 
-    if (!token) {
-        alert("Vui lòng đăng nhập quyền STAFF!");
-        return;
+  try {
+    const res = await fetch(`${API_URL}/${productId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(currentProducts)
+    });
+
+    const data = await res.json();
+
+    if (data.code === 1000) {
+      showMessage({
+        title: "Thành công",
+        message: "Cập nhật thành công",
+        type: "success"
+      });
+      currentProducts = data.result;
+    } else {
+      showMessage({
+        title: "Lỗi",
+        message: data.message || "Không thể cập nhật",
+        type: "error"
+      });
     }
 
-    try {
-        const res = await fetch(`${API_URL}/${productId}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify(currentProducts)
-        });
-
-        const data = await res.json();
-
-        if (data.code === 1000) {
-            alert("Cập nhật thành công!");
-            currentProducts = data.result;
-        } else {
-            alert("Lỗi: " + (data.message || "Không thể cập nhật"));
-        }
-    } catch (error) {
-        console.error("Lỗi kết nối:", error);
-        alert("Lỗi server, vui lòng thử lại sau!");
-    }
+  } catch (err) {
+    showMessage({
+      title: "Server Error",
+      message: "Vui lòng thử lại sau",
+      type: "error"
+    });
+  }
 }
 
 // update lại 
@@ -247,23 +357,23 @@ async function updateVariants(productId, variants){
 }
 
 async function findProduct() {
-    const inputId = document.getElementById("findProductId").value.trim();
-    const table = document.getElementById("productTable");
+  const inputId = document.getElementById("findProductId").value.trim();
+  const table = document.getElementById("productTable");
 
-    if (!inputId) {
-        fetchProducts(); // Nếu để trống thì hiện lại tất cả
-        return;
-    }
+  if (!inputId) {
+    fetchProducts();
+    return;
+  }
 
-    try {
-        const res = await fetch(`${API_URL}/${inputId}`);
-        const data = await res.json();
+  try {
+    const res = await fetch(`${API_URL}/${inputId}`);
+    const data = await res.json();
 
-        if (data.code === 1000) {
-            const p = data.result;
-            // Chỉ hiển thị duy nhất sản phẩm tìm được lên bảng
-            table.innerHTML = `
-              <tr class="align-middle">
+    if (data.code === 1000) {
+      const p = data.result;
+
+      table.innerHTML = `
+        <tr class="align-middle">
                     <td>1</td>
                     <td>${p.name}</td>
                     <td>${p.price.toLocaleString()}đ</td>
@@ -274,13 +384,22 @@ async function findProduct() {
                       <button class="btn btn-secondary btn-sm font-title" onclick="viewVariants('${p.id}')">Variants</button>
                     </td>
               </tr>
-              `;
-        } else {
-            alert("Không tìm thấy mã sản phẩm này!");
-        }
-    } catch (error) {
-        alert("Mã ID không hợp lệ hoặc lỗi server!");
+      `;
+    } else {
+      showMessage({
+        title: "Không tìm thấy",
+        message: "Không có sản phẩm với ID này",
+        type: "warning"
+      });
     }
+
+  } catch (err) {
+    showMessage({
+      title: "Lỗi",
+      message: "ID không hợp lệ hoặc lỗi server",
+      type: "error"
+    });
+  }
 }
 
 // Thêm sự kiện nhấn Enter cho ô nhập mã

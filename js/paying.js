@@ -5,38 +5,60 @@ const API_CART = "https://kid-clothes-store.onrender.com/api/v1/cart";
 function hide(){
     const dangNhapPaying = document.getElementById("dangNhapPaying");
     const token = localStorage.getItem("token");
+
     if(!token){
         dangNhapPaying.style.display = "block";
-    }else {
+
+        showMessage({
+            title: "Chưa đăng nhập",
+            message: "Vui lòng đăng nhập để thanh toán",
+            type: "warning",
+            onOk: () => window.location.href = "login.html"
+        });
+
+    }else{
         dangNhapPaying.style.display = "none";
     }
 }
-hide();
 async function fetchMyInfo(){
     const token = localStorage.getItem("token");
+
     if(!token){
-        alert("Bạn chưa đăngn nhập");
+        showMessage({
+            title: "Lỗi",
+            message: "Bạn chưa đăng nhập",
+            type: "warning",
+            onOk: () => window.location.href = "login.html"
+        });
         return;
     }
-    else{
-        try {
-            const res = await fetch("https://kid-clothes-store.onrender.com/api/v1/users/myInfo", {
-                method: "GET",
-                headers: {
-                    "Authorization": `Bearer ${token}`,
-                    "Content-Type": "application/json"
-                }
-            });
 
-            const data = await res.json();
-            if(data.code === 1000 ){
-                fillForm(data.result);
-            }else{
-                console.log("Không thể lấy thông tin người dùng");
+    try {
+        const res = await fetch("https://kid-clothes-store.onrender.com/api/v1/users/myInfo", {
+            headers: {
+                "Authorization": `Bearer ${token}`
             }
-        } catch (error) {
-            
+        });
+
+        const data = await res.json();
+
+        if(data.code === 1000){
+            fillForm(data.result);
+        }else{
+            showMessage({
+                title: "Lỗi",
+                message: "Không lấy được thông tin user",
+                type: "error"
+            });
         }
+
+    } catch (error){
+        console.error(error);
+        showMessage({
+            title: "Lỗi server",
+            message: "Không thể kết nối server",
+            type: "error"
+        });
     }
 }
 function fillForm(user) {
@@ -54,41 +76,63 @@ function fillForm(user) {
 }
 async function getCart(){
     const token = localStorage.getItem("token");
+
     if(!token){
-        alert("Vui lòng đăng nhập");
+        showMessage({
+            title: "Chưa đăng nhập",
+            message: "Vui lòng đăng nhập để xem giỏ hàng",
+            type: "warning",
+            onOk: () => window.location.href = "login.html"
+        });
         return;
     }
+
     try {
-        const  res = await fetch(API_CART, {
+        const res = await fetch(API_CART, {
             headers: {
                 "Authorization": `Bearer ${token}`
             }
         });
+
         const data = await res.json();
+
         if(data.code === 1000){
             renderProduct(data.result.items || []);
         }
-    } catch (error) {
-        console.error("Loi load cart: ", error);
+
+    } catch (error){
+        console.error(error);
+        showMessage({
+            title: "Lỗi",
+            message: "Không load được giỏ hàng",
+            type: "error"
+        });
     }
-    
 }
+
 function renderProduct(items){
     const list = document.querySelector(".paying-list");
     const totalTem = document.getElementById("totalTem");
     const totalEle = document.getElementById("total");
+
+    if(!list) return;
+
     list.innerHTML = "";
-    
+
     if(items.length === 0){
         list.innerHTML = "<p>Giỏ hàng trống</p>";
         totalEle.innerText = "0đ";
         totalTem.innerText = "0đ";
         return;
     }
+
     let total = 0;
+    let html = "";
+
     items.forEach(item => {
         total += item.subTotal || 0;
-        list.innerHTML += `
+
+        html += `
         <div class="paying-item di-flex alignItem-cen wid-100 justi-btw bo-bot mar-t-b">
         <div class="di-flex alignItem-cen ">
         <div class="frame_img paying-item-img">
@@ -100,20 +144,23 @@ function renderProduct(items){
         <p>${Number(item.subTotal).toLocaleString("vi-VN")}đ</p>
         </div>
         `;
-    }); 
+    });
+
+    list.innerHTML = html;
     totalEle.innerText = total.toLocaleString("vi-VN") + "đ";
     totalTem.innerText = total.toLocaleString("vi-VN") + "đ";
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    getCart();
-    fetchMyInfo();
-});
-
 async function creatOrder(){
     const token = localStorage.getItem("token");
+
     if(!token){
-        alert("Vui lòng đăng nhập");
+        showMessage({
+            title: "Chưa đăng nhập",
+            message: "Vui lòng đăng nhập để đặt hàng",
+            type: "warning",
+            onOk: () => window.location.href = "login.html"
+        });
         return;
     }
 
@@ -122,26 +169,21 @@ async function creatOrder(){
     const address = document.getElementById("payingAddress").value.trim();
 
     const country = document.getElementById("payingCountruy").value.trim();
-    const province = document.getElementById("payingProvince").value.trim();
-    const quan = document.getElementById("payingQuan").value.trim();
-    const phuong = document.getElementById("payingPhuong").value.trim();
-    const fullAddress = `${address}, ${phuong}, ${quan}, ${province}, ${country}`;
 
-    // validate
+    const fullAddress = `${address}, ${country}`;
+
+    // VALIDATE
     if(!name || !phone || !address){
-        alert("Vui lòng nhập đầy đủ thông tin");
+        showMessage({
+            title: "Thiếu thông tin",
+            message: "Vui lòng nhập đầy đủ thông tin",
+            type: "warning"
+        });
         return;
     }
 
-    const info = {
-        receiverName: name,
-        receiverPhone: phone,
-        shippingAddress: fullAddress,
-        paymentMethod: "COD"
-    }
-    console.log(info);
     try {
-        const res = await fetch("https://kid-clothes-store.onrender.com/api/v1/orders", {
+        const res = await fetch(API_ORDER, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -156,35 +198,58 @@ async function creatOrder(){
         });
 
         const data = await res.json();
-          
+
         if(data.code === 1000){
-            alert("Đặt hàng thành công!");
-            clearCart();
-            window.location.href = "index.html";
+            showMessage({
+                title: "Thành công",
+                message: "Đặt hàng thành công!",
+                type: "success",
+                onOk: async () => {
+                    await clearCart();
+                    window.location.href = "index.html";
+                }
+            });
 
         } else {
-            alert(data.message || "Tạo đơn thất bại");
+            showMessage({
+                title: "Thất bại",
+                message: data.message || "Tạo đơn thất bại",
+                type: "error"
+            });
         }
 
-    } catch(err){
+    } catch (err){
         console.error(err);
-        alert("Lỗi server");
+        showMessage({
+            title: "Lỗi server",
+            message: "Không thể kết nối server",
+            type: "error"
+        });
     }
 }
 async function clearCart(){
     const token = localStorage.getItem("token");
+
     try {
-        const res = fetch(API_CART, {
+        const res = await fetch(API_CART, {
             method: "DELETE",
             headers:{
                 "Authorization": `Bearer ${token}`
             }
         });
+
         const data = await res.json();
-        if(data === 1000){
-            console.log("Vỏ hàng được xóa sạch ròi");
+
+        if(data.code === 1000){
+            console.log("Đã xóa giỏ hàng");
         }
-    } catch (error) {
-        console.error("Lỗi gì nè: ", error);
+
+    } catch (error){
+        console.error(error);
     }
 }
+document.addEventListener("DOMContentLoaded", () => {
+    hide();
+    getCart();
+    fetchMyInfo();
+});

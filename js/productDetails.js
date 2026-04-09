@@ -39,7 +39,7 @@ fetch(API_PRODUCT)
     const products = data.result;
     productDetail(products);
 });
-
+let currentProduct = null;
 function productDetail(products){
     let currentVariant = null;
 
@@ -47,7 +47,15 @@ function productDetail(products){
     const productID  = params.get("id");
 
     const product = products.find(p => p.id === productID);
-    if (!product) return;
+    currentProduct = product;
+    if (!product){
+            showMessage({
+                title: "Lỗi",
+                message: "Không tìm thấy sản phẩm",
+                type: "error"
+            });
+            return;
+        }
 
     // set default variant
     currentVariant = product.variants[0];
@@ -192,6 +200,18 @@ console.log(product.categoryId);
 const btnAdd = document.getElementById("addtoCart");
 
 btnAdd.addEventListener("click", function () {
+    const token = localStorage.getItem("token");
+
+    if(!token){
+        showMessage({
+            title: "Chưa đăng nhập",
+            message: "Vui lòng đăng nhập để thêm vào giỏ hàng",
+            type: "warning",
+            onOk: () => window.location.href = "login.html"
+        });
+        return;
+    }
+
     const productID = document.getElementById("prodcutDTID").innerText;
     const sizeBtn = document.querySelector("#prodcutDTSize .activecss");
     const size = sizeBtn ? sizeBtn.innerText : null;
@@ -199,7 +219,88 @@ btnAdd.addEventListener("click", function () {
     const quantity = parseInt(inputQuan.value) || 1;
 
     addToCart(productID, size, color, quantity);
+    showMessage({
+        title: "Thành công",
+        message: "Đã thêm vào giỏ hàng",
+        type: "success"
+    });
 });
+
+const buyNowBtn = document.getElementById("buyNow");
+if(buyNowBtn) {
+    buyNowBtn.addEventListener("click", handleBuyNow);
+}
+
+async function handleBuyNow() {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+        showMessage({
+            title: "Chưa đăng nhập",
+            message: "Vui lòng đăng nhập để mua hàng!",
+            type: "warning",
+            onOk: () => window.location.href = "login.html"
+        });
+        return;
+    }
+
+    if (!selectedSize || !selectedColor) {
+        showMessage({
+            title: "Thiếu thông tin",
+            message: "Vui lòng chọn đầy đủ size và màu!",
+            type: "warning"
+        });
+        return;
+    }
+
+    const quantity = parseInt(document.getElementById("quantity").value) || 1;
+
+    try {
+        // Có thể thêm hiệu ứng chờ ở đây
+        console.log("Đang xử lý luồng Mua ngay...");
+
+        // BƯỚC A: Xóa sạch giỏ hàng hiện tại
+        await fetch("https://kid-clothes-store.onrender.com/api/v1/cart", {
+            method: "DELETE",
+            headers: { "Authorization": `Bearer ${token}` }
+        });
+
+        // BƯỚC B: Thêm sản phẩm này vào giỏ
+        const resAdd = await fetch("https://kid-clothes-store.onrender.com/api/v1/cart/items", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                productId: currentProduct.id,
+                size: selectedSize.trim(),
+                color: selectedColor.trim(),
+                quantity: quantity
+            })
+        });
+
+        const dataAdd = await resAdd.json();
+
+        if (dataAdd.code === 1000) {
+            // Xóa dữ liệu buyNow cũ (nếu có) để tránh xung đột logic
+            localStorage.removeItem("buyNow"); 
+            
+            // 🚀 Chuyển sang trang thanh toán
+            window.location.href = "./paying.html";
+        } else {
+            throw new Error(dataAdd.message || "Lỗi thêm vào giỏ");
+        }
+
+    } catch (error) {
+        console.error("Lỗi:", error);
+        showMessage({
+            title: "Lỗi",
+            message: "Không thể xử lý yêu cầu mua ngay lúc này",
+            type: "error"
+        });
+    }
+}
 
 
 

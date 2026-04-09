@@ -1,8 +1,8 @@
 const API_PRODUCT = "https://kid-clothes-store.onrender.com/api/v1/products";
 // ID category áo bé gái
-const GIRL_CATEGORY_ID = "69c60f68556d421a9dfbcdd6";
-const BOY_CATEGORY_Id = "69c4ecf1911ef2eebc32d6b0"
-const ACCESSORIES_CATEGORY_ID = "69c60f83556d421a9dfbcdd7";
+const GIRL_CATEGORY_ID = "69d47897253ed329a11e2622";
+const BOY_CATEGORY_Id = "69d47897253ed329a11e2621"
+const ACCESSORIES_CATEGORY_ID = "69d47897253ed329a11e2623";
 
 function getProductLink(productId){
     const role = localStorage.getItem("role");

@@ -5,6 +5,160 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Quản lý Người dùng (Staff)</title>
   <link href="./bootstrap/bootstrap-5.3.8-dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/responsible.css">
+  <link rel="stylesheet" href="./asset/icon/themify-icons-font/themify-icons/themify-icons.css">
+  <style>
+
+/* Base Font Size */
+body {
+    font-size: 1.6rem; /* Tương đương 16px */
+    color: var(--text-main);
+    background-color: #fcfaff;
+}
+
+/* Tăng tính Responsive cho Table */
+@media (max-width: 768px) {
+    .table-responsive-stack tr {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid #ddd;
+        margin-bottom: 1.5rem;
+        padding: 1rem;
+        border-radius: 8px;
+        background: white;
+    }
+    
+    .table thead {
+        display: none; /* Ẩn tiêu đề bảng trên mobile */
+    }
+
+    .input-group, .form-select {
+        margin-bottom: 1rem;
+    }
+}
+
+/* Custom Table Header */
+.table-dark {
+    background-color: var(--primary-color) !important;
+    border: none;
+}
+
+.table-dark th {
+    font-size: 1.5rem;
+    font-weight: 600;
+    padding: 1.5rem;
+    background-color: var(--primary-color) !important;
+    color: white;
+}
+
+/* Table body row */
+#userTable td {
+    font-size: 1.6rem;
+    vertical-align: middle;
+    padding: 1.2rem;
+}
+
+/* Form controls */
+.form-control, .form-select {
+    font-size: 1.4rem;
+    padding: 1rem;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.25rem rgba(185, 153, 253, 0.25);
+}
+
+/* Modal */
+.modal-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+/* --- TỐI ƯU MODAL CẬP NHẬT NGƯỜI DÙNG --- */
+
+/* 1. Bo góc và đổ bóng cho Modal */
+#userModal .modal-content {
+    border: none;
+    border-radius: 2rem; /* Bo góc cực đại cho hiện đại */
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.15);
+}
+
+/* 2. Header của Modal */
+#userModal .modal-header {
+    background-color: #fcfaff; /* Nền tím cực nhạt */
+    border-bottom: 1px solid #f0e6ff;
+    padding: 2rem 2.5rem;
+    border-radius: 2rem 2rem 0 0;
+}
+
+#userModal .modal-title {
+    font-size: 2rem; /* ~20px */
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+/* 3. Body và các ô Input */
+#userModal .modal-body {
+    padding: 2.5rem;
+}
+
+#userModal .form-label {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 0.8rem;
+}
+
+/* Tận dụng lại class .custom-input hoặc ghi đè .form-control */
+#userModal .form-control {
+    height: 5rem; /* Cao hơn một chút để dễ bấm */
+    font-size: 1.5rem;
+    border-radius: 1.2rem;
+    border: 2px solid #eee;
+    padding: 1rem 1.5rem;
+    transition: all 0.3s ease;
+}
+
+#userModal .form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(185, 153, 253, 0.1);
+}
+
+/* Input readonly (Email) */
+#userModal .form-control[readonly] {
+    background-color: #f8f9fa;
+    border-color: #eee;
+    color: #999;
+    cursor: not-allowed;
+}
+
+/* 4. Nút bấm trong Modal */
+.btn-save-user {
+    background-color: var(--primary-color);
+    border: none;
+    color: white;
+    font-size: 1.6rem;
+    font-weight: 700;
+    padding: 1.2rem 2.5rem;
+    border-radius: 1.2rem;
+    width: 100%; /* Nút dài toàn bộ cho dễ bấm trên mobile */
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+}
+
+.btn-save-user:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 0.5rem 1.5rem rgba(185, 153, 253, 0.3);
+}
+
+/* Nút X đóng modal */
+#userModal .btn-close {
+    font-size: 1.2rem;
+    opacity: 0.8;
+}
+  </style>
 </head>
 <body>
   <!-- Header -->
@@ -30,18 +184,25 @@
             </div>
         </div>
     </header>
+                 <!-- Navbar  -->
+     <nav class="navbar" style="margin-top: 77px;">
+            <ul style="margin: 0;">
+                <i><li><a href="./index.html">Home</a></li></i>
+                <i><li>Quản lý người dùng</li></i>
+            </ul>
+        </nav>
    <!-- Content -->
   <div class="container mt-5">
     <div class="d-flex justify-content-between align-items-center mb-4">
-      <h2>Danh sách Người dùng</h2>
-      <a href="register.html" class="btn btn-primary">+ Tạo người dùng mới</a>
+      <h2 class="font-heading heading-pink fw-bold">Danh sách Người dùng</h2>
+      <a href="register.html" class="btn btn-primary addproduct font-title">+ Tạo người dùng mới</a>
     </div>
 
     <div class="row mb-3">
       <div class="col-md-6">
         <div class="input-group">
-          <input type="text" id="searchKeyword" class="form-control" placeholder="Tìm theo tên (keyword)...">
-          <button class="btn btn-outline-secondary" onclick="searchUsers()">Tìm kiếm</button>
+          <input type="text" id="searchKeyword" class="form-control font-title" placeholder="Tìm theo tên (keyword)...">
+          <button class="btn seachProductStaff font-title" onclick="searchUsers()"><i class="ti-search"></i></button>
         </div>
       </div>
       <div class="col-md-4">
@@ -53,59 +214,120 @@
       </div>
     </div>
 
-    <table class="table table-bordered table-hover">
-      <thead class="table-dark">
-        <tr>
-          <th>ID</th>
-          <th>Họ tên</th>
-          <th>Email</th>
-          <th>Số điện thoại</th>
-          <th>Địa chỉ</th>
-          <th>Vai trò</th>
-          <th>Hành động</th>
-        </tr>
-      </thead>
-      <tbody id="userTable">
-        </tbody>
-    </table>
-  </div>
-
-  <div class="modal fade" id="userModal" tabindex="-1">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Cập nhật thông tin người dùng</h5>
-          <button class="btn-close" data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body">
-          <form id="editUserForm">
-            <div class="mb-3">
-              <label class="form-label">Email (Không thể sửa)</label>
-              <input type="email" id="editEmail" class="form-control" readonly>
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Họ tên</label>
-              <input type="text" id="editFullName" class="form-control">
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Số điện thoại</label>
-              <input type="text" id="editPhone" class="form-control">
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Địa chỉ</label>
-              <input type="text" id="editAddress" class="form-control">
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Mật khẩu mới (Nếu cần đổi)</label>
-              <input type="password" id="editPassword" class="form-control" placeholder="Tối thiểu 8 ký tự">
-            </div>
-            <button type="button" class="btn btn-success" onclick="saveUser()">Lưu thay đổi</button>
-          </form>
-        </div>
-      </div>
+    <div class="table-responsive">
+          <table class="table table-bordered table-hover">
+        <thead class="table-dark">
+          <tr>
+            <th>ID</th>
+            <th>Họ tên</th>
+            <th>Email</th>
+            <th>Số điện thoại</th>
+            <th>Địa chỉ</th>
+            <th>Vai trò</th>
+            <th>Hành động</th>
+          </tr>
+        </thead>
+        <tbody id="userTable">
+          </tbody>
+      </table>
     </div>
   </div>
 
+  <div class="modal fade" id="userModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg"> <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="bi bi-person-gear me-2"></i>Cập nhật thông tin người dùng
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editUserForm">
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label">Email (Không thể sửa)</label>
+                            <input type="email" id="editEmail" class="form-control" readonly>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label">Họ tên</label>
+                            <input type="text" id="editFullName" class="form-control" placeholder="Nhập họ tên...">
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label">Số điện thoại</label>
+                            <input type="text" id="editPhone" class="form-control" placeholder="090...">
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label">Địa chỉ</label>
+                            <input type="text" id="editAddress" class="form-control" placeholder="Số nhà, tên đường...">
+                        </div>
+                        <div class="col-12 mb-4">
+                            <label class="form-label">Mật khẩu mới (Để trống nếu không đổi)</label>
+                            <input type="password" id="editPassword" class="form-control" placeholder="Tối thiểu 8 ký tự">
+                        </div>
+                    </div>
+                    <div class="text-center mt-2">
+                        <button type="button" class="btn-save-user" onclick="saveUser()">
+                            <i class="bi bi-check-circle me-2"></i>Lưu thay đổi dữ liệu
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+    <!-- Search -->
+     <div class="search js_search">
+        <div class="search_body js-search_body">
+            <a href=""><img class="wid-logo-big " src="./asset/image/Logo/iuh.png" alt=""></a>
+            <div class="search_content">
+                <div class="search_input">
+                    <input placeholder="Search your favorate products..." type="text" id="serach_input">
+                    <button class="btn-search absout-search"><i class="ti-search"></i></button>
+                    
+                    <div class="" id="listProductSearch">
+                              <!--Render ra sản phẩm ở đây  -->
+                    </div>
+                </div>
+            </div>
+            <div class="header_tool searchTool">
+                <!-- Render ra ở đây -->
+            </div>
+        </div>
+     </div>
+     <!-- End Search -->
+      <!-- Menu Mobile -->
+       <div class="menu-mobile menu-mobile-js">
+            <div class="menu-mobile_body" > 
+                    <div class="menu-mobile_header">
+                        <div class="wid-logo"><img src="./asset/image/Logo/iuh.png" alt="Logo"></div>
+                        <h1>Catalogue</h1>
+                    </div>
+                    <div class="header_menu alignItem-star">
+                        <ul class=" menu-tools flex-colum menu-tools-mobile">
+                            <li class="pad-2rem link-hover"><a class="text-hover" href="">Home</a></li>
+                            <li class="pad-2rem link-hover"><a class="text-hover" href="">About</a></li>
+                        </ul>
+                    </div>
+                    <div class="menu-mobile_img ">
+                        <div><img src="./asset/image/Slide/anh_tet.webp" alt="anhTet"></div>
+                        <div><img src="./asset/image/Slide/anh_trung_thu.webp" alt="anhTrungThu"></div>
+                    </div>
+            </div>
+       </div>
+       <!-- End Menu Mobile -->
+        <!-- Message -->
+        <div id="globalModal" class="g-modal">
+    <div class="g-modal-overlay"></div>
+    <div class="g-modal-box">
+        <div class="g-modal-icon" id="gModalIcon"></div>
+        <h2 id="gModalTitle" class="font-heading">Thông báo</h2>
+        <p id="gModalMessage" class="font-title"></p>
+        <div class="g-modal-buttons">
+            <button class="g-btn g-btn-cancel" id="gModalCancel">Hủy</button>
+            <button class="g-btn g-btn-ok" id="gModalOk">Đồng ý</button>
+        </div>
+    </div>
+  <script src="./js/modal.js"></script>
   <script src="./js/userManagement.js"></script>
   <script src="./bootstrap/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"></script>
 </body>

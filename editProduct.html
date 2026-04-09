@@ -12,16 +12,17 @@
     body { background: #f5f6fa; }
     /* Responsive image preview */
     .preview-img-container {
-      position: relative;
-      padding-top: 100%; /* Giữ khung vuông */
-      overflow: hidden;
-      border-radius: 8px;
-    }
+    position: relative;
+    border-radius: 1rem;
+    overflow: hidden;
+    aspect-ratio: 1 / 1;
+    border: 1px solid #eee;
+}
     .preview-img-container img {
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      object-fit: cover;
-    }
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
     .remove-btn {
       position: absolute;
       top: 5px; right: 5px;
@@ -30,6 +31,39 @@
       z-index: 10;
     }
     .col-preview:hover .remove-btn { opacity: 1; }
+    .form-label.font-price {
+    font-size: 1.45rem;
+    color: #555;
+    margin-bottom: 0.8rem;
+    display: block;
+}
+.form-control, .form-select {
+    height: 4.8rem;
+    font-size: 1.5rem !important;
+    border-radius: 1.2rem !important;
+    border: 2px solid #eee !important;
+    transition: all 0.3s ease;
+}
+textarea.form-control {
+    height: auto !important;
+    padding: 1.5rem;
+}
+.form-control:focus, .form-select:focus {
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 0 4px rgba(185, 153, 253, 0.1) !important;
+    outline: none;
+}
+#idInput {
+    background-color: #fcfaff !important;
+    color: var(--primary-color);
+    font-weight: 700;
+    border: 2px dashed #d7c4ff !important;
+}
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .cardEdit { padding: 2rem !important; }
+    .heading-pink { font-size: 2.4rem; }
+}
   </style>
 </head>
 
@@ -70,71 +104,75 @@
   <div class="cardEdit p-3 p-md-4">
     
     <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center mb-4 gap-3">
-      <h2 class="title m-0 text-center text-sm-start font-heading heading-pink fw-bold">Edit Product</h2>
-      <a href="productList.html" class="btn btn-sm px-3 font-title rounded-3 back">← Back</a>
+      <h2 class="title m-0 text-center text-sm-start font-heading heading-pink fw-bold">
+        <i class="bi bi-pencil-square me-2"></i>Edit Product
+      </h2>
+      <a href="productList.html" class="btn btn-sm px-4 py-2 font-title rounded-3 back">
+        <i class="bi bi-arrow-left me-1"></i> Back to List
+      </a>
     </div>
 
     <form id="editForm">
       <input type="hidden" id="productId">
 
       <div class="row g-3 g-md-4">
+        <div class="col-12 col-lg-7">
+          <div class="row g-3">
+            <div class="col-12 col-sm-6 mb-3">
+              <label class="form-label fw-semibold font-price">Product ID (Read-only)</label>
+              <input type="text" id="idInput" class="form-control font-title" readonly>
+            </div>
 
-        <div class="col-12 col-lg-6">
-          <div class="mb-3">
-            <label class="form-label fw-semibold font-price">Product Id</label>
-            <input type="text" id="idInput" class="form-control font-title form-control-lg-custom border border-0" readonly>
-          </div>
+            <div class="col-12 col-sm-6 mb-3">
+              <label class="form-label fw-semibold font-price">Category</label>
+              <select id="category" class="form-select font-title">
+                  </select>
+            </div>
 
-          <div class="mb-3">
-            <label class="form-label fw-semibold font-price">Product Name</label>
-            <input type="text" id="name" class="form-control font-title form-control-lg-custom">
-          </div>
+            <div class="col-12 mb-3">
+              <label class="form-label fw-semibold font-price">Product Name</label>
+              <input type="text" id="name" class="form-control font-title" placeholder="Tên sản phẩm...">
+            </div>
 
-          <div class="row g-2">
-             <div class="col-12 col-sm-6 mb-3">
+            <div class="col-12 mb-3">
                 <label class="form-label fw-semibold font-price">Price (VNĐ)</label>
-                <input type="number" id="price" class="form-control font-title">
-             </div>
-             <div class="col-12 col-sm-6 mb-3">
-                <label class="form-label fw-semibold font-price">Category</label>
-                <select id="category" class="form-select font-title"></select>
-             </div>
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label fw-semibold font-price">Description</label>
-            <textarea id="description" class="form-control font-title" rows="5" placeholder="Mô tả sản phẩm..."></textarea>
-          </div>
-        </div>
-
-        <div class="col-12 col-lg-6">
-          <div class="mb-3">
-            <label class="form-label fw-semibold font-price">Image URLs (dấu phẩy để ngăn cách)</label>
-            <div class="input-group ">
-                <span class="input-group-text bg-white"><i class="ti-image font-title"></i></span>
-                <input 
-                  type="text" 
-                  id="images" 
-                  class="form-control font-title" 
-                  placeholder="https://a.jpg, https://b.png"
-                >
+                <div class="input-group">
+                    <input type="number" id="price" class="form-control font-title" placeholder="0">
+                    <span class="input-group-text bg-light font-title fw-bold" style="border-radius: 0 1.2rem 1.2rem 0; border: 2px solid #eee; border-left: none;">VNĐ</span>
+                </div>
             </div>
 
-            <div class="row row-cols-2 row-cols-sm-3 g-2 mt-2" id="preview">
+            <div class="col-12 mb-3">
+              <label class="form-label fw-semibold font-price">Description</label>
+              <textarea id="description" class="form-control font-title" rows="4" placeholder="Nhập mô tả chi tiết sản phẩm..."></textarea>
             </div>
           </div>
         </div>
 
+        <div class="col-12 col-lg-5">
+          <div class="mb-3">
+            <label class="form-label fw-semibold font-price">Image URLs (Dùng dấu phẩy để ngăn cách)</label>
+            <div class="input-group mb-3">
+                <span class="input-group-text bg-white" style="border-radius: 1.2rem 0 0 1.2rem; border: 2px solid #eee; border-right: none;">
+                    <i class="ti-image font-title p-3"></i>
+                </span>
+                <input type="text" id="images" class="form-control font-title" placeholder="URL 1, URL 2...">
+            </div>
+
+            <label class="form-label fw-semibold font-price small text-muted">Image Preview:</label>
+            <div class="row row-cols-3 g-2 mt-1" id="preview">
+                </div>
+          </div>
+        </div>
       </div>
 
-      <div class="mt-4">
-          <button class="btn updateProduct w-100 py-2 fw-bold shadow-sm font-title">
-            <i class="ti-save font-title "></i> UPDATE PRODUCT
+      <div class="mt-5">
+          <button type="submit" class="btn updateProduct w-100 py-3 fw-bold shadow-sm font-title">
+            <i class="ti-save"></i> UPDATE PRODUCT INFORMATION
           </button>
       </div>
 
     </form>
-
   </div>
 </div>
     <!-- Footer -->
@@ -178,6 +216,18 @@
             </div>
        </div>
        <!-- End Menu Mobile -->
+        <!-- Message -->
+        <div id="globalModal" class="g-modal">
+    <div class="g-modal-overlay"></div>
+    <div class="g-modal-box">
+        <div class="g-modal-icon" id="gModalIcon"></div>
+        <h2 id="gModalTitle" class="font-heading">Thông báo</h2>
+        <p id="gModalMessage" class="font-title"></p>
+        <div class="g-modal-buttons">
+            <button class="g-btn g-btn-cancel" id="gModalCancel">Hủy</button>
+            <button class="g-btn g-btn-ok" id="gModalOk">Đồng ý</button>
+        </div>
+    </div>
 <script src="./js/editProduct.js"></script>
 <script src="./js/modal.js"></script>
 </body>

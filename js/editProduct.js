@@ -1,6 +1,22 @@
 const API_PRODUCT = "https://kid-clothes-store.onrender.com/api/v1/products";
 const API_CATEGORY = "https://kid-clothes-store.onrender.com/api/v1/categories";
 
+function checkAuth(){
+    const token = localStorage.getItem("token");
+
+    if(!token){
+        showMessage({
+            title: "Chưa đăng nhập",
+            message: "Vui lòng đăng nhập để tiếp tục",
+            type: "warning",
+            onOk: () => window.location.href = "../login.html"
+        });
+        return null;
+    }
+
+    return token;
+}
+
 const params = new URLSearchParams(window.location.search);
 const productId = params.get("id");
 
@@ -8,56 +24,84 @@ let imageArray = []; // 🔥 lưu danh sách ảnh
 
 // ================= LOAD CATEGORY =================
 async function loadCategories(selectedId){
-    const token = localStorage.getItem("token");
+    const token = checkAuth();
+    if(!token) return;
 
-    const res = await fetch(API_CATEGORY, {
-        headers: {
-            "Authorization": `Bearer ${token}`
-        }
-    });
+    try {
+        const res = await fetch(API_CATEGORY, {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        });
 
-    const data = await res.json();
+        const data = await res.json();
 
-    const select = document.getElementById("category");
+        const select = document.getElementById("category");
 
-    select.innerHTML = `<option value="">-- Select Category --</option>`;
+        select.innerHTML = `<option value="">-- Select Category --</option>`;
 
-    data.result.forEach(cat => {
-        const option = document.createElement("option");
-        option.value = cat.id;
-        option.textContent = cat.name;
+        data.result.forEach(cat => {
+            const option = document.createElement("option");
+            option.value = cat.id;
+            option.textContent = cat.name;
 
-        if(cat.id == selectedId){
-            option.selected = true;
-        }
+            if(cat.id == selectedId){
+                option.selected = true;
+            }
 
-        select.appendChild(option);
-    });
+            select.appendChild(option);
+        });
+
+    } catch (err){
+        console.error(err);
+        showMessage({
+            title: "Lỗi",
+            message: "Không load được danh mục",
+            type: "error"
+        });
+    }
 }
-
 // ================= LOAD PRODUCT =================
 let variantsData = [];
 async function loadProduct(){
-    const res = await fetch(`${API_PRODUCT}/${productId}`);
-    const data = await res.json();
+    try {
+        const res = await fetch(`${API_PRODUCT}/${productId}`);
+        const data = await res.json();
 
-    const p = data.result;
+        if(!data.result){
+            showMessage({
+                title: "Lỗi",
+                message: "Không tìm thấy sản phẩm",
+                type: "error"
+            });
+            return;
+        }
 
-    document.getElementById("idInput").value = p.id;
-    document.getElementById("productId").value = p.id;
-    document.getElementById("name").value = p.name;
-    document.getElementById("price").value = p.price;
-    document.getElementById("description").value = p.description || "";
+        const p = data.result;
 
-    variantsData =  p.variants || [];
+        document.getElementById("idInput").value = p.id;
+        document.getElementById("productId").value = p.id;
+        document.getElementById("name").value = p.name;
+        document.getElementById("price").value = p.price;
+        document.getElementById("description").value = p.description || "";
 
-    // 🔥 set image array
-    imageArray = [...p.images];
-    document.getElementById("images").value = imageArray.join(", ");
+        variantsData = p.variants || [];
 
-    renderPreview();
+        imageArray = [...p.images];
+        document.getElementById("images").value = imageArray.join(", ");
 
-    await loadCategories(p.categoryId);
+        renderPreview();
+
+        await loadCategories(p.categoryId);
+
+    } catch (err){
+        console.error(err);
+        showMessage({
+            title: "Lỗi",
+            message: "Không load được sản phẩm",
+            type: "error"
+        });
+    }
 }
 
 // ================= RENDER PREVIEW =================
@@ -117,16 +161,31 @@ document.getElementById("images").addEventListener("input", function(){
 document.getElementById("editForm").addEventListener("submit", async function(e){
     e.preventDefault();
 
-    const token = localStorage.getItem("token");
+    const token = checkAuth();
+    if(!token) return;
 
     const id = document.getElementById("productId").value;
-    const name = document.getElementById("name").value;
+    const name = document.getElementById("name").value.trim();
     const price = parseFloat(document.getElementById("price").value);
     const categoryId = document.getElementById("category").value;
-    const description = document.getElementById("description").value;
+    const description = document.getElementById("description").value.trim();
+
+    // 🔥 VALIDATE
+    if(!name || !price || !categoryId){
+        showMessage({
+            title: "Thiếu dữ liệu",
+            message: "Vui lòng nhập đầy đủ thông tin",
+            type: "warning"
+        });
+        return;
+    }
 
     if(imageArray.length === 0){
-        alert("Vui lòng nhập ít nhất 1 ảnh");
+        showMessage({
+            title: "Thiếu ảnh",
+            message: "Vui lòng nhập ít nhất 1 ảnh",
+            type: "warning"
+        });
         return;
     }
 
@@ -135,35 +194,57 @@ document.getElementById("editForm").addEventListener("submit", async function(e)
         price,
         categoryId,
         description,
-        images: imageArray, // 🔥 dùng trực tiếp
+        images: imageArray,
         variants: variantsData
     };
 
-    console.log("DATA UPDATE:", productData);
+    // 🔥 CONFIRM UPDATE
+    showMessage({
+        title: "Xác nhận",
+        message: "Bạn có chắc muốn cập nhật sản phẩm?",
+        type: "warning",
+        showCancel: true,
 
-    try {
-        const res = await fetch(`${API_PRODUCT}/${id}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`
-            },
-            body: JSON.stringify(productData)
-        });
+        onOk: async () => {
+            try {
+                const res = await fetch(`${API_PRODUCT}/${id}`, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    },
+                    body: JSON.stringify(productData)
+                });
 
-        const data = await res.json();
+                const data = await res.json();
 
-        if(data.code === 1000){
-            alert("Cập nhật thành công!");
-            window.location.href = "productList.html";
-        }else{
-            alert(data.message || "Cập nhật thất bại");
+                if(data.code === 1000){
+                    showMessage({
+                        title: "Thành công",
+                        message: "Cập nhật sản phẩm thành công!",
+                        type: "success",
+                        onOk: () => {
+                            window.location.href = "productList.html";
+                        }
+                    });
+                }else{
+                    showMessage({
+                        title: "Thất bại",
+                        message: data.message || "Cập nhật thất bại",
+                        type: "error"
+                    });
+                }
+
+            } catch(err){
+                console.error(err);
+                showMessage({
+                    title: "Server lỗi",
+                    message: "Không thể kết nối server",
+                    type: "error"
+                });
+            }
         }
-
-    } catch(err){
-        console.error(err);
-        alert("Lỗi server");
-    }
+    });
 });
 
 // INIT

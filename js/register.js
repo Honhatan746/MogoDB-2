@@ -16,84 +16,148 @@
     const registerRePass = document.getElementById("registerRePass");
     const registerAddress = document.getElementById("registerAddress");
     //---
+    let isRegistering = false;
     async function handleRegister(){
-        if (!validForm()){
-            return;
-        }
-        const userData = {
-            fullName: registerFull.value,
-            email: registerEmail.value,
-            password: registerPass.value,
-            phone: registerTel.value,
-            address: registerAddress.value
-        }
+    if(isRegistering) return;
+    if (!validForm())return;
+    isRegistering = true;
+
+    const userData = {
+        fullName: registerFull.value.trim(),
+        email: registerEmail.value.trim(),
+        password: registerPass.value.trim(),
+        phone: registerTel.value.trim(),
+        address: registerAddress.value.trim()
+    };
+
+    try {
         const result = await register(userData);
         console.log(result);
 
         if(result.code === 1000){
-            // alert("Đăng ký tài Khoản thành công");
-            // //luu email/password gui vo api signin->luu token
-            // const loginResult = await login({
-            //     email: registerEmail.value,
-            //     password: registerPass.value
-            // }); 
-            // if(loginResult.result?.token){
-            //     localStorage.setItem("token", loginResult.result.token);
-            //     window.location.href = "../login.html";
-            // }else{
-            //     alert("Đăng Nhập thất bại");
-            // }
 
-            window.location.href = "../login.html";
-            //lay token do de get danhsch sanpham chuyen trang home  
-        }else if (result.code === 400){
-            alert(result.message)
-        }
-        else if(result.code === 666){
-            alert("Người dùng đã tồn tại")
+            showMessage({
+                title: "Thành công 🎉",
+                message: "Đăng ký tài khoản thành công!",
+                type: "success",
+                onOk: () => {
+                    window.location.href = "../login.html";
+                }
+            });
+
+        } else if (result.code === 400){
+
+            showMessage({
+                title: "Lỗi dữ liệu",
+                message: result.message || "Dữ liệu không hợp lệ",
+                type: "error"
+            });
+
+        } else if(result.code === 666){
+
+            showMessage({
+                title: "Trùng tài khoản",
+                message: "Người dùng đã tồn tại",
+                type: "warning"
+            });
+
+        } else {
+            showMessage({
+                title: "Thất bại",
+                message: result.message || "Đăng ký không thành công",
+                type: "error"
+            });
         }
 
+    } catch (error){
+        console.error(error);
+
+        showMessage({
+            title: "Server Error",
+            message: "Không thể kết nối tới server",
+            type: "error"
+        });
+    }
+    isRegistering = false
 }
 
-    function validForm(){
-         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if(registerFull.value.trim() === ""){
-            showRequired(registerFull, "field-required");
-            return false;
-        }if(registerEmail.value.trim() === ""){
-            showRequired(registerEmail, "field-required");
-            return false;
-        }if(!emailRegex.test(registerEmail.value.trim())){
-            showRequired(registerEmail, "required-formatEmail");
-            return false;
-        }if((registerTel.value.trim().length >= 1 && registerTel.value.trim().length !== 10 ) || /\s/.test(registerTel.value) || isNaN( registerTel.value.trim()) || (registerTel.value.trim().length === 10 &&  registerTel.value.trim()[0] !== "0") ){
-            showRequired(registerTel, "field-required");
-            return false;
-        }if(registerPass.value.trim().length < 8 ){
-            showRequired(registerPass, "field-required");
-            return false;
-        }if(registerRePass.value.trim() === ""){
-            showRequired(registerRePass, "field-required");
-            return false;
-        }if(registerRePass.value.trim() !== registerPass.value){
-            showRequired(registerRePass, "field-required-notmatch");
-            return false;
+ function validForm() {
+    let isValid = true;
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^(0[3|5|7|8|9])[0-9]{8}$/;
+
+    if (registerFull.value.trim() === "") {
+        showRequired(registerFull, "field-required");
+        isValid = false;
+    }
+
+    if (registerEmail.value.trim() === "") {
+        showRequired(registerEmail, "field-required");
+        isValid = false;
+    } else if (!emailRegex.test(registerEmail.value.trim())) {
+        showRequired(registerEmail, "required-formatEmail");
+        isValid = false;
+    }
+
+    const phoneVal = registerTel.value.trim();
+    if (phoneVal !== "" && !phoneRegex.test(phoneVal)) {
+        showRequired(registerTel, "field-required");
+        isValid = false;
+    }
+
+    if (registerPass.value.trim().length < 8) {
+        showRequired(registerPass, "field-required");
+        isValid = false;
+    }
+
+    if (registerRePass.value.trim() === "") {
+        showRequired(registerRePass, "field-required");
+        isValid = false;
+    } else if (registerRePass.value.trim() !== registerPass.value.trim()) {
+        showRequired(registerRePass, "field-required-notmatch");
+        isValid = false;
+    }
+
+    return isValid;
+}
+    function showRequired(tagInput, className) {
+    let parent = tagInput.parentElement;
+    let errorMsg = parent.querySelector("." + className);
+    
+    if (errorMsg) {
+        errorMsg.style.display = "block";
+        tagInput.classList.add("border-danger"); // Thêm viền đỏ của Bootstrap hoặc CSS
+        tagInput.style.borderColor = "#ff6b6b";  // Force màu đỏ nếu CSS không ăn
+    }
+}
+    document.querySelectorAll(".register input, .register select").forEach(element => {
+    element.addEventListener("input", function() {
+        // 1. Ẩn tất cả thẻ <p> báo lỗi trong cùng thẻ cha
+        let parent = this.parentElement;
+        parent.querySelectorAll("p").forEach(p => {
+            p.style.display = "none";
+        });
+        
+        // 2. Xóa viền đỏ của input
+        this.classList.remove("border-danger");
+        this.style.borderColor = "#eee"; // Trả về màu border mặc định
+    });
+});
+document.querySelectorAll(".toggle-password").forEach(icon => {
+    icon.addEventListener("click", function() {
+        // Tìm input tương ứng dựa trên data-target
+        const targetId = this.getAttribute("data-target");
+        const passwordInput = document.getElementById(targetId);
+        
+        // Chuyển đổi type giữa password và text
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            this.classList.replace("ti-lock", "ti-unlock");
+        } else {
+            passwordInput.type = "password";
+            this.classList.replace("ti-unlock", "ti-lock");
         }
-        return true;
-    }
-    function showRequired(tagParent, fieldRequired){
-        let parent = tagParent.parentElement;
-        let ptag = parent.querySelector("." + fieldRequired);
-        ptag.style.display = "block";
-        tagParent.focus();
-    }
-    document.querySelectorAll("input").forEach(input => {
-        input.addEventListener("keyup", function(){
-            let parent = this.parentElement;
-            let ptags = parent.querySelectorAll("p");
-            ptags.forEach(function(ptag){
-                ptag.style.display = "none";
-            })
-        })
-    })
+    });
+});
 

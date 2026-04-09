@@ -1,92 +1,128 @@
-    const API_PRODUCT = "https://kid-clothes-store.onrender.com/api/v1/products";
-    const API_CATEGORY = "https://kid-clothes-store.onrender.com/api/v1/categories";
+const API_PRODUCT = "https://kid-clothes-store.onrender.com/api/v1/products";
+const API_CATEGORY = "https://kid-clothes-store.onrender.com/api/v1/categories";
 
-    // Load categories
-    async function loadCategories() {
-    const token = localStorage.getItem("token"); 
+// =======================
+// CHECK TOKEN GLOBAL
+// =======================
+function checkAuth(){
+    const token = localStorage.getItem("token");
 
-    const res = await fetch(API_CATEGORY, {
-        headers: {
-        "Authorization": `Bearer ${token}` 
+    if(!token){
+        showMessage({
+            title: "Chưa đăng nhập",
+            message: "Bạn cần đăng nhập để sử dụng chức năng này",
+            type: "warning",
+            onOk: () => {
+                window.location.href = "../login.html";
+            }
+        });
+        return null;
+    }
+    return token;
+}
+
+// =======================
+// LOAD CATEGORY
+// =======================
+async function loadCategories() {
+    const token = checkAuth();
+    if(!token) return;
+
+    try {
+        const res = await fetch(API_CATEGORY, {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        });
+
+        const data = await res.json();
+        const select = document.getElementById("categoryID");
+
+        if (!data.result) {
+            showMessage({
+                title: "Lỗi",
+                message: "Không load được danh mục",
+                type: "error"
+            });
+            return;
         }
-    });
 
-    const data = await res.json();
+        data.result.forEach(cat => {
+            const option = document.createElement("option");
+            option.value = cat.id;
+            option.textContent = cat.name;
+            select.appendChild(option);
+        });
 
-    console.log("CATEGORY DATA:", data);
-
-    const select = document.getElementById("categoryID");
-
-    if (!data.result) {
-        alert("Không load được category");
-        return;
+    } catch (err) {
+        console.error(err);
+        showMessage({
+            title: "Lỗi",
+            message: "Lỗi server khi load category",
+            type: "error"
+        });
     }
+}
 
-    data.result.forEach(cat => {
-        const option = document.createElement("option");
-        option.value = cat.id;
-        option.textContent = cat.name;
-        select.appendChild(option);
-    });
-    }
+// =======================
+// IMAGE PREVIEW
+// =======================
+const imageInput = document.getElementById("imageUrls");
+const preview = document.getElementById("preview");
+const countSpan = document.getElementById("count");
 
-    const imageInput = document.getElementById("imageUrls");
-    const preview = document.getElementById("preview");
-    const countSpan = document.getElementById("count");
+let imageArray = [];
 
-    let imageArray = [];
+if(imageInput){
+    imageInput.addEventListener("input", () => {
+        const value = imageInput.value.trim();
 
-// Khi nhập URL
-imageInput.addEventListener("input", () => {
-    const value = imageInput.value.trim();
+        if (!value) {
+            imageArray = [];
+            renderPreview();
+            return;
+        }
 
-    if (!value) {
-        imageArray = [];
+        imageArray = value
+            .split(",")
+            .map(url => url.trim())
+            .filter(url => url !== "");
+
         renderPreview();
-        return;
-    }
+    });
+}
 
-    // Tách bằng dấu phẩy
-    imageArray = value
-        .split(",")
-        .map(url => url.trim())
-        .filter(url => url !== "");
-
-    renderPreview();
-});
-
-// Render preview
 function renderPreview() {
     preview.innerHTML = "";
 
     imageArray.forEach((url, index) => {
         const col = document.createElement("div");
-        col.className = "col-md-3 mb-3";
+        col.className = "col-6 col-md-3 mb-4"; 
 
         col.innerHTML = `
-            <div class="card shadow-sm position-relative">
-                
-                <!-- Nút Xóa góc phải -->
-                <button 
-                    class="btn btn-danger btn-sm position-absolute top-0 end-0 m-1 remove-btn"
-                    style="z-index: 10; border-radius: 50%; width: 28px; height: 28px; padding: 0;">
-                    ✕
-                </button>
-                <img 
-                    src="${url}" 
-                    class="card-img-top" 
-                    style="height:150px; object-fit:cover;"
-                    onerror="this.src='https://via.placeholder.com/150?text=Error'">
-            </div>
-        `;
+    <div class="preview-card-v2 shadow-sm" style="position: relative; overflow: visible;">
+        <button type="button" class="btn-remove-v2 remove-btn" 
+                style="position: absolute; top: -10px; right: -10px; z-index: 10;" 
+                title="Xóa ảnh">
+            ✕
+        </button>
+        
+        <div class="preview-image-wrapper" style="border-radius: 1.5rem; overflow: hidden;">
+            <img src="${url}" 
+                 class="img-fluid" 
+                 style="width: 100%; height: 100%; object-fit: cover;"
+                 onerror="this.src='https://placehold.co/300x300?text=Invalid+Image'">
+        </div>
+        
+        <div class="preview-info">
+            <span>Ảnh ${index + 1}</span>
+        </div>
+    </div>
+`;
 
-        // Xóa ảnh
         col.querySelector(".remove-btn").addEventListener("click", () => {
             imageArray.splice(index, 1);
-
-            // Cập nhật lại input
             imageInput.value = imageArray.join(", ");
-
             renderPreview();
         });
 
@@ -95,82 +131,104 @@ function renderPreview() {
 
     countSpan.textContent = imageArray.length;
 }
-    loadCategories();
+// =======================
+// SUBMIT FORM
+// =======================
+const form = document.getElementById("productForm");
 
-//Submit form
-document.getElementById("productForm").addEventListener("submit", async function(e){
-    e.preventDefault();
+if(form){
+    form.addEventListener("submit", async function(e){
+        e.preventDefault();
 
-    document.getElementById("productForm").addEventListener("submit", async function(e){
-    e.preventDefault();
+        const token = checkAuth();
+        if(!token) return;
 
-    const token = localStorage.getItem("token");
+        const name = document.getElementById("nameProduct").value.trim();
+        const price = parseFloat(document.getElementById("priceProduct").value);
+        const categoryId = document.getElementById("categoryID").value;
+        const description = document.getElementById("descriptionProduct").value.trim();
+        const size = document.getElementById("size").value.trim();
+        const color = document.getElementById("color").value.trim();
+        const stock = parseInt(document.getElementById("stockProduct").value);
 
-    const name = document.getElementById("nameProduct").value.trim();
-    const price = parseFloat(document.getElementById("priceProduct").value);
-    const categoryId = document.getElementById("categoryID").value;
-    const description = document.getElementById("descriptionProduct").value.trim();
-
-    const size = document.getElementById("size").value.trim();
-    const color = document.getElementById("color").value.trim();
-    const stock = parseInt(document.getElementById("stockProduct").value);
-
-    // validate
-    if(!name || !price || !categoryId){
-        alert("Thiếu thông tin sản phẩm");
-        return;
-    }
-
-    if(!size || !color){
-        alert("Vui lòng nhập size và color");
-        return;
-    }
-
-    if(imageArray.length === 0){
-        alert("Vui lòng nhập ít nhất 1 ảnh");
-        return;
-    }
-
-    const productData = {
-        name,
-        price,
-        categoryId,
-        description,
-        images: imageArray, // ✅ dùng trực tiếp
-        variants: [
-            {
-                size,
-                color,
-                stock
-            }
-        ]
-    };
-
-    console.log("DATA GỬI:", productData);
-
-    try {
-        const res = await fetch(API_PRODUCT, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`
-            },
-            body: JSON.stringify(productData)
-        });
-
-        const data = await res.json();
-        console.log("RESPONSE:", data);
-
-        if(data.code === 1000){
-            alert("Thêm sản phẩm thành công!");
-            window.location.href = "../productList.html";
-        }else{
-            alert(data.message || "Thêm thất bại");
+        // ===== VALIDATE =====
+        if(!name || !price || !categoryId){
+            showMessage({
+                title: "Thiếu dữ liệu",
+                message: "Vui lòng nhập đầy đủ thông tin sản phẩm",
+                type: "warning"
+            });
+            return;
         }
 
-    } catch(err){
-        console.error("Lỗi:", err);
-        alert("Lỗi server");
-    }
-});
-});
+        if(!size || !color){
+            showMessage({
+                title: "Thiếu biến thể",
+                message: "Vui lòng nhập size và màu sắc",
+                type: "warning"
+            });
+            return;
+        }
+
+        if(imageArray.length === 0){
+            showMessage({
+                title: "Thiếu ảnh",
+                message: "Vui lòng nhập ít nhất 1 ảnh",
+                type: "warning"
+            });
+            return;
+        }
+
+        const productData = {
+            name,
+            price,
+            categoryId,
+            description,
+            images: imageArray,
+            variants: [
+                { size, color, stock }
+            ]
+        };
+
+        try {
+            const res = await fetch(API_PRODUCT, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify(productData)
+            });
+
+            const data = await res.json();
+
+            if(data.code === 1000){
+                showMessage({
+                    title: "Thành công",
+                    message: "Thêm sản phẩm thành công",
+                    type: "success",
+                    onOk: () => {
+                        window.location.href = "../productList.html";
+                    }
+                });
+            }else{
+                showMessage({
+                    title: "Thất bại",
+                    message: data.message || "Không thể thêm sản phẩm",
+                    type: "error"
+                });
+            }
+
+        } catch(err){
+            console.error(err);
+            showMessage({
+                title: "Lỗi",
+                message: "Lỗi server",
+                type: "error"
+            });
+        }
+    });
+}
+
+// =======================
+loadCategories();

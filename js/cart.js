@@ -1,4 +1,19 @@
 const API_CART = "https://kid-clothes-store.onrender.com/api/v1/cart";
+
+function checkAuth(){
+    const token = localStorage.getItem("token");
+
+    if(!token){
+        showMessage({
+            title: "Chưa đăng nhập",
+            message: "Vui lòng đăng nhập để sử dụng giỏ hàng",
+            type: "warning",
+            onOk: () => window.location.href = "../login.html"
+        });
+        return null;
+    }
+    return token;
+}
 document.addEventListener("DOMContentLoaded", getCart);
 // ================= GET CART =================
 export async function getCart(){
@@ -24,7 +39,9 @@ export async function getCart(){
     }
 }
 
+
 // ================= RENDER CART =================
+
 function renderCart(items) {
     const cartList = document.getElementById("cartList");
     const cartCount = document.getElementById("cartCount");
@@ -97,15 +114,15 @@ function renderCart(items) {
 let isAdding = false;
 
 export async function addToCart(productId, size, color, quantity){
-    const token = localStorage.getItem("token");
-
-    if(!token){
-        alert("Vui lòng đăng nhập");
-        return;
-    }
+    const token = checkAuth();
+    if(!token) return;
 
     if(!size || !color){
-        alert("Vui lòng chọn size và màu");
+        showMessage({
+            title: "Thiếu thông tin",
+            message: "Vui lòng chọn size và màu",
+            type: "warning"
+        });
         return;
     }
 
@@ -119,26 +136,33 @@ export async function addToCart(productId, size, color, quantity){
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`
             },
-            body: JSON.stringify({
-                productId,
-                size,
-                color,
-                quantity
-            })
+            body: JSON.stringify({ productId, size, color, quantity })
         });
 
         const data = await res.json();
 
         if(data.code === 1000){
-            alert("Thêm vào giỏ hàng thành công");
+            showMessage({
+                title: "Thành công",
+                message: "Đã thêm vào giỏ hàng",
+                type: "success"
+            });
             getCart();
         } else {
-            alert(data.message || "Lỗi thêm giỏ hàng");
+            showMessage({
+                title: "Lỗi",
+                message: data.message || "Không thể thêm",
+                type: "error"
+            });
         }
 
     } catch(err){
         console.error(err);
-        alert("Lỗi server");
+        showMessage({
+            title: "Lỗi",
+            message: "Lỗi server",
+            type: "error"
+        });
     }
 
     isAdding = false;
@@ -155,23 +179,26 @@ window.decrease = function(productId, size, color, quantity){
 }
 
 async function updateQuantity(productId, size, color, quantity){
-    const token = localStorage.getItem("token");
+    const token = checkAuth();
+    if(!token) return;
 
     try {
         const res = await fetch(
             `${API_CART}/items/${productId}?size=${encodeURIComponent(size)}&color=${encodeURIComponent(color)}&quantity=${quantity}`,
             {
                 method: "PUT",
-                headers: {
-                    "Authorization": `Bearer ${token}`
-                }
+                headers: { "Authorization": `Bearer ${token}` }
             }
         );
 
         if(res.ok){
             getCart();
         } else {
-            alert("Cập nhật thất bại");
+            showMessage({
+                title: "Lỗi",
+                message: "Cập nhật thất bại",
+                type: "error"
+            });
         }
 
     } catch(err){
@@ -179,43 +206,48 @@ async function updateQuantity(productId, size, color, quantity){
     }
 }
 
+
 // ================= REMOVE ITEM =================
-window.removeItem = async function(productId, size, color){
-    const token = localStorage.getItem("token");
+window.removeItem = function(productId, size, color){
+    const token = checkAuth();
+    if(!token) return;
 
-    if(!confirm("Xóa sản phẩm khỏi giỏ hàng?")) return;
-
-    try {
-        await fetch(
-            `${API_CART}/items/${productId}?size=${encodeURIComponent(size)}&color=${encodeURIComponent(color)}`,
-            {
-                method: "DELETE",
-                headers: {
-                    "Authorization": `Bearer ${token}`
-                }
+    showMessage({
+        title: "Xóa sản phẩm",
+        message: "Bạn có chắc muốn xóa sản phẩm này?",
+        type: "warning",
+        showCancel: true,
+        onOk: async () => {
+            try {
+                await fetch(
+                    `${API_CART}/items/${productId}?size=${encodeURIComponent(size)}&color=${encodeURIComponent(color)}`,
+                    {
+                        method: "DELETE",
+                        headers: {
+                            "Authorization": `Bearer ${token}`
+                        }
+                    }
+                );
+                getCart();
+            } catch(err){
+                console.error(err);
             }
-        );
-
-        getCart();
-
-    } catch(err){
-        console.error(err);
-    }
+        }
+    });
 }
 // Payment
 window.goToPaying = function(){
-    const token = localStorage.getItem("token");
+    const token = checkAuth();
+    if(!token) return;
 
-    if(!token){
-        alert("Vui lòng đăng nhập");
+    if(document.getElementById("cartCount").innerText === "0"){
+        showMessage({
+            title: "Giỏ hàng trống",
+            message: "Bạn chưa có sản phẩm nào",
+            type: "warning"
+        });
         return;
     }
 
-    // kiểm tra cart có hàng không
-    if(document.getElementById("cartCount").innerText == "0"){
-        alert("Giỏ hàng trống");
-        return;
-    }
-
-    window.location.href ="../paying.html";
+    window.location.href = "../paying.html";
 }
