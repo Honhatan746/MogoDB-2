@@ -17,10 +17,16 @@
     const registerAddress = document.getElementById("registerAddress");
     //---
     let isRegistering = false;
-    async function handleRegister(){
-    if(isRegistering) return;
-    if (!validForm())return;
+    async function handleRegister() {
+    if (isRegistering) return;
+    if (!validForm()) return;
+
     isRegistering = true;
+    
+    // Thêm: Vô hiệu hóa nút bấm và hiện loading text
+    registerBtn.disabled = true;
+    const originalText = registerBtn.innerText;
+    registerBtn.innerText = "Đang xử lý...";
 
     const userData = {
         fullName: registerFull.value.trim(),
@@ -32,10 +38,8 @@
 
     try {
         const result = await register(userData);
-        console.log(result);
-
-        if(result.code === 1000){
-
+        
+        if (result.code === 1000) {
             showMessage({
                 title: "Thành công 🎉",
                 message: "Đăng ký tài khoản thành công!",
@@ -44,41 +48,29 @@
                     window.location.href = "../login.html";
                 }
             });
-
-        } else if (result.code === 400){
-
-            showMessage({
-                title: "Lỗi dữ liệu",
-                message: result.message || "Dữ liệu không hợp lệ",
-                type: "error"
-            });
-
-        } else if(result.code === 666){
-
-            showMessage({
-                title: "Trùng tài khoản",
-                message: "Người dùng đã tồn tại",
-                type: "warning"
-            });
-
         } else {
-            showMessage({
-                title: "Thất bại",
-                message: result.message || "Đăng ký không thành công",
-                type: "error"
-            });
+            // Xử lý các mã lỗi khác (giữ nguyên logic của bạn)
+            handleErrors(result);
+            
+            // QUAN TRỌNG: Nếu đăng ký thất bại, phải mở lại nút để họ sửa thông tin
+            isRegistering = false;
+            registerBtn.disabled = false;
+            registerBtn.innerText = originalText;
         }
 
-    } catch (error){
+    } catch (error) {
         console.error(error);
-
         showMessage({
             title: "Server Error",
             message: "Không thể kết nối tới server",
             type: "error"
         });
+        
+        // QUAN TRỌNG: Giải phóng trạng thái khi có lỗi kết nối
+        isRegistering = false;
+        registerBtn.disabled = false;
+        registerBtn.innerText = originalText;
     }
-    isRegistering = false
 }
 
  function validForm() {

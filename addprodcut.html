@@ -8,169 +8,6 @@
   <link rel="stylesheet" href="./css/style.css">
   <link rel="stylesheet" href="./css/responsible.css">
   <link rel="stylesheet" href="./asset/icon/themify-icons-font/themify-icons/themify-icons.css">
-  <style>
-    /* --- ADMIN PRODUCT FORM --- */
-    /* Container chính cho preview */
-.preview-card-v2 {
-    background: #fff;
-    border-radius: 1.5rem;
-    overflow: hidden;
-    border: 1px solid #f0e6ff;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-}
-
-.preview-card-v2:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 1rem 2rem rgba(185, 153, 253, 0.2) !important;
-}
-
-/* Ép ảnh luôn vuông bất kể ảnh gốc dài hay ngắn */
-.preview-image-wrapper {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 1 / 1; 
-    overflow: hidden;
-    background: #f8f9fa;
-}
-
-.preview-image-wrapper img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Quan trọng: ảnh không bị méo */
-    transition: transform 0.5s ease;
-}
-
-.preview-card-v2:hover img {
-    transform: scale(1.1); /* Zoom nhẹ khi hover */
-}
-
-/* Lớp phủ nút xóa hiện lên khi hover */
-.preview-overlay {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(185, 153, 253, 0.3); /* Màu tím lavender trong suốt */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    backdrop-filter: blur(2px);
-}
-
-.preview-card-v2:hover .preview-overlay {
-    opacity: 1;
-}
-
-/* Nút xóa kiểu mới */
-.btn-remove-v2 {
-    width: 4rem;
-    height: 4rem;
-    border-radius: 50%;
-    background: #fff;
-    color: #ff4757;
-    border: none;
-    font-size: 1.6rem;
-    z-index: 1;
-    cursor: pointer;
-    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
-    transition: all 0.2s ease;
-    opacity: 1;
-}
-
-.btn-remove-v2:hover {
-    background: #ff4757;
-    color: #fff;
-    transform: scale(1.2);
-}
-
-/* Dòng chữ nhỏ bên dưới ảnh */
-.preview-info {
-    padding: 0.8rem;
-    text-align: center;
-    font-size: 1.2rem;
-    color: #888;
-    background: #fafaff;
-}
-.container-admin {
-    padding: 4rem 2rem;
-    background-color: #fcfaff;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-}
-
-.card-pdt {
-    background: #fff;
-    width: 100%;
-    max-width: 80rem; /* Rộng hơn để chia 2 cột */
-    padding: 3.5rem;
-    border-radius: 2.5rem;
-    border: 1px solid #f0e6ff;
-    box-shadow: 0 1rem 3rem rgba(185, 153, 253, 0.1);
-}
-
-.card-pdt label {
-    font-size: 1.45rem;
-    font-weight: 600;
-    color: #555;
-    margin-bottom: 0.8rem;
-    padding-left: 0.5rem;
-}
-
-.card-pdt input, 
-.card-pdt select, 
-.card-pdt textarea {
-    padding: 1.2rem 1.8rem;
-    font-size: 1.5rem;
-    border-radius: 1.2rem;
-    border: 2px solid #eee;
-    outline: none;
-    transition: all 0.3s ease;
-}
-
-.card-pdt input:focus, 
-.card-pdt select:focus, 
-.card-pdt textarea:focus {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 4px rgba(185, 153, 253, 0.1);
-}
-
-/* Preview ảnh */
-#preview img {
-    width: 100%;
-    height: 20rem;
-    object-fit: cover;
-    border-radius: 1rem;
-    border: 2px solid #f0e6ff;
-}
-
-/* Nút bấm tùy chỉnh */
-.flex-1 { flex: 1; }
-.gap-20 { gap: 2rem; }
-
-.btn-outline {
-    border: 2px solid var(--primary-color);
-    color: var(--primary-color);
-    background: transparent;
-    border-radius: 1.5rem;
-    padding: 1.2rem;
-    font-weight: 600;
-}
-
-.btn-outline:hover {
-    background: #f6f0ff;
-}
-
-/* Responsive cho Mobile */
-@media (max-width: 600px) {
-    .card-pdt .di-flex.gap-20 {
-        flex-direction: column;
-        gap: 0;
-    }
-}
-  </style>
 </head>
 <body>
   <!-- Header -->
@@ -257,19 +94,11 @@
                 <textarea id="descriptionProduct" rows="4" placeholder="Mô tả chi tiết sản phẩm..."></textarea>
             </div>
 
-            <div class="di-flex flex-colum wid-100 mb-3">
-                <label>Status</label>
-                <select id="statusProduct">
-                    <option value="active">Active</option>
-                    <option value="inactive">Inactive</option>
-                </select>
-            </div>
-
             <div class="di-flex gap-15 mar-t-b">
                 <button type="submit" class="btncss background-violet color-white hover font-title flex-1" id="addPdtBtn">
                     Add Product
                 </button>
-                <a href="./productList.html" class="btncss btn-outline flex-1 text-deco-none text-cen">
+                <a href="./productList.html" class="btncss btn-outline-add flex-1 text-deco-none text-cen">
                     Back to List
                 </a>
             </div>
@@ -283,7 +112,6 @@
             <div class="search_content">
                 <div class="search_input">
                     <input placeholder="Search your favorate products..." type="text" id="serach_input">
-                    <button class="btn-search absout-search"><i class="ti-search"></i></button>
                     
                     <div class="" id="listProductSearch">
                               <!--Render ra sản phẩm ở đây  -->

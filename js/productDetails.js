@@ -87,25 +87,28 @@ function productDetail(products){
 
     // SIZE (từ variants)
     const sizeBox = document.getElementById("prodcutDTSize");
+    const uniqueSizes = [...new Set(product.variants.map(v => v.size))];
     let sizeHTML = "";
-
-    product.variants.forEach((v, index) => {
+    uniqueSizes.forEach((size, index) => {
         sizeHTML += `
-            <div class="btncss" onclick="selectSize(${index})">
-                ${v.size}
+            <div class="btncss sizeBtn" onclick="selectSize(this, '${size}')">
+                ${size}
             </div>
         `;
     });
     sizeBox.innerHTML = sizeHTML;
 
     // COLOR (simple text hoặc button)
+    // COLOR (Lọc duy nhất)
     const colorBox = document.getElementById("productDTcolor");
-    let colorHTML = "";
+    // Tạo mảng chỉ chứa các màu không trùng lặp
+    const uniqueColors = [...new Set(product.variants.map(v => v.color))];
 
-    product.variants.forEach((v, index) => {
+    let colorHTML = "";
+    uniqueColors.forEach((color, index) => {
         colorHTML += `
-            <div class="btncss colorBtn" onclick="selectColor(${index})">
-                ${v.color}
+            <div class="btncss colorBtn" onclick="selectColor(this, '${color}')">
+                ${color}
             </div>
         `;
     });
@@ -116,13 +119,12 @@ function productDetail(products){
         product.description;
 
     // SELECT SIZE
-    window.selectSize = function(index){
+    window.selectSize = function(element, sizeValue) {
     const sizeBtns = document.querySelectorAll("#prodcutDTSize .btncss");
-
     sizeBtns.forEach(btn => btn.classList.remove("activecss"));
-    sizeBtns[index].classList.add("activecss");
-
-    selectedSize = sizeBtns[index].innerText;
+    
+    element.classList.add("activecss");
+    selectedSize = sizeValue; // Gán trực tiếp giá trị size
 
     checkSelection();
 }
@@ -144,16 +146,15 @@ function productDetail(products){
 }
 
     // SELECT COLOR
-    window.selectColor = function(index){
-    const colorBtns = document.querySelectorAll("#productDTcolor .btncss");
+    window.selectColor = function(element, colorValue) {
+        const colorBtns = document.querySelectorAll("#productDTcolor .btncss");
+        colorBtns.forEach(btn => btn.classList.remove("activecss"));
+        
+        element.classList.add("activecss");
+        selectedColor = colorValue; // Gán trực tiếp giá trị màu
 
-    colorBtns.forEach(btn => btn.classList.remove("activecss"));
-    colorBtns[index].classList.add("activecss");
-
-    selectedColor = colorBtns[index].innerText;
-
-    checkSelection();
-}
+        checkSelection();
+    }
 console.log(product.categoryId);
 // tableSize
         const tableDTSize = document.getElementById("tableDTSize");
@@ -218,6 +219,8 @@ btnAdd.addEventListener("click", function () {
     const color = selectedColor;
     const quantity = parseInt(inputQuan.value) || 1;
 
+    if (!isStockAvailable(quantity)) return;
+
     addToCart(productID, size, color, quantity);
     showMessage({
         title: "Thành công",
@@ -252,8 +255,9 @@ async function handleBuyNow() {
         });
         return;
     }
-
+    
     const quantity = parseInt(document.getElementById("quantity").value) || 1;
+    if (!isStockAvailable(quantity)) return;
 
     try {
         // Có thể thêm hiệu ứng chờ ở đây
@@ -301,6 +305,24 @@ async function handleBuyNow() {
         });
     }
 }
+// Hàm kiểm tra tồn kho
+function isStockAvailable(quantity) {
+    // Tìm variant khớp với size và color đã chọn
+    const variant = currentProduct.variants.find(v => 
+        v.size === selectedSize && v.color === selectedColor
+    );
 
+    if (!variant) return false;
+
+    if (quantity > variant.stock) {
+        showMessage({
+            title: "Hết hàng",
+            message: `Sản phẩm này chỉ còn ${variant.stock} món trong kho.`,
+            type: "warning"
+        });
+        return false;
+    }
+    return true;
+}
 
 

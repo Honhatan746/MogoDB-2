@@ -558,25 +558,8 @@ header{
     border-radius: 20px;
     border: 0;
     outline: 0;
+    font-size: 1.5rem !important;
     border: 1px solid var(--border-grey);
-}
- .btn-search{
-    border-radius: 15px;
-    border: 0;
-    border: 1px solid var(--headding-violet);
-    background-color: var(--white-color);
-    padding: 0.8rem 2.5rem;
-    transition: all .3s ease;
-    cursor: pointer;
-}
-.absout-search{
-    position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
-}
-.btn-search:hover{
-    background-color: var(--headding-violet);
-    color: var(--white-color);           
 }
 .search_content {
     display: flex;
@@ -1502,14 +1485,27 @@ background: #834aff !important;
 /* Responsive image preview */
 .preview-img-container {
     position: relative;
-    padding-top: 100%; /* Giữ khung vuông */
+    border-radius: 1rem;
     overflow: hidden;
-    border-radius: 8px;
+    aspect-ratio: 1 / 1;
+    border: 1px solid #eee;
 }
 .preview-img-container img {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
+}
+.form-label.font-price {
+    font-size: 1.45rem;
+    color: #555;
+    margin-bottom: 0.8rem;
+    display: block;
+}
+#idInput {
+    background-color: #fcfaff !important;
+    color: var(--primary-color);
+    font-weight: 700;
+    border: 2px dashed #d7c4ff !important;
 }
 .remove-btn {
     position: absolute;
@@ -1562,16 +1558,22 @@ background: #834aff !important;
     color: white;
     transition: all .3s ease;
 }
-.btnChange{
-    background-color: #AB2A8B;
-    color: white;
-    transition: all .3s ease;
-    border-radius: 30px;
+.btnChange {
+    background-color: var(--primary-color) !important;
+    color: white !important;
+    font-weight: 700;
+    height: 4.8rem;
+    border-radius: 1rem;
     padding: 0 2rem;
+    border: none;
+    transition: all 0.3s ease;
+    font-size: 1.6rem;
 }
-.btnChange:hover{
-    background-color: #d632ad;
-    color: white;
+
+.btnChange:hover {
+    background-color: var(--primary-hover) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 0.5rem 1.5rem rgba(185, 153, 253, 0.3);
 }
 /* User manage  */
 /* show message */
@@ -1676,3 +1678,707 @@ background: #834aff !important;
 }
 
 .g-btn-cancel:hover { background: #e5e5e5; }
+/* add prodcuct */
+.preview-card-v2 {
+    background: #fff;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    border: 1px solid #f0e6ff;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.preview-card-v2:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 1rem 2rem rgba(185, 153, 253, 0.2) !important;
+}
+.preview-image-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1; 
+    overflow: hidden;
+    background: #f8f9fa;
+}
+
+.preview-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Quan trọng: ảnh không bị méo */
+    transition: transform 0.5s ease;
+}
+
+.preview-card-v2:hover img {
+    transform: scale(1.1); /* Zoom nhẹ khi hover */
+}
+.preview-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(185, 153, 253, 0.3); /* Màu tím lavender trong suốt */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(2px);
+}
+
+.preview-card-v2:hover .preview-overlay {
+    opacity: 1;
+}
+.btn-remove-v2 {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    background: #fff;
+    color: #ff4757;
+    border: none;
+    font-size: 1.6rem;
+    z-index: 1;
+    cursor: pointer;
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
+    transition: all 0.2s ease;
+    opacity: 1;
+}
+
+.btn-remove-v2:hover {
+    background: #ff4757;
+    color: #fff;
+    transform: scale(1.2);
+}
+.preview-info {
+    padding: 0.8rem;
+    text-align: center;
+    font-size: 1.2rem;
+    color: #888;
+    background: #fafaff;
+}
+.container-admin {
+    padding: 4rem 2rem;
+    background-color: #fcfaff;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+.card-pdt {
+    background: #fff;
+    width: 100%;
+    max-width: 80rem; /* Rộng hơn để chia 2 cột */
+    padding: 3.5rem;
+    border-radius: 2.5rem;
+    border: 1px solid #f0e6ff;
+    box-shadow: 0 1rem 3rem rgba(185, 153, 253, 0.1);
+}
+
+.card-pdt label {
+    font-size: 1.45rem;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 0.8rem;
+    padding-left: 0.5rem;
+}
+
+.card-pdt input, 
+.card-pdt select, 
+.card-pdt textarea {
+    padding: 1.2rem 1.8rem;
+    font-size: 1.5rem;
+    border-radius: 1.2rem;
+    border: 2px solid #eee;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.card-pdt input:focus, 
+.card-pdt select:focus, 
+.card-pdt textarea:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(185, 153, 253, 0.1);
+}
+#preview img {
+    width: 100%;
+    height: 20rem;
+    object-fit: cover;
+    border-radius: 1rem;
+    border: 2px solid #f0e6ff;
+}
+.flex-1 { flex: 1; }
+.gap-20 { gap: 2rem; }
+.btn-outline-add {
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    background: transparent;
+    border-radius: 1.5rem;
+    padding: 1.2rem;
+    font-weight: 600;
+}
+.btn-outline-add:hover {
+    background: #f6f0ff;
+}
+/* Check out */
+#statusFilter {
+    font-size: 1.4rem;
+    border-radius: 10px;
+    border: 2px solid #eee;
+    padding: 0.8rem 1.5rem;
+    transition: all 0.3s ease;
+}
+
+#statusFilter:focus {
+    border-color: var(--primary-color);
+    box-shadow: none;
+    outline: none;
+}
+.order-card {
+    background: #fff;
+    border: none;
+    border-radius: 1.2rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    margin-bottom: 2rem;
+    transition: all 0.3s ease;
+    border-top: 4px solid var(--primary-color); /* Chọn border-top để hiện đại hơn */
+    overflow: hidden;
+}
+.order-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(185, 153, 253, 0.15) !important;
+}
+.status-badge, .badge-status {
+    padding: 0.6rem 1.2rem;
+    border-radius: 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+.product-img {
+    width: 7rem;
+    height: 7rem;
+    object-fit: cover;
+    border-radius: 0.8rem;
+    background-color: #f8f9fa;
+    border: 1px solid #eee;
+}
+.order-card strong {
+    color: #444;
+}
+
+.product-name {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-main);
+}
+.order-card small {
+    font-size: 1.25rem;
+}
+.total-section span {
+    font-size: 1.4rem;
+}
+.total-amount {
+    font-size: 1.8rem !important;
+    color: var(--color-price) !important;
+    font-weight: 700;
+}
+.btn-detail {
+    background-color: #f3edff;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    font-weight: 600;
+    font-size: 1.3rem;
+    padding: 0.6rem 2rem;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+.btn-detail:hover {
+    background-color: var(--primary-color);
+    color: #fff;
+}
+.btn-outline-danger {
+    font-size: 1.3rem;
+    padding: 0.6rem 1.5rem;
+    border-radius: 0.8rem;
+    border: 1px solid #ffb3b3;
+    color: #ff5252;
+    transition: 0.3s;
+}
+
+.btn-outline-danger:hover:not(:disabled) {
+    background-color: #ff5252;
+    border-color: #ff5252;
+    color: #fff;
+}
+.btn-confirm-order {
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 1.3rem;
+    padding: 0.6rem 1.5rem;
+    border-radius: 0.8rem;
+    border: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-confirm-order:hover {
+    background-color: var(--primary-hover);
+    box-shadow: 0 4px 12px rgba(185, 153, 253, 0.3);
+    color: white;
+}
+.btn-confirm-order:active {
+    transform: scale(0.95);
+}
+.table-staff {
+    background-color: #fff;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.table-staff thead th {
+    background-color: var(--primary-color) !important;
+    color: white;
+    font-size: 1.6rem;
+    font-weight: 600;
+    padding: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.table-staff tbody td {
+    font-size: 1.6rem;
+    padding: 1.5rem;
+    vertical-align: middle;
+    color: #444;
+    border-bottom: 1px solid #f0f0f0;
+}
+.order-id-text {
+    font-weight: bold;
+    padding: 0.4rem 0.8rem;
+}
+.btn-staff-edit {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    font-size: 1.3rem;
+    padding: 0.6rem 1.5rem;
+    border-radius: 0.8rem;
+    transition: 0.3s;
+}
+.btn-staff-edit:hover {
+    background-color: var(--primary-hover);
+    color: white;
+    transform: translateY(-2px);
+}
+.btn-staff-cancel {
+    background-color: transparent;
+    color: #ff5252;
+    border: 1px solid #ffb3b3;
+    font-size: 1.3rem;
+    padding: 0.6rem 1.5rem;
+    border-radius: 0.8rem;
+    transition: 0.3s;
+}
+.btn-staff-cancel:hover {
+    background-color: #ff5252;
+    color: white;
+    border-color: #ff5252;
+}
+.table-responsive-custom {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; /* Cuộn mượt trên iPhone */
+    margin-bottom: 2rem;
+    border-radius: 1rem;
+}
+.table-responsive-custom::-webkit-scrollbar {
+    height: 6px;
+}
+.table-responsive-custom::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+.table-responsive-custom::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 10px;
+}
+.table-responsive-custom::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-hover);
+}
+#updateStatus {
+    font-size: 1.4rem;
+    padding: 1rem;
+    border-radius: 0.8rem;
+    border: 2px solid #eee;
+    margin-bottom: 1rem;
+}
+#updateStatus:focus {
+    border-color: var(--primary-color);
+    box-shadow: none;
+}
+#orderDetailContent {
+    font-size: 1.5rem; 
+    color: #444;
+    padding: 1rem;
+}
+.order-detail-header {
+    background-color: #fcfaff;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    border: 1px solid #f0e6ff;
+    margin-bottom: 2rem;
+}
+.btn-update-status {
+    background-color: var(--primary-color);
+    border: none;
+    color: white;
+    font-size: 1.4rem;
+    font-weight: 600;
+    padding: 1rem 2rem;
+    border-radius: 0.8rem;
+    width: 100%; 
+}
+.btn-update-status:hover{
+    background-color: var(--primary-hover);
+    color: white;
+}
+/* Product List */
+#variantModal .modal-content {
+    border: none;
+    border-radius: 2rem;
+    box-shadow: 0 1rem 3rem rgba(185, 153, 253, 0.2);
+}
+#variantModal .modal-header {
+    background-color: #fcfaff;
+    border-bottom: 1px solid #f0e6ff;
+    padding: 2rem 2.5rem;
+    border-radius: 2rem 2rem 0 0;
+}
+#variantModal .table {
+    border-collapse: separate;
+    border-spacing: 0;
+}
+#variantModal .header-prodcut-list th {
+    background-color: #fcfaff !important;
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    font-weight: 700;
+    padding: 1rem;
+    border: none;
+    border-bottom: 2px solid #f0e6ff !important;
+}
+
+#variantTable td {
+    font-size: 1.6rem;
+    padding: 1.5rem;
+    vertical-align: middle;
+    border-bottom: 1px solid #f8f9fa;
+}
+#variantModal .form-control {
+    height: 4.8rem;
+    font-size: 1.5rem !important;
+    border: 2px solid #eee;
+    border-radius: 1rem;
+    transition: all 0.3s ease;
+}
+
+#variantModal .form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(185, 153, 253, 0.1);
+    outline: none;
+}
+.addvariant{
+    background-color: #fcfaff !important;
+    color: var(--primary-color) !important;
+    border: 2px border var(--primary-color) !important;
+    border: 2px solid var(--primary-color) !important;
+    font-weight: 700;
+    height: 4.8rem;
+    border-radius: 1rem;
+    transition: all 0.3s ease;
+    font-size: 1.6rem;
+}
+.addvariant:hover {
+    background-color: var(--primary-color) !important;
+    color: white !important;
+}
+.btn-delete-variant {
+    color: #ff6b6b;
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    transition: color 0.2s;
+}
+.btn-delete-variant:hover {
+    color: #e63946;
+}
+/* Thống kê */
+#statTabs {
+    border-bottom: 2px solid #f0e6ff;
+    gap: 1rem;
+}
+#statTabs .nav-link {
+    font-size: 1.6rem; /* Font size lớn cho STAFF */
+    font-weight: 600;
+    color: #777;
+    border: none;
+    padding: 1.2rem 2rem;
+    border-radius: 1rem 1rem 0 0;
+    transition: all 0.3s ease;
+}
+
+#statTabs .nav-link:hover {
+    color: var(--primary-color);
+    background-color: #fcfaff;
+}
+
+#statTabs .nav-link.active {
+    color: var(--primary-color);
+    background-color: transparent;
+    border-bottom: 3px solid var(--primary-color);
+}
+.cardChart {
+    background: #fff;
+    border-radius: 1.5rem;
+    box-shadow: 0 0.5rem 2rem rgba(185, 153, 253, 0.1) !important;
+    overflow: hidden;
+}
+.card-header-chart{
+    background-color: #fff !important;
+    border-bottom: 1px solid #f0f0f0 !important;
+    padding: 1.5rem 2rem !important;
+    font-size: 1.7rem !important;
+    color: var(--primary-color);
+}
+.card-body-chart{
+    padding: 2rem;
+}
+label.small.fw-bold {
+    font-size: 1.3rem;
+    color: #555;
+    margin-bottom: 0.8rem;
+    display: block;
+}
+.filter-section {
+    background-color: #fcfaff;
+    padding: 2rem;
+    border-radius: 1.2rem;
+    border: 1px solid #f0e6ff;
+}
+
+/* Tăng font-size cho Label */
+.filter-section label {
+    font-size: 1.4rem !important; /* ~14px */
+    color: #555;
+    margin-bottom: 0.8rem;
+    display: block;
+}
+
+/* Tối ưu ô Input */
+.filter-section .form-control {
+    font-size: 1.5rem; /* Chữ nhập vào to rõ */
+    padding: 1.1rem 1.5rem;
+    border-radius: 0.8rem;
+    border: 2px solid #eee;
+    transition: all 0.3s ease;
+}
+
+.filter-section .form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(185, 153, 253, 0.1);
+    outline: none;
+}
+.btn-filter{
+    background-color: var(--primary-color);
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 600;
+    padding: 1.1rem;
+    border-radius: 0.8rem;
+    transition: all 0.3s ease;
+    height: 4.8rem; /* Đảm bảo bằng chiều cao với input */
+}
+
+.btn-filter:hover {
+    background-color: var(--primary-hover);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(185, 153, 253, 0.3);
+}
+.chart-container{
+    position: relative;
+    height: 30rem; /* Sử dụng rem để đồng bộ (300px) */
+    width: 100%;
+}
+.card-header-chart.bg-white.fw-bold {
+    font-size: 1.6rem !important; /* Chữ tiêu đề biểu đồ to rõ */
+    color: #444;
+    padding: 1.5rem 2rem !important;
+    border-bottom: 1px solid #f0f0f0 !important;
+}
+.cardChart.shadow-sm {
+    box-shadow: 0 0.5rem 1.5rem rgba(185, 153, 253, 0.1) !important;
+    border: 1px solid #f0e6ff;
+    transition: transform 0.3s ease;
+}
+
+.cardChart.shadow-sm:hover {
+    transform: translateY(-3px);
+}
+.stat-card{
+    border: none;
+    border-radius: 1.5rem;
+    transition: all 0.3s ease;
+    background: #fff;
+    border-bottom: 4px solid #eee; /* Tạo chiều sâu */
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 1rem 2rem rgba(185, 153, 253, 0.15) !important;
+}
+.stat-card h5 {
+    font-size: 1.6rem; /* 16px */
+    color: #777;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Con số chính */
+.stat-card h3 {
+    font-size: 3.2rem; /* Rất to để dễ nhìn (32px) */
+    font-weight: 800;
+    margin-bottom: 0;
+}
+
+#totalOrders {
+    color: #4db8ff !important; /* Màu xanh nước biển nhạt cho cân bằng */
+}
+.stat-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+/* Container bao bọc bảng để cuộn ngang trên mobile */
+.table-responsive-stats {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 0.8rem;
+}
+.table-responsive-stats table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+.table-responsive-stats thead th {
+    background-color: #fcfaff !important; /* Màu tím Lavender cực nhạt */
+    color: var(--primary-color);
+    font-size: var(--font-title);
+    font-weight: 700;
+    padding: 1.8rem 1.5rem;
+    border-bottom: 2px solid #f0e6ff !important;
+    text-transform: none;
+}
+#revenueTable {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background-color: #fff;
+}
+#revenueTable td {
+    font-size: 1.5rem;
+    padding: 1.8rem 1.5rem;
+    color: #444;
+    border-bottom: 1px solid #f8f9fa;
+    vertical-align: middle;
+}
+#revenueTable tr:hover {
+    background-color: #fcfaff !important;
+    transition: all 0.2s ease;
+}
+.revenue-amount {
+    font-weight: 700; /* In đậm số tiền như trong ảnh */
+    color: #000;      /* Màu đen đậm sang trọng */
+}
+#revenueTable tbody tr:nth-child(even) {
+    background-color: #fafafa;
+}
+#revenueTable tbody tr:hover {
+    background-color: #fcfaff !important; /* Màu tím cực nhạt khi hover */
+    transition: background-color 0.2s ease;
+}
+.table-responsive-stats {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 1rem;
+}
+.chart-wrapper-users {
+    position: relative;
+    height: 35rem; /* ~360px */
+    width: 100%;
+}
+#topUsersTableMain thead th {
+    font-size: 1.5rem;
+    padding: 1.8rem 1rem;
+    color: #666;
+    border-top: none;
+}
+#topUsersTableMain tbody td {
+    font-size: 1.6rem;
+    padding: 2rem 1rem;
+    border-bottom: 1px solid #f8f9fa;
+}
+.user-id-text {
+    font-family: monospace;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+.custom-input {
+    height: 4.8rem; /* Đồng bộ độ cao với nút bấm */
+    font-size: 1.5rem !important;
+    border: 2px solid #eee !important;
+    border-radius: 1rem !important;
+    color: #444;
+}
+
+.custom-input:focus {
+    border-color: var(--primary-color) !important;
+    background-color: #fff;
+    box-shadow: 0 0 0 4px rgba(185, 153, 253, 0.1) !important;
+}
+.product-chart-wrapper {
+    position: relative;
+    height: 35rem; /* ~365px - đủ rộng để hiện tên SP ở trục X */
+    width: 100%;
+}
+#mainProductTable thead th {
+    font-size: 1.4rem;
+    padding: 1.8rem 1rem;
+    background-color: #fcfaff !important; /* Màu nền tím cực nhạt cho header */
+    color: var(--primary-color);
+    border-bottom: 2px solid #f0e6ff !important;
+}
+
+#mainProductTable tbody td {
+    font-size: 1.5rem;
+    padding: 1.8rem 1rem;
+    border-bottom: 1px solid #f8f9fa;
+}
+.product-id-sm {
+    font-size: 1.2rem;
+    color: #999;
+    font-family: monospace;
+}
+.product-name-bold {
+    font-weight: 600;
+    color: #333;
+    display: block;
+    max-width: 25rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Nếu tên dài quá sẽ có dấu ... */
+}
+.product-qty{
+    font-weight: 800;
+    font-size: 1.7rem;
+    color: var(--primary-color);
+}

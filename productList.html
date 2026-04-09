@@ -8,113 +8,6 @@
   <link rel="stylesheet" href="./css/style.css">
   <link rel="stylesheet" href="./asset/icon/themify-icons-font/themify-icons/themify-icons.css">\
   <link rel="stylesheet" href="./css/responsible.css">
-  <style>
-    /* --- TỐI ƯU VARIANT MODAL (BIẾN THỂ) --- */
-
-/* 1. Khung Modal */
-#variantModal .modal-content {
-    border: none;
-    border-radius: 2rem;
-    box-shadow: 0 1rem 3rem rgba(185, 153, 253, 0.2);
-}
-#variantModal .modal-header {
-    background-color: #fcfaff;
-    border-bottom: 1px solid #f0e6ff;
-    padding: 2rem 2.5rem;
-    border-radius: 2rem 2rem 0 0;
-}
-/* 2. Bảng Biến Thể (Variant Table) */
-#variantModal .table {
-    border-collapse: separate;
-    border-spacing: 0;
-}
-#variantModal .header-prodcut-list th {
-    background-color: #fcfaff !important;
-    color: var(--primary-color);
-    font-size: 1.5rem;
-    font-weight: 700;
-    padding: 1rem;
-    border: none;
-    border-bottom: 2px solid #f0e6ff !important;
-}
-
-#variantTable td {
-    font-size: 1.6rem;
-    padding: 1.5rem;
-    vertical-align: middle;
-    border-bottom: 1px solid #f8f9fa;
-}
-
-/* 3. Ô nhập liệu (Input) trong Modal */
-#variantModal .form-control {
-    height: 4.8rem;
-    font-size: 1.5rem !important;
-    border: 2px solid #eee;
-    border-radius: 1rem;
-    transition: all 0.3s ease;
-}
-
-#variantModal .form-control:focus {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 4px rgba(185, 153, 253, 0.1);
-    outline: none;
-}
-
-/* 4. Hệ thống nút bấm */
-
-/* Nút Add (Thêm biến thể) */
-.addvariant{
-    background-color: #fcfaff !important;
-    color: var(--primary-color) !important;
-    border: 2px border var(--primary-color) !important;
-    border: 2px solid var(--primary-color) !important;
-    font-weight: 700;
-    height: 4.8rem;
-    border-radius: 1rem;
-    transition: all 0.3s ease;
-    font-size: 1.6rem;
-}
-.addvariant:hover {
-    background-color: var(--primary-color) !important;
-    color: white !important;
-}
-/* Nút Lưu (Save All) */
-.btnChange {
-    background-color: var(--primary-color) !important;
-    color: white !important;
-    font-weight: 700;
-    height: 4.8rem;
-    border-radius: 1rem;
-    padding: 0 2rem;
-    border: none;
-    transition: all 0.3s ease;
-    font-size: 1.6rem;
-}
-
-.btnChange:hover {
-    background-color: var(--primary-hover) !important;
-    transform: translateY(-2px);
-    box-shadow: 0 0.5rem 1.5rem rgba(185, 153, 253, 0.3);
-}
-
-/* Nút Xóa hàng (nếu bạn có nút action xóa) */
-.btn-delete-variant {
-    color: #ff6b6b;
-    background: none;
-    border: none;
-    font-size: 1.8rem;
-    transition: color 0.2s;
-}
-
-.btn-delete-variant:hover {
-    color: #e63946;
-}
-/* Responsive */
-@media (max-width: 768px) {
-    .heading-pink { font-size: 2.2rem; }
-    .table-responsive table { min-width: 800px; } /* Đảm bảo bảng không bị bóp méo */
-}
-  </style>
 </head>
 <body>
     <!--Header -->
@@ -256,7 +149,6 @@
             <div class="search_content">
                 <div class="search_input">
                     <input placeholder="Search your favorate products..." type="text" id="serach_input">
-                    <button class="btn-search absout-search"><i class="ti-search"></i></button>
                     
                     <div class="" id="listProductSearch">
                               <!--Render ra sản phẩm ở đây  -->

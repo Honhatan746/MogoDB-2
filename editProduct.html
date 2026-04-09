@@ -8,35 +8,7 @@
   <link rel="stylesheet" href="./asset/icon/themify-icons-font/themify-icons/themify-icons.css">
   <link rel="stylesheet" href="./css/style.css">
   <link rel="stylesheet" href="./css/responsible.css">
-  <style>
-    body { background: #f5f6fa; }
-    /* Responsive image preview */
-    .preview-img-container {
-    position: relative;
-    border-radius: 1rem;
-    overflow: hidden;
-    aspect-ratio: 1 / 1;
-    border: 1px solid #eee;
-}
-    .preview-img-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-    .remove-btn {
-      position: absolute;
-      top: 5px; right: 5px;
-      opacity: 0;
-      transition: 0.2s;
-      z-index: 10;
-    }
-    .col-preview:hover .remove-btn { opacity: 1; }
-    .form-label.font-price {
-    font-size: 1.45rem;
-    color: #555;
-    margin-bottom: 0.8rem;
-    display: block;
-}
+  <style>   
 .form-control, .form-select {
     height: 4.8rem;
     font-size: 1.5rem !important;
@@ -53,21 +25,10 @@ textarea.form-control {
     box-shadow: 0 0 0 4px rgba(185, 153, 253, 0.1) !important;
     outline: none;
 }
-#idInput {
-    background-color: #fcfaff !important;
-    color: var(--primary-color);
-    font-weight: 700;
-    border: 2px dashed #d7c4ff !important;
-}
-/* Mobile responsive */
-@media (max-width: 768px) {
-    .cardEdit { padding: 2rem !important; }
-    .heading-pink { font-size: 2.4rem; }
-}
   </style>
 </head>
 
-<body>
+<body style="background: #f5f6fa;">
     <!--Header -->
     <header>
         <div class="header_sub">
@@ -183,7 +144,6 @@ textarea.form-control {
             <div class="search_content">
                 <div class="search_input">
                     <input placeholder="Search your favorate products..." type="text" id="serach_input">
-                    <button class="btn-search absout-search"><i class="ti-search"></i></button>
                     
                     <div class="" id="listProductSearch">
                               <!--Render ra sản phẩm ở đây  -->

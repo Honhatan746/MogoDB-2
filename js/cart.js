@@ -14,6 +14,7 @@ function checkAuth(){
     }
     return token;
 }
+checkAuth();
 document.addEventListener("DOMContentLoaded", getCart);
 // ================= GET CART =================
 export async function getCart(){
@@ -88,8 +89,8 @@ function renderCart(items) {
                             <button class="btncss no-bor font-w-700"
                                 onclick="decrease('${item.productId}', '${item.size}', '${item.color}', ${item.quantity})">–</button>
                             <input type="text" class="quantity-input no-bor font-w-700" value="${item.quantity}" readonly>
-                            <button class="btncss no-bor font-w-700"
-                                onclick="increase('${item.productId}', '${item.size}', '${item.color}', ${item.quantity})">+</button>
+                            <button class="btncss no-bor font-w-700 ${item.quantity >= item.stock ? 'btn-disabled' : ''}"
+                                onclick="increase('${item.productId}', '${item.size}', '${item.color}', ${item.quantity}, ${item.stock})">+</button>
                         </div>
                     </div>
 
@@ -169,8 +170,37 @@ export async function addToCart(productId, size, color, quantity){
 }
 
 // ================= UPDATE QUANTITY =================
-window.increase = function(productId, size, color, quantity){
-    updateQuantity(productId, size, color, quantity + 1);
+window.increase = async function(productId, size, color, currentQuantity){
+    const token = checkAuth();
+    if(!token) return;
+
+    try {
+        // 1. Fetch thông tin sản phẩm để lấy stock mới nhất
+        const res = await fetch(`https://kid-clothes-store.onrender.com/api/v1/products/${productId}`);
+        const data = await res.json();
+        
+        if(data.code === 1000) {
+            const product = data.result;
+            // 2. Tìm đúng variant người dùng đang có trong giỏ
+            const variant = product.variants.find(v => v.size === size && v.color === color);
+            
+            if(variant) {
+                if(currentQuantity >= variant.stock) {
+                    showMessage({
+                        title: "Số lượng tối đa",
+                        message: `Sản phẩm này chỉ còn ${variant.stock} món trong kho.`,
+                        type: "warning"
+                    });
+                    return;
+                }
+                
+                // 3. Nếu còn hàng thì mới tiến hành update
+                updateQuantity(productId, size, color, currentQuantity + 1);
+            }
+        }
+    } catch (err) {
+        console.error("Lỗi kiểm tra kho:", err);
+    }
 }
 
 window.decrease = function(productId, size, color, quantity){
@@ -191,16 +221,18 @@ async function updateQuantity(productId, size, color, quantity){
             }
         );
 
-        if(res.ok){
+        const data = await res.json();
+
+        if(res.ok && data.code === 1000){
             getCart();
         } else {
+            // Hiển thị thông báo lỗi từ server (Ví dụ: "Số lượng vượt quá tồn kho")
             showMessage({
-                title: "Lỗi",
-                message: "Cập nhật thất bại",
+                title: "Không thể cập nhật",
+                message: data.message || "Số lượng sản phẩm vượt quá mức cho phép",
                 type: "error"
             });
         }
-
     } catch(err){
         console.error(err);
     }

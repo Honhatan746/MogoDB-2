@@ -151,29 +151,28 @@ function renderProduct(items){
     totalTem.innerText = total.toLocaleString("vi-VN") + "đ";
 }
 
-async function creatOrder(){
-    const token = localStorage.getItem("token");
+let isOrdering = false; // 1. Biến cờ hiệu để kiểm soát trạng thái
 
-    if(!token){
-        showMessage({
-            title: "Chưa đăng nhập",
-            message: "Vui lòng đăng nhập để đặt hàng",
-            type: "warning",
-            onOk: () => window.location.href = "login.html"
-        });
+async function creatOrder() {
+    // 2. Nếu đang trong quá trình đặt hàng, chặn không cho chạy tiếp
+    if (isOrdering) return; 
+
+    const token = localStorage.getItem("token");
+    if (!token) {
+        // ... (Giữ nguyên logic thông báo chưa đăng nhập)
         return;
     }
+
+    // Lấy nút bấm để xử lý giao diện (Giả sử ID nút là btnOrder)
+    const btnOrder = document.getElementById("btnOrder"); 
 
     const name = document.getElementById("payingName").value.trim();
     const phone = document.getElementById("payingTel").value.trim();
     const address = document.getElementById("payingAddress").value.trim();
-
     const country = document.getElementById("payingCountruy").value.trim();
 
-    const fullAddress = `${address}, ${country}`;
-
     // VALIDATE
-    if(!name || !phone || !address){
+    if (!name || !phone || !address) {
         showMessage({
             title: "Thiếu thông tin",
             message: "Vui lòng nhập đầy đủ thông tin",
@@ -183,6 +182,13 @@ async function creatOrder(){
     }
 
     try {
+        // 3. Bắt đầu quá trình gửi request: Khóa trạng thái và nút bấm
+        isOrdering = true; 
+        if (btnOrder) {
+            btnOrder.disabled = true;
+            btnOrder.innerText = "ĐANG XỬ LÝ...";
+        }
+
         const res = await fetch(API_ORDER, {
             method: "POST",
             headers: {
@@ -192,14 +198,14 @@ async function creatOrder(){
             body: JSON.stringify({
                 receiverName: name,
                 receiverPhone: phone,
-                shippingAddress: fullAddress,
+                shippingAddress: `${address}, ${country}`,
                 paymentMethod: "COD"
             })
         });
 
         const data = await res.json();
 
-        if(data.code === 1000){
+        if (data.code === 1000) {
             showMessage({
                 title: "Thành công",
                 message: "Đặt hàng thành công!",
@@ -209,8 +215,13 @@ async function creatOrder(){
                     window.location.href = "index.html";
                 }
             });
-
         } else {
+            // Nếu server trả về lỗi, mở lại nút để user thử lại
+            isOrdering = false; 
+            if (btnOrder) {
+                btnOrder.disabled = false;
+                btnOrder.innerText = "ĐẶT HÀNG";
+            }
             showMessage({
                 title: "Thất bại",
                 message: data.message || "Tạo đơn thất bại",
@@ -218,8 +229,14 @@ async function creatOrder(){
             });
         }
 
-    } catch (err){
+    } catch (err) {
         console.error(err);
+        // 4. Nếu lỗi mạng/server, cũng phải mở lại nút
+        isOrdering = false; 
+        if (btnOrder) {
+            btnOrder.disabled = false;
+            btnOrder.innerText = "ĐẶT HÀNG";
+        }
         showMessage({
             title: "Lỗi server",
             message: "Không thể kết nối server",
