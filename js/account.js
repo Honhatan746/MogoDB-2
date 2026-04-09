@@ -1,9 +1,9 @@
-
+// Hàm này dùng để xác nhận người dùng có đăng nhập vào tài khoản hay chưa
 function handleAuthRedirect(){
     const token = localStorage.getItem("token");
 
     if(!token){
-        showMessage({
+        showMessage({  //Hàm này dùng để thông báo có trong modal truyền title, message với kiểu tương ứng sẽ thông báo
             title: "Chưa đăng nhập",
             message: "Bạn cần đăng nhập để tiếp tục",
             type: "warning",
@@ -27,7 +27,7 @@ if(logout){
         message: "Bạn có muốn đăng xuất không này không?",
         type: "warning",
         showCancel: true,
-        okText: "Xóa ngay",
+        okText: "Đăng xuất",
         onOk:() => {
             localStorage.removeItem("token");
             localStorage.removeItem("role");
@@ -36,7 +36,7 @@ if(logout){
     });
     });
 }
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => { // dùng để lắng nghe sự kiện khi HTML đã load xong DOM được tạo xong
     getUserInfo();
     handleUpdateProfile();
     handleChangePassword();

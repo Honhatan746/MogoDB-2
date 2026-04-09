@@ -183,10 +183,6 @@ function handleAuthRedirect(){
         }
 }
 // Show message 
-/**
- * Hàm hiển thị thông báo dùng chung
- * @param {Object} options - {title, message, type, showCancel, onOk, onCancel}
- */
 function showMessage({
     title = "Thông báo",
     message = "",
@@ -204,37 +200,37 @@ function showMessage({
     const btnOk = document.getElementById("gModalOk");
     const btnCancel = document.getElementById("gModalCancel");
 
-    if (!modal) return; // Bảo vệ nếu chưa có HTML
+    if (!modal) return; 
 
-    // 1. Set Nội dung
+    // thiết lập nội dung cho các element ở trong modal
     titleEl.innerText = title;
     msgEl.innerText = message;
     btnOk.innerText = okText;
     btnCancel.innerText = cancelText;
 
-    // 2. Set Icon & Màu sắc theo loại
     const icons = {
         success: { img: "✅", color: "#b999fd" },
         error: { img: "❌", color: "#ff6b6b" },
         warning: { img: "⚠️", color: "#ffd93d" }
     };
-    iconEl.innerText = icons[type].img;
+    iconEl.innerText = icons[type].img; // nếu type truyền vào là error thì trong iconEl sẽ lấy icon tương ứng với type được truyền vào
+    //Kiểu như là icon["error"].img sẽ là dấu X
 
-    // 3. Ẩn/Hiện nút Hủy
+    //Nếu biến truyền vào có showCancel thì sẽ có nút hủy không thì chỉ có nút oke thôi
     btnCancel.style.display = showCancel ? "inline-block" : "none";
 
-    // 4. Mở Modal
+    //  Mở Modal
     modal.classList.add("open");
 
-    // 5. Hàm đóng Modal
+    // Hàm đóng Modal
     const close = () => {
         modal.classList.remove("open");
     };
 
-    // 6. Xử lý sự kiện (Xóa sự kiện cũ tránh trùng lặp)
-    btnOk.onclick = () => {
-        close();
-        if (onOk) onOk();
+    // Xử lý sự kiện 
+    btnOk.onclick = () => { //Arrow Function
+        close(); //Khi nhấn vào nút oke thì sẽ đóng modal 
+        if (onOk) onOk(); // nếu như biến truyền vào oke là true thì sẽ thực hiện hàm onOK() logic 
     };
 
     btnCancel.onclick = () => {
