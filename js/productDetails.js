@@ -208,7 +208,7 @@ btnAdd.addEventListener("click", function () {
             title: "Chưa đăng nhập",
             message: "Vui lòng đăng nhập để thêm vào giỏ hàng",
             type: "warning",
-            onOk: () => window.location.href = "login.html"
+            onOk: () => window.location.href = "../login.html"
         });
         return;
     }
@@ -242,7 +242,7 @@ async function handleBuyNow() {
             title: "Chưa đăng nhập",
             message: "Vui lòng đăng nhập để mua hàng!",
             type: "warning",
-            onOk: () => window.location.href = "login.html"
+            onOk: () => window.location.href = "../login.html"
         });
         return;
     }
@@ -291,7 +291,7 @@ async function handleBuyNow() {
             localStorage.removeItem("buyNow"); 
             
             // 🚀 Chuyển sang trang thanh toán
-            window.location.href = "./paying.html";
+            window.location.href = "../paying.html";
         } else {
             throw new Error(dataAdd.message || "Lỗi thêm vào giỏ");
         }

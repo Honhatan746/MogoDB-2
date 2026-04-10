@@ -9,11 +9,11 @@ function handleAuthRedirect(){
             type: "warning",
             showCancel: true,
             onOk: () => {
-                window.location.href = "login.html";
+                window.location.href = "../login.html";
             }
         });
     }else{
-        window.location.href = "account.html";
+        window.location.href = "../account.html";
     }
 }
 // log out
@@ -31,7 +31,7 @@ if(logout){
         onOk:() => {
             localStorage.removeItem("token");
             localStorage.removeItem("role");
-            window.location.href = "index.html";
+            window.location.href = "../index.html";
         }
     });
     });
@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => { // dùng để lắng nghe
 async function getUserInfo(){
     const token = localStorage.getItem("token");
     if(!token){
-        window.location.href = "login.html";
+        window.location.href = "../login.html";
         return;
     }
     try {

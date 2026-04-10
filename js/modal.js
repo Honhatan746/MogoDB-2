@@ -8,9 +8,9 @@ let role = localStorage.getItem("role");
 if(role === "STAFF"){
     headerMenu.innerHTML = `
         <ul class="menu-tools menu-tools-md">
-                    <li class="link-hover pad-1rem"><a title="Home" href="index.html">Trang chủ</a></li>
+                    <li class="link-hover pad-1rem"><a title="Home" href="./index.html">Trang chủ</a></li>
                     <li class="link-hover pad-1rem"><a title="Infomation about us" href="./about.html">Về nhóm</a></li>
-                    <li class="link-hover pad-1rem"><a title="Quản lý sản phẩm" href="productList.html">Quản lý sản phẩm</a></li>
+                    <li class="link-hover pad-1rem"><a title="Quản lý sản phẩm" href="./productList.html">Quản lý sản phẩm</a></li>
                     <li class="link-hover pad-1rem"><a title="Quản lý người dùng" href="./userList.html">Người dùng</a></li>
                     <li class="link-hover pad-1rem"><a title="Thống kê" href="./statistics.html">Thống kê</a></li>
         </ul>
@@ -31,7 +31,7 @@ if(role === "STAFF"){
 }else{
     headerMenu.innerHTML = `
         <ul class="menu-tools menu-tools-md">
-                    <li class="link-hover pad-1rem"><a title="Home" href="index.html">Trang chủ</a></li>
+                    <li class="link-hover pad-1rem"><a title="Home" href="./index.html">Trang chủ</a></li>
                     <li class="link-hover pad-1rem"><a title="Infomation about us" href="./about.html">Về nhóm</a></li>
         </ul>
     `;

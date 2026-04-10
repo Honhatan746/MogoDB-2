@@ -14,7 +14,6 @@ function checkAuth(){
     }
     return token;
 }
-checkAuth();
 document.addEventListener("DOMContentLoaded", getCart);
 // ================= GET CART =================
 export async function getCart(){

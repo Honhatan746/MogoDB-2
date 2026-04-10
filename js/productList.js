@@ -80,7 +80,7 @@ async function fetchProducts() {
           <td>${p.price.toLocaleString()}đ</td>
           <td>${categoryMap[p.categoryId] || "N/A"}</td>
           <td>
-            <a href="editProduct.html?id=${p.id}" class="btn btn-action-edit btn-sm font-title">Edit</a>
+            <a href="./editProduct.html?id=${p.id}" class="btn btn-action-edit btn-sm font-title">Edit</a>
             <button class="btn btn-action-remove btn-sm font-title" onclick="deleteProduct('${p.id}')">Delete</button>
             <button class="btn btn-sm font-title btn-action-variant" onclick="viewVariants('${p.id}')">Variants</button>
           </td>
@@ -379,7 +379,7 @@ async function findProduct() {
                     <td>${p.price.toLocaleString()}đ</td>
                     <td>${categoryMap[p.categoryId] || "N/A"}</td>
                     <td>
-                      <a href="editProduct.html?id=${p.id}" class="btn btn-warning btn-sm font-title">Edit</a>
+                      <a href="./editProduct.html?id=${p.id}" class="btn btn-warning btn-sm font-title">Edit</a>
                       <button class="btn btn-danger btn-sm font-title" onclick="deleteProduct('${p.id}')">Delete</button>
                       <button class="btn btn-secondary btn-sm font-title" onclick="viewVariants('${p.id}')">Variants</button>
                     </td>

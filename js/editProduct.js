@@ -224,7 +224,7 @@ document.getElementById("editForm").addEventListener("submit", async function(e)
                         message: "Cập nhật sản phẩm thành công!",
                         type: "success",
                         onOk: () => {
-                            window.location.href = "productList.html";
+                            window.location.href = "../productList.html";
                         }
                     });
                 }else{

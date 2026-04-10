@@ -13,7 +13,7 @@ function hide(){
             title: "Chưa đăng nhập",
             message: "Vui lòng đăng nhập để thanh toán",
             type: "warning",
-            onOk: () => window.location.href = "login.html"
+            onOk: () => window.location.href = "../login.html"
         });
 
     }else{
@@ -28,7 +28,7 @@ async function fetchMyInfo(){
             title: "Lỗi",
             message: "Bạn chưa đăng nhập",
             type: "warning",
-            onOk: () => window.location.href = "login.html"
+            onOk: () => window.location.href = "../login.html"
         });
         return;
     }
@@ -82,7 +82,7 @@ async function getCart(){
             title: "Chưa đăng nhập",
             message: "Vui lòng đăng nhập để xem giỏ hàng",
             type: "warning",
-            onOk: () => window.location.href = "login.html"
+            onOk: () => window.location.href = "../login.html"
         });
         return;
     }
@@ -212,7 +212,7 @@ async function creatOrder() {
                 type: "success",
                 onOk: async () => {
                     await clearCart();
-                    window.location.href = "index.html";
+                    window.location.href = "../index.html";
                 }
             });
         } else {
