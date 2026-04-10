@@ -18,14 +18,14 @@ if(role === "STAFF"){
     headerTool.innerHTML = `
         <ul class="menu-tools">
                     <li class="link-hover pad-1rem"><a class="userIcon" onclick="handleAuthRedirect()" ><i class="ti-user"></i></a></li>
-                    <li class="link-hover pad-1rem"><a title="CheckOut" href="./checkout(remake).html"><i class="ti-bag"></i></a></li>
+                    <li class="link-hover pad-1rem"><a title="CheckOut" href="./checkout.html"><i class="ti-bag"></i></a></li>
                     <li class="link-hover js-search-icon pad-1rem" ><a title="Search" ><i class="ti-search"></i></a></li>
         </ul>
     `;
     searchTool.innerHTML = `
         <ul class="menu-tools">
                     <li class="link-hover pad-1rem"><a class="userIcon" onclick="handleAuthRedirect()" ><i class="ti-user"></i></a></li>
-                    <li class="link-hover pad-1rem"><a title="CheckOut" href="./checkout(remake).html"><i class="ti-bag"></i></a></li>
+                    <li class="link-hover pad-1rem"><a title="CheckOut" href="./checkout.html"><i class="ti-bag"></i></a></li>
         </ul>
     `;
 }else{
@@ -39,7 +39,7 @@ if(role === "STAFF"){
         <ul class="menu-tools">
                     <li class="link-hover pad-1rem"><a title="Shopping cart" href="./cart.html"><i class="ti-shopping-cart"></i></a></li>
                     <li class="link-hover pad-1rem"><a class="userIcon" onclick="handleAuthRedirect()" ><i class="ti-user"></i></a></li>
-                    <li class="link-hover pad-1rem"><a title="CheckOut" href="./checkout(remake).html"><i class="ti-bag"></i></a></li>
+                    <li class="link-hover pad-1rem"><a title="CheckOut" href="./checkout.html"><i class="ti-bag"></i></a></li>
                     <li class="link-hover js-search-icon pad-1rem" ><a title="Search" ><i class="ti-search"></i></a></li>
                 </ul>
     `;
@@ -47,7 +47,7 @@ if(role === "STAFF"){
         <ul class="menu-tools">
                     <li class="link-hover pad-1rem"><a title="Shopping cart" href="./cart.html"><i class="ti-shopping-cart"></i></a></li>
                     <li class="link-hover pad-1rem"><a class="userIcon" onclick="handleAuthRedirect()" ><i class="ti-user"></i></a></li>
-                    <li class="link-hover pad-1rem"><a title="CheckOut" href="./checkout(remake).html"><i class="ti-bag"></i></a></li>
+                    <li class="link-hover pad-1rem"><a title="CheckOut" href="./checkout.html"><i class="ti-bag"></i></a></li>
         </ul>
     `;
 }
@@ -179,7 +179,7 @@ function handleAuthRedirect(){
         if(!token){
             window.location.href = "../login.html";
         }else{
-            window.location.href = "../account(remake).html";
+            window.location.href = "../account.html";
         }
 }
 // Show message 

@@ -13,7 +13,7 @@ function handleAuthRedirect(){
             }
         });
     }else{
-        window.location.href = "account(remake).html";
+        window.location.href = "account.html";
     }
 }
 // log out
@@ -63,12 +63,12 @@ async function getUserInfo(){
         if(data.code === 1000){
             const roleBadge = document.getElementById("roleBadge");
 
-            if(user.role === "USER"){
+            if(user.role === "USER"){ //tạo một cái huy hiệu cho người dùng 
                 roleBadge.innerText = "Khách hàng";
                 roleBadge.classList.remove("badge-staff");
                 roleBadge.classList.add("badge-user");
             }
-            else if(user.role === "STAFF"){
+            else if(user.role === "STAFF"){ // tạo huy hiệu cho khách hàng 
                 roleBadge.innerText = "Nhân viên";
                 roleBadge.classList.remove("badge-user");
                 roleBadge.classList.add("badge-staff");
