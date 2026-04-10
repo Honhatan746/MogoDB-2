@@ -855,7 +855,7 @@ background: #834aff !important;
 /*---------------------------------End Prodcut Details--------------------------- */
 /* About */
 .slide-about{
-    background: url(../asset/image/about/Group-Staff-Photo.jpg) top center / cover no-repeat;
+    background: url(../asset/user/BANNER\ QS\ WEB\ MỚI.jpg) top center / cover no-repeat;
     padding-top: 50%;
 }
 .about-text{
@@ -876,6 +876,7 @@ background: #834aff !important;
     margin: 1rem auto;
     min-width: 10px;
     padding: 0 5rem;
+    margin-bottom: 5rem;
 }
 .about-aim_text{
     background-color: #F2F3F4;

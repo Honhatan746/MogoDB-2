@@ -527,7 +527,7 @@ window.searchOrder = async function() {
     if(!container) return;
 
     if (!orderId) {
-        if (typeof getMyOrders === 'function') getMyOrders(); 
+        loadOrdersByStatus();
         return;
     }
 
