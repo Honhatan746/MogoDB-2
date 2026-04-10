@@ -105,58 +105,66 @@ async function getUserInfo(){
     toast.show();
     }
 // Update profile
-    function handleUpdateProfile(){
-        const form = document.getElementById("profileForm");
-        if(!form) return;
-        form.addEventListener("submit", async (e)=> {
-            e.preventDefault();
-            
-            const token = localStorage.getItem("token");
-            if(!token){
-                showToast("Vui lòng đăng nhập", true);
-                window.location.href ="../index.html";
-                return;
+ function handleUpdateProfile(){
+    const form = document.getElementById("profileForm");
+    if(!form) return;
+
+    form.addEventListener("submit", async (e)=> {
+        e.preventDefault();
+        
+        const token = localStorage.getItem("token");
+        if(!token){
+            showToast("Vui lòng đăng nhập", true);
+            window.location.href ="../index.html";
+            return;
+        }
+
+        const fullName = form.fullName.value.trim();
+        const phone = form.phone.value.trim();
+        const address = form.address.value.trim();
+
+        // Validate
+        if(fullName.length < 3){
+            showToast("Tên phải ít nhất 3 ký tự", true);    
+            return;
+        }
+
+        if(phone && !/^(0[3|5|7|8|9])[0-9]{8}$/.test(phone)){
+            showToast("Số điện thoại không hợp lệ", true);
+            return;
+        }
+
+        // chỉ gửi field có giá trị (rất quan trọng khi dùng PATCH)
+        const payload = {};
+        if(fullName) payload.fullName = fullName;
+        if(phone) payload.phone = phone;
+        if(address) payload.address = address;
+
+        try {
+            const res = await fetch("https://kid-clothes-store.onrender.com/api/v1/users/myInfo", {
+                method: "PATCH", 
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify(payload)
+            });
+
+            const data = await res.json();
+            console.log(data.code);
+            if(data.code === 1000){
+                showToast("Cập nhật thành công");
+                getUserInfo();
+            }else{
+                showToast(data.message || "Cập nhật thất bại", true);
             }
 
-            const fullName = form.fullName.value.trim();
-            const phone = form.phone.value.trim();
-            const address = form.address.value.trim();
-            // Validate
-            if(fullName.length < 3){
-                showToast("Tên phải ít nhất 3 ký tự", true);    
-                return;
-            }
-            if(phone && !/^[0-9]{9,11}$/.test(phone)){
-                showToast("Số điện thoại không hợp lệ", true);
-                return;
-            }
-            try {
-                const res = await fetch("https://kid-clothes-store.onrender.com/api/v1/users/myInfo", {
-                    method: "PUT",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": `Bearer ${token}`
-                    },
-                    body: JSON.stringify({
-                        fullName,
-                        phone,
-                        address
-                    })
-                });
-
-                const data = await res.json();
-                if(data.code === 1000){
-                    showToast("Cập nhật thành công");
-                    getUserInfo();
-                }else{
-                    showToast(data.message || "Cập nhật thất bại", true);
-                }
-            } catch (error) {
-                console.error(error);
-                showToast("Lỗi server", true);
-            }
-        })
-    }
+        } catch (error) {
+            console.error(error);
+            showToast("Lỗi server", true);
+        }
+    });
+}
 // Change password
 function handleChangePassword(){    
     const form = document.getElementById("passwordForm");
@@ -231,3 +239,19 @@ function handleChangePassword(){
         }
     });
 }
+document.querySelectorAll(".toggle-password").forEach(icon => {
+    icon.addEventListener("click", function() {
+        // Tìm input tương ứng dựa trên data-target
+        const targetId = this.getAttribute("data-target");
+        const passwordInput = document.getElementById(targetId);
+        
+        // Chuyển đổi type giữa password và text
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            this.classList.replace("ti-lock", "ti-unlock");
+        } else {
+            passwordInput.type = "password";
+            this.classList.replace("ti-unlock", "ti-lock");
+        }
+    });
+});

@@ -3,7 +3,8 @@ function getHeader(){
 const headerMenu = document.querySelector(".header_menu");
 const headerTool = document.querySelector(".header_tool");
 const searchTool = document.querySelector(".searchTool");
-if(!headerMenu || !headerTool || !searchTool) return;
+const menuToolsMobile = document.querySelector(".menu-tools-mobile"); 
+if(!headerMenu || !headerTool || !searchTool || !menuToolsMobile) return;
 let role = localStorage.getItem("role");
 if(role === "STAFF"){
     headerMenu.innerHTML = `
@@ -28,6 +29,13 @@ if(role === "STAFF"){
                     <li class="link-hover pad-1rem"><a title="CheckOut" href="./checkout.html"><i class="ti-bag"></i></a></li>
         </ul>
     `;
+    menuToolsMobile.innerHTML = `
+        <li class="pad-2rem link-hover"><a class="text-hover" title="Trang chủ" href="./index.html">Trang chủ</a></li>
+        <li class="pad-2rem link-hover"><a class="text-hover" title="Về nhóm" href="./about.html">Về nhóm</a></li>
+        <li class="pad-2rem link-hover"><a class="text-hover" title="Quản lý sản phẩm" href="./productList.html">Quản lý sản phẩm</a></li>
+        <li class="pad-2rem link-hover"><a class="text-hover" title="Quản lý người dùng" href="./userList.html">Người dùng</a></li>
+        <li class="pad-2rem link-hover"><a class="text-hover" title="Thống kê" href="./statistics.html">Thống kê</a></li>
+    `;
 }else{
     headerMenu.innerHTML = `
         <ul class="menu-tools menu-tools-md">
@@ -50,6 +58,11 @@ if(role === "STAFF"){
                     <li class="link-hover pad-1rem"><a title="CheckOut" href="./checkout.html"><i class="ti-bag"></i></a></li>
         </ul>
     `;
+    menuToolsMobile.innerHTML = `
+        <li class="pad-2rem link-hover"><a class="text-hover" href="./index.html">Trang chủ</a></li>
+        <li class="pad-2rem link-hover"><a class="text-hover" href="./about.html">Về nhóm</a></li>
+    `;
+    
 }
 }
 document.addEventListener("DOMContentLoaded", () => {

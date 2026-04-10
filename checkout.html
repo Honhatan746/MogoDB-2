@@ -42,21 +42,34 @@
  <!-- Content -->
 <body class="bg-light" style="background-color: #fcfaff;">
 
-<div class="container py-4">
+        <div class="container py-4">
 
-    <h3 class="mb-4 font-heading heading-pink fw-bold text-uppercase">Đơn hàng của bạn</h3>
-    <div id="staffControls" class="mb-3" style="display:none;">
-    <select id="statusFilter" class="form-select w-25">
-        <option value="PENDING_PAYMENT">Chờ thanh toán</option>
-        <option value="PENDING_DELIVERY">Chờ giao</option>
-        <option value="DELIVERING">Đang giao</option>
-        <option value="COMPLETED">Hoàn thành</option>
-        <option value="CANCELED">Đã hủy</option>
-    </select>
-</div>
-    <div id="orderContainer"></div>
+            <h3 class="mb-4 font-heading heading-pink fw-bold text-uppercase">Đơn hàng của bạn</h3>
+            <div class="row">
+                <div class="col">
+                    <div class="input-group mb-3 shadow-sm">
+                        <span class="input-group-text bg-white border-end-0">
+                            <i class="ti-search"></i> </span>
+                        <input type="text" id="orderSearchInput" class="form-control border-start-0" 
+                            placeholder="Nhập mã đơn hàng cần tìm...">
+                        <button class="btn btn-primary" onclick="searchOrder()">Tìm kiếm</button>
+                    </div>
+                </div>
+                <div class="col">
+                    <div id="staffControls" class="mb-3" style="display:none;">
+                <select id="statusFilter" class="form-select w-25">
+                    <option value="PENDING_PAYMENT">Chờ thanh toán</option>
+                    <option value="PENDING_DELIVERY">Chờ giao</option>
+                    <option value="DELIVERING">Đang giao</option>
+                    <option value="COMPLETED">Hoàn thành</option>
+                    <option value="CANCELED">Đã hủy</option>
+                </select>
+            </div>
+                </div>
+            </div>
+            <div id="orderContainer"></div>
 
-</div>
+        </div>
 
 <div class="modal fade" id="orderDetailModal" tabindex="-1">
   <div class="modal-dialog modal-lg">
@@ -158,8 +171,7 @@
                     </div>
                     <div class="header_menu alignItem-star">
                         <ul class=" menu-tools flex-colum menu-tools-mobile">
-                            <li class="pad-2rem link-hover"><a class="text-hover" href="">Home</a></li>
-                            <li class="pad-2rem link-hover"><a class="text-hover" href="">About</a></li>
+                            <!--Render Js code-->
                         </ul>
                     </div>
                     <div class="menu-mobile_img ">

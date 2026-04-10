@@ -2382,3 +2382,33 @@ label.small.fw-bold {
     font-size: 1.7rem;
     color: var(--primary-color);
 }
+
+#orderSearchInput {
+    border: none;
+    padding: 12px 20px;
+    font-size: 0.95rem;
+    outline: none;
+    font-size: 1.6rem;
+
+}
+.input-group .btn-primary {
+    background-color: var(--primary-color);
+    border: none;
+    padding: 0 25px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: background 0.3s ease;
+}
+
+.input-group .btn-primary:hover {
+    background-color: var(--primary-hover);
+    color: white;
+}
+.input-group-text {
+    background-color: white !important;
+    border: none;
+    color: #aaa;
+    padding-left: 20px;
+    font-size: 1.6rem;
+}

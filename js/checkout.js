@@ -519,3 +519,78 @@ async function cancelOrderStaff(orderId){
         }
     });
 }
+
+window.searchOrder = async function() {
+    const orderId = document.getElementById("orderSearchInput").value.trim();
+    const token = localStorage.getItem("token");
+    const container = document.getElementById("orderContainer");
+    if(!container) return;
+
+    if (!orderId) {
+        if (typeof getMyOrders === 'function') getMyOrders(); 
+        return;
+    }
+
+    try {
+        const res = await fetch(`https://kid-clothes-store.onrender.com/api/v1/orders/${orderId}`, {
+            headers: { "Authorization": `Bearer ${token}` }
+        });
+
+        const data = await res.json();
+
+        if (data.code === 1000 && data.result) {
+            container.innerHTML = `
+                <div class="table-responsive-custom">
+                    <table class="table table-bordered table-staff">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>User ID</th>
+                                <!--<th>Người nhận</th>-->
+                                <th>Tổng tiền</th>
+                                <th>Trạng thái</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                            <td data-label="Order ID">
+                                <span class="order-id-text">#${data.result.id}</span>
+                            </td>
+                            <td data-label="User ID">
+                                <small class="text-muted">${data.result.userId}</small>
+                            </td>
+                            <td data-label="Tổng tiền">
+                                <strong style="color: #333;">${formatPrice(data.result.totalAmount)}</strong>
+                            </td>
+                            <td data-label="Trạng thái">
+                                <span class="badge" style="background-color: ${getStatusBg(data.result.status)};padding: 0.6rem 1rem; border-radius: 2rem;">
+                                    ${translateStatus(data.result.status)}
+                                </span>
+                            </td>
+                            <td data-label="Action">
+                                <div class="d-flex gap-2 justify-content-end">
+                                    <button class="btn btn-staff-edit" onclick="viewOrderDetail('${data.result.id}')">
+                                        <i class="bi bi-pencil-square"></i> Chi tiết
+                                    </button>
+                                    <button class="btn btn-staff-cancel" 
+                                        ${data.result.status === 'CANCELED' || data.result.status === 'COMPLETED' ? 'disabled' : ''} 
+                                        onclick="cancelOrderStaff('${data.result.id}')">
+                                        Hủy đơn
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody></table></div>
+            `;
+        } else if (data.code === 101) {
+            alert("Bạn không có quyền xem đơn hàng này.");
+        } else {
+            container.innerHTML = `<div class="alert alert-warning text-center">Không tìm thấy đơn hàng mã: ${orderId}</div>`;
+        }
+    } catch (err) {
+        console.error("Lỗi tìm kiếm:", err);
+        container.innerHTML = `<div class="alert alert-danger text-center">Đã xảy ra lỗi khi tìm kiếm.</div>`;
+    }
+}
+

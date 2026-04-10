@@ -13,8 +13,6 @@ function getTokenOrWarn() {
     return token;
 }
 
-// 1. Lấy toàn bộ danh sách người dùng [cite: 289]
-// 1. FETCH USERS
 async function fetchUsers() {
     const token = getTokenOrWarn();
     if (!token) return;
@@ -47,7 +45,6 @@ async function fetchUsers() {
     }
 }
 
-// 2. Render dữ liệu vào bảng [cite: 298, 301]
 function renderTable(users) {
     const tableBody = document.getElementById('userTable');
     tableBody.innerHTML = ''; 
@@ -79,7 +76,6 @@ function renderTable(users) {
     });
 }
 
-// 3. Tìm kiếm theo tên (Sử dụng Query Parameter: keyword) [cite: 249, 259]
 async function searchUsers() {
     const token = getTokenOrWarn();
     if (!token) return;
@@ -107,7 +103,6 @@ async function searchUsers() {
     }
 }
 
-// 4. Lọc theo vai trò (Path Parameter) [cite: 312, 321]
 async function filterByRole() {
     const token = getTokenOrWarn();
     if (!token) return;
@@ -135,7 +130,6 @@ async function filterByRole() {
     }
 }
 
-// 6. Lưu thay đổi (PUT) [cite: 198, 208]
 async function saveUser() {
     const token = getTokenOrWarn();
     if (!token) return;
