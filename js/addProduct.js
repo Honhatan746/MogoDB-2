@@ -1,9 +1,7 @@
 const API_PRODUCT = "https://kid-clothes-store.onrender.com/api/v1/products";
 const API_CATEGORY = "https://kid-clothes-store.onrender.com/api/v1/categories";
 
-// =======================
-// CHECK TOKEN GLOBAL
-// =======================
+// kiểm tra xem có đang đăng nhập không nếu không thì thông báo và thoát ra
 function checkAuth(){
     const token = localStorage.getItem("token");
 
@@ -20,10 +18,8 @@ function checkAuth(){
     }
     return token;
 }
-
-// =======================
+checkAuth();
 // LOAD CATEGORY
-// =======================
 async function loadCategories() {
     const token = checkAuth();
     if(!token) return;
