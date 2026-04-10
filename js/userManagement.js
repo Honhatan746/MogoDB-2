@@ -147,7 +147,7 @@ async function saveUser() {
 
     try {
         const response = await fetch(`${API_BASE_URL}/users/${email}`, {
-            method: 'PUT',
+            method: 'PATCH',
             headers: {
                 "Authorization": `Bearer ${token}`,
                 "Content-Type": "application/json"
